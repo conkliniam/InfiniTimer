@@ -11,8 +11,11 @@ namespace InfiniTimer
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Comfortaa-Light.ttf", "ComfortaaLight");
+                    fonts.AddFont("Comfortaa-Medium.ttf", "ComfortaaMedium");
+                    fonts.AddFont("Comfortaa-Regular.ttf", "ComfortaaRegular");
+                    fonts.AddFont("Comfortaa-Semibold.ttf", "ComfortaaSemibold");
+                    fonts.AddFont("Comfortaa-Bold.ttf", "ComfortaaBold");
                 });
 
 #if DEBUG
