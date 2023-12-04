@@ -42,16 +42,10 @@
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Timers"
+    <FlyoutItem Title="Saved Timers"
                 Icon="hourglass_split.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:TimersPage}" />
-        </Tab>
-    </FlyoutItem>
-    <FlyoutItem Title="Alarms"
-                Icon="alarm_fill.png">
-        <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:AlarmsPage}" />
         </Tab>
     </FlyoutItem>
 </Shell>

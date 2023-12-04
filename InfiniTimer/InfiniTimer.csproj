@@ -49,7 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\alarm_fill.svg" />
 	  <None Remove="Resources\Images\hourglass_split.svg" />
 	  <None Remove="Resources\Images\house_door_fill.svg" />
 	</ItemGroup>
@@ -60,10 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="AlarmsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="TimersPage.xaml">
+	  <MauiXaml Update="Views\TimersPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
