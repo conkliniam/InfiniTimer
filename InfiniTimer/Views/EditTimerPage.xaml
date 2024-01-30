@@ -33,7 +33,7 @@
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    FontAttributes="Bold"
-                   FontSize="16">   
+                   FontSize="16">
             </Label>
             <Entry x:Name="timerName"
                    Placeholder="Enter a Timer Name"
@@ -43,5 +43,7 @@
                    ClearButtonVisibility="WhileEditing"
                    ></Entry>
         </Grid>
+        <StackLayout x:Name="timerLayout">
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

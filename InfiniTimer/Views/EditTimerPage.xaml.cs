@@ -7,13 +7,15 @@ namespace InfiniTimer
     {
         public EditTimerPage()
         {
-            BindingContext = new EditTimerViewModel();
             InitializeComponent();
+            BindingContext = new EditTimerViewModel(timerLayout);
+            
         }
         public EditTimerPage(TimerModel timerModel)
         {
-            BindingContext = new EditTimerViewModel(timerModel);
             InitializeComponent();
+            BindingContext = new EditTimerViewModel(timerLayout, timerModel);
+            
         }
     }
 }
