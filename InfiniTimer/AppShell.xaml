@@ -36,7 +36,7 @@
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
-    <FlyoutItem Title="Home"
+    <FlyoutItem Title="Staged Timers"
                 Icon="house_door_fill.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />

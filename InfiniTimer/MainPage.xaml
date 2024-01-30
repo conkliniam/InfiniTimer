@@ -2,39 +2,39 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.MainPage"
-             Title="InfiniTimer">
+             Title="InfiniTimer Staged Timers">
 
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-
+            Padding="30,0">
             <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
+                Source="infini_timer.png"
+                SemanticProperties.Description="InfiniTimer logo"
                 HorizontalOptions="Center" />
 
             <Label
-                Text="Hello, World!"
+                Text="Welcome to InfiniTimer!"
                 SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
+                FontSize="24"
                 HorizontalOptions="Center" />
 
             <Label
-                Text="Welcome to .NET Multi-platform App UI"
+                Text="Add a Timer to Begin"
                 SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                SemanticProperties.Description="Welcome to InfiniTimer"
                 FontSize="18"
                 HorizontalOptions="Center" />
 
+            <ListView>
+
+            </ListView>
+
             <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                x:Name="AddTimerButton"
+                Text="Add Timer"
+                SemanticProperties.Hint="Navigate to select a Timer"
+                Clicked="OnAddTimerClicked"/>
 
         </VerticalStackLayout>
     </ScrollView>

@@ -2,12 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.TimersPage"
-             Title="Timers">
-    <ListView x:Name="listTimers" BackgroundColor="Transparent">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding Name}"></TextCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+             Title="Saved Timers">
+    <VerticalStackLayout>
+        <Button Margin="10" Clicked="New_Timer_Clicked" Text="New Timer"></Button>
+        <ListView x:Name="listTimers" BackgroundColor="Transparent" ItemsSource="{Binding TimerModels}" ItemSelected="listTimers_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Margin="10" Text="{Binding Name}" Grid.Column="0"></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="editButton" ImageSource="pencil_square.svg" Margin="5" Clicked="Edit_Timer_Clicked" IsEnabled="False" Grid.Column="0" Text="Edit Timer"></Button>
+            <Button x:Name="stageButton" ImageSource="plus_square.svg" Margin="5" Clicked="Stage_Timer_Clicked" IsEnabled="False" Grid.Column="1" Text="Stage Timer"></Button>
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>

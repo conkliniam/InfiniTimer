@@ -39,7 +39,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -51,14 +50,42 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\hourglass_split.svg" />
 	  <None Remove="Resources\Images\house_door_fill.svg" />
+	  <None Remove="Resources\Images\infini_timer.svg" />
+	  <None Remove="Resources\Images\pencil_square.svg" />
+	  <None Remove="Resources\Images\plus_square.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\AlternatingTimerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EditTimerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\SingleTimerView.xaml.cs">
+	    <DependentUpon>SingleTimerView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AdvancedTimerView.xaml.cs">
+	    <DependentUpon>AdvancedTimerView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\SingleTimerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AdvancedTimerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TimersPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

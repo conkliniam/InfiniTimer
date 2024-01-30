@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfiniTimer.EditTimerPage"
+             Title="Edit Timer">
+    <VerticalStackLayout>
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Text="Timer Type"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   FontSize="16">
+            </Label>
+            <Picker x:Name="timerTypePicker"
+                    Title="Select a Timer Type"
+                    ItemsSource="{Binding TimerTypes}"
+                    SelectedItem="{Binding EditTimerModel.TimerType}"
+                    Grid.Column="1"
+                    Grid.Row="0"/>
+            <Label Text="Timer Name"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   FontSize="16">   
+            </Label>
+            <Entry x:Name="timerName"
+                   Placeholder="Enter a Timer Name"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   Text="{Binding EditTimerModel.Name}"
+                   ClearButtonVisibility="WhileEditing"
+                   ></Entry>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

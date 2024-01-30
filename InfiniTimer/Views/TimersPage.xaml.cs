@@ -6,106 +6,52 @@ namespace InfiniTimer;
 
 public partial class TimersPage : ContentPage
 {
-    public TimersPage()
+    public TimersPage(TimersViewModel timersViewModel)
     {
         InitializeComponent();
-        BindingContext = new TimersViewModel();
+        BindingContext = timersViewModel;
+    }
 
-        List<TimerModel> timersList = new()
+    private async void New_Timer_Clicked(object sender, EventArgs e)
+    {
+        try
         {
-            new AlternatingTimerModel
-            {
-                Name = "Pomodoro Technique",
-                TimerGroup = new TimerGroup
-                {
-                    MainTimerSection = new TimerGroup
-                    {
-                        MainTimerSection = new IndividualTimer
-                        {
-                            DisplayText = "Work",
-                            Color = TimerColor.Green,
-                            Seconds = 1500
-                        },
-                        AlternateTimerSection = new IndividualTimer
-                        {
-                            DisplayText = "Break",
-                            Color = TimerColor.Red,
-                            Seconds = 300
-                        },
-                        Cycles = 4
-                    },
-                    AlternateTimerSection = new IndividualTimer
-                    {
-                        DisplayText = "Break",
-                        Color = TimerColor.Red,
-                        Seconds = 900
-                    },
-                    Cycles = 1
-                },
-                Description = "25 minutes of work, followed by 5 minute breaks, with a 15 minute break after 4 work sessions.",
-                AutoRepeat = true,
-                AutoContinue = false
-            },
-            new AlternatingTimerModel
-            {
-                Name = "52/17",
-                TimerGroup = new TimerGroup
-                {
-                    MainTimerSection = new IndividualTimer
-                    {
-                        DisplayText = "Work",
-                        Color = TimerColor.Green,
-                        Seconds = 3120
+            await Navigation.PushAsync(new EditTimerPage());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
 
-                    },
-                    AlternateTimerSection = new IndividualTimer
-                    {
-                        DisplayText = "Break",
-                        Color = TimerColor.Red,
-                        Seconds = 1020
+    private async void Edit_Timer_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            await Navigation.PushAsync(new EditTimerPage((TimerModel)listTimers.SelectedItem));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
 
-                    },
-                    Cycles = 1
-                },
-                Description = "52 minutes of work followed by a 17 minute break",
-                AutoRepeat = true,
-                AutoContinue = false
-            },
-            new AlternatingTimerModel
-            {
-                Name = "Spartacus Timers",
-                TimerGroup = new TimerGroup
-                {
-                    MainTimerSection = new TimerGroup
-                    {
-                        MainTimerSection = new IndividualTimer
-                        {
-                            DisplayText = "Move",
-                            Color = TimerColor.Green,
-                            Seconds = 60
-                        },
-                        AlternateTimerSection = new IndividualTimer
-                        {
-                            DisplayText = "Get Ready",
-                            Color = TimerColor.Red,
-                            Seconds = 15
-                        },
-                        Cycles = 10
-                    },
-                    AlternateTimerSection = new IndividualTimer
-                    {
-                        DisplayText = "Rest",
-                        Color = TimerColor.Blue,
-                        Seconds = 120
-                    },
-                    Cycles = 3
-                },
-                Description = "Timers for sparacus workout consisting of 3 sets of 10 60 second exercises",
-                AutoRepeat = false,
-                AutoContinue = true
-            }
-        };
+    private async void Stage_Timer_Clicked(object sender, EventArgs e)
+    {
 
-        listTimers.ItemsSource = timersList;//((TimersViewModel)BindingContext).TimerModels;
+    }
+
+    private void listTimers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        if (listTimers.SelectedItem != null)
+        {
+            editButton.IsEnabled = true;
+            stageButton.IsEnabled = true;
+        }
+        else
+        {
+            editButton.IsEnabled = false;
+            stageButton.IsEnabled = false;
+        }
     }
 }

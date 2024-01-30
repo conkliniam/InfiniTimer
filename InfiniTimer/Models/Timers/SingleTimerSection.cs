@@ -2,7 +2,7 @@
 
 namespace InfiniTimer.Models.Timers
 {
-    public class IndividualTimer : TimerSection
+    public class SingleTimerSection : ITimerSection
     {
         public string DisplayText { get; set; }
         public int Seconds { get; set; }

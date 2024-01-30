@@ -1,24 +1,17 @@
-﻿namespace InfiniTimer
+﻿using InfiniTimer.ViewModels;
+
+namespace InfiniTimer
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
-        public MainPage()
+        public MainPage(StagedTimersViewModel stagedTimersViewModel)
         {
             InitializeComponent();
+            BindingContext = stagedTimersViewModel;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void OnAddTimerClicked(object sender, EventArgs e)
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
         }
     }
 }

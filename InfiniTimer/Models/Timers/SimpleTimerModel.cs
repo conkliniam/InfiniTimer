@@ -2,6 +2,6 @@
 {
     public class SimpleTimerModel : TimerModel
     {
-        public IndividualTimer Timer { get; set; }
+        public SingleTimerSection Timer { get; set; }
     }
 }

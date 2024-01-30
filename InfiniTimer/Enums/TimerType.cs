@@ -3,6 +3,6 @@
     public enum TimerType
     {
         Simple = 0,
-        Alternating = 1
+        Advanced = 1,
     }
 }
