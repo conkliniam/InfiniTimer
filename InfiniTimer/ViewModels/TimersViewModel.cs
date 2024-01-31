@@ -18,17 +18,17 @@ namespace InfiniTimer.ViewModels
                 new AdvancedTimerModel
                 {
                     Name = "Pomodoro Technique",
-                    TimerSection = new AlternatingTimerSection
+                    TimerSection = new AlternatingTimerSection(1)
                     {
-                        MainTimerSection = new AlternatingTimerSection
+                        MainTimerSection = new AlternatingTimerSection(2)
                         {
-                            MainTimerSection = new SingleTimerSection
+                            MainTimerSection = new SingleTimerSection(3)
                             {
                                 DisplayText = "Work",
                                 Color = TimerColor.Green,
                                 Seconds = 1500
                             },
-                            AlternateTimerSection = new SingleTimerSection
+                            AlternateTimerSection = new SingleTimerSection(3)
                             {
                                 DisplayText = "Break",
                                 Color = TimerColor.Red,
@@ -36,7 +36,7 @@ namespace InfiniTimer.ViewModels
                             },
                             Cycles = 4
                         },
-                        AlternateTimerSection = new SingleTimerSection
+                        AlternateTimerSection = new SingleTimerSection(2)
                         {
                             DisplayText = "Break",
                             Color = TimerColor.Red,
@@ -51,16 +51,16 @@ namespace InfiniTimer.ViewModels
                 new AdvancedTimerModel
                 {
                     Name = "52/17",
-                    TimerSection = new AlternatingTimerSection
+                    TimerSection = new AlternatingTimerSection(1)
                     {
-                        MainTimerSection = new SingleTimerSection
+                        MainTimerSection = new SingleTimerSection(2)
                         {
                             DisplayText = "Work",
                             Color = TimerColor.Green,
                             Seconds = 3120
 
                         },
-                        AlternateTimerSection = new SingleTimerSection
+                        AlternateTimerSection = new SingleTimerSection(2)
                         {
                             DisplayText = "Break",
                             Color = TimerColor.Red,
@@ -76,17 +76,17 @@ namespace InfiniTimer.ViewModels
                 new AdvancedTimerModel
                 {
                     Name = "Spartacus Timers",
-                    TimerSection = new AlternatingTimerSection
+                    TimerSection = new AlternatingTimerSection(1)
                     {
-                        MainTimerSection = new AlternatingTimerSection
+                        MainTimerSection = new AlternatingTimerSection(2)
                         {
-                            MainTimerSection = new SingleTimerSection
+                            MainTimerSection = new SingleTimerSection(3)
                             {
                                 DisplayText = "Move",
                                 Color = TimerColor.Green,
                                 Seconds = 60
                             },
-                            AlternateTimerSection = new SingleTimerSection
+                            AlternateTimerSection = new SingleTimerSection(3)
                             {
                                 DisplayText = "Get Ready",
                                 Color = TimerColor.Red,
@@ -94,7 +94,7 @@ namespace InfiniTimer.ViewModels
                             },
                             Cycles = 10
                         },
-                        AlternateTimerSection = new SingleTimerSection
+                        AlternateTimerSection = new SingleTimerSection(2)
                         {
                             DisplayText = "Rest",
                             Color = TimerColor.Blue,

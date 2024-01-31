@@ -50,7 +50,7 @@ namespace InfiniTimer.ViewModels
         {
             if (EditTimerModel.TimerModel is SimpleTimerModel simpleTimerModel)
             {
-                simpleTimerModel.Timer ??= new SingleTimerSection();
+                simpleTimerModel.Timer ??= new SingleTimerSection(1);
                 _timerLayout.Children.Add(new SingleTimerView(simpleTimerModel.Timer));
             }
             else if (EditTimerModel.TimerModel is AdvancedTimerModel advancedTimerModel)

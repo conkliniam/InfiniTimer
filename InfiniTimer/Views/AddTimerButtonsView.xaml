@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfiniTimer.Views.AddTimerButtonsView">
+    <VerticalStackLayout Spacing="10">
+        <Button ImageSource="plus_square.png" Text="Timer" Clicked="AddTimerClicked"></Button>
+        <Button ImageSource="plus_square.png" Text="List Section" Clicked="AddTimerListClicked"></Button>
+        <Button ImageSource="plus_square.png" Text="Alternating Section" Clicked="AddTimerAlternatesClicked"></Button>
+    </VerticalStackLayout>
+</ContentView>

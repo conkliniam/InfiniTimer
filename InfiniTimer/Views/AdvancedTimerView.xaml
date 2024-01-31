@@ -2,10 +2,55 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.Views.AdvancedTimerView">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is an Advanced Timer View"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Padding="10">
+        <Label Text="Timer Description"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               FontAttributes="Bold"
+               FontSize="16">
+        </Label>
+        <Editor
+            Text="{Binding AdvancedTimerModel.Description}"
+            Placeholder="Enter a description here"
+            VerticalTextAlignment="End"
+            HeightRequest="100"></Editor>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Text="Auto Repeat"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   FontSize="16"
+                   Grid.Column="0"
+                   Grid.Row="0">
+            </Label>
+            <Switch IsToggled="{Binding AdvancedTimerModel.AutoRepeat}"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    ThumbColor="{StaticResource DarkGray}"
+                    OnColor="{StaticResource BtnGreen}"></Switch>
+            <Label Text="Auto Continue"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   FontSize="16"
+                   Grid.Column="0"
+                   Grid.Row="1">
+            </Label>
+            <Switch IsToggled="{Binding AdvancedTimerModel.AutoContinue}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    ThumbColor="{StaticResource DarkGray}"
+                    OnColor="{StaticResource BtnGreen}"></Switch>
+        </Grid>
+        <StackLayout x:Name="timerLayout">
+        </StackLayout>
     </VerticalStackLayout>
 </ContentView>
