@@ -9,7 +9,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Margin="10" Text="{Binding Name}" Grid.Column="0"></Label>
+                        <Label Margin="10" Text="{Binding Name}"></Label>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

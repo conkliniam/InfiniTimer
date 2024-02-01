@@ -2,6 +2,6 @@
 {
     public interface ITimerSection
     {
-        public int Depth { get; set; }
+        public int Depth { get; }
     }
 }

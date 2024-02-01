@@ -7,6 +7,6 @@
             Depth = depth;
         }
         public List<ITimerSection> TimerSections {  get; set; }
-        public int Depth { get; set; }
+        public int Depth { get; private set; }
     }
 }

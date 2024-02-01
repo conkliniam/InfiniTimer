@@ -9,6 +9,6 @@
         public ITimerSection MainTimerSection { get; set; }
         public ITimerSection AlternateTimerSection { get; set; }
         public int Cycles { get; set; }
-        public int Depth { get; set; }
+        public int Depth { get; private set; }
     }
 }

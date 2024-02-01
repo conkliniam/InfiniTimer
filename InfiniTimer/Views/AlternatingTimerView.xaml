@@ -2,10 +2,55 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.Views.AlternatingTimerView">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="10">
         <Label 
-            Text="This is an Alternating Timer View"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            Text="Alternating Timers"
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            FontAttributes="Bold"
+            FontSize="16"
+            Margin="{Binding Margin}"/>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Text="Cycles"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   FontSize="16"
+                   Grid.Column="0">
+            </Label>
+            <Picker x:Name="cyclesPicker"
+                    Title="Number of cycles"
+                    ItemsSource="{Binding CycleOptions}"
+                    SelectedItem="{Binding AlternatingTimerSection.Cycles}"
+                    HorizontalTextAlignment="Center"
+                    Grid.Column="1"/>
+        </Grid>
+        <Label 
+            Text="Main"
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            FontAttributes="Bold"
+            FontSize="16"
+            Margin="{Binding Margin}"/>
+        <BoxView HeightRequest="5" Color="{Binding MainColor}"/>
+        <StackLayout x:Name="mainTimerLayout">
+        </StackLayout>
+        <BoxView HeightRequest="5" Color="{Binding MainColor}"/>
+        <Label 
+            Text="Alternate"
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Center"
+            FontAttributes="Bold"
+            FontSize="16"
+            Margin="{Binding Margin}"/>
+        <BoxView HeightRequest="5" Color="{Binding AlternateColor}"/>
+        <StackLayout x:Name="alternateTimerLayout">
+        </StackLayout>
+        <BoxView HeightRequest="5" Color="{Binding AlternateColor}"/>
     </VerticalStackLayout>
 </ContentView>

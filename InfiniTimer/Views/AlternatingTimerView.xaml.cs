@@ -8,6 +8,6 @@ public partial class AlternatingTimerView : ContentView
 	public AlternatingTimerView(AlternatingTimerSection alternatingTimerSection)
 	{
 		InitializeComponent();
-		BindingContext = new AlternatingTimerViewModel(alternatingTimerSection);
+		BindingContext = new AlternatingTimerViewModel(alternatingTimerSection, App.Current.Resources, mainTimerLayout, alternateTimerLayout);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using InfiniTimer.Enums;
+using System.ComponentModel;
 
 namespace InfiniTimer.Models.Timers
 {
@@ -11,6 +12,6 @@ namespace InfiniTimer.Models.Timers
         public string DisplayText { get; set; }
         public int Seconds { get; set; }
         public TimerColor Color { get; set; }
-        public int Depth { get; set; }
+        public int Depth { get; private set; }
     }
 }
