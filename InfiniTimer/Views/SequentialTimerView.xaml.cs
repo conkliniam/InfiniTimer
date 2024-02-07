@@ -8,6 +8,6 @@ public partial class SequentialTimerView : ContentView
 	public SequentialTimerView(SequentialTimerSection sequentialTimerSection)
 	{
 		InitializeComponent();
-		BindingContext = new SequentialTimerViewModel(sequentialTimerSection);
+		BindingContext = new SequentialTimerViewModel(sequentialTimerSection, timerListLayout, timerButtons);
 	}
 }

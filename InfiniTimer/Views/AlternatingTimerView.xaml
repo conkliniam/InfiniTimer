@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
              x:Class="InfiniTimer.Views.AlternatingTimerView">
     <VerticalStackLayout Spacing="10">
-        <Label 
-            Text="Alternating Timers"
-            HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            FontAttributes="Bold"
-            FontSize="16"
-            Margin="{Binding Margin}"/>
+        <local:EditLabel Text="Alternating Timers"
+                         HorizontalTextAlignment="Start"
+                         Margin="{Binding Margin}"/>
         
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Text="Cycles"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   FontAttributes="Bold"
-                   FontSize="16"
-                   Grid.Column="0">
-            </Label>
+            <local:EditLabel Text="Cycles"
+                             Grid.Column="0"/>
             <Picker x:Name="cyclesPicker"
                     Title="Number of cycles"
                     ItemsSource="{Binding CycleOptions}"
@@ -30,27 +22,21 @@
                     HorizontalTextAlignment="Center"
                     Grid.Column="1"/>
         </Grid>
-        <Label 
+        <local:EditLabel 
             Text="Main"
             HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            FontAttributes="Bold"
-            FontSize="16"
             Margin="{Binding Margin}"/>
-        <BoxView HeightRequest="5" Color="{Binding MainColor}"/>
-        <StackLayout x:Name="mainTimerLayout">
-        </StackLayout>
-        <BoxView HeightRequest="5" Color="{Binding MainColor}"/>
-        <Label 
+        <local:TimerContent x:Name="mainTimerLayout"
+                            TimerSection="{Binding AlternatingTimerSection.MainTimerSection}"
+                            Depth="{Binding NextDepth}"
+                            BackgroundColor="{Binding NextColor}"/>
+        <local:EditLabel 
             Text="Alternate"
             HorizontalTextAlignment="Start"
-            VerticalTextAlignment="Center"
-            FontAttributes="Bold"
-            FontSize="16"
             Margin="{Binding Margin}"/>
-        <BoxView HeightRequest="5" Color="{Binding AlternateColor}"/>
-        <StackLayout x:Name="alternateTimerLayout">
-        </StackLayout>
-        <BoxView HeightRequest="5" Color="{Binding AlternateColor}"/>
+        <local:TimerContent x:Name="alternateTimerLayout"
+                            TimerSection="{Binding AlternatingTimerSection.AlternateTimerSection}"
+                            Depth="{Binding NextDepth}"
+                            BackgroundColor="{Binding NextColor}"/>
     </VerticalStackLayout>
 </ContentView>

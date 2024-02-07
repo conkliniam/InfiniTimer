@@ -2,50 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.EditTimerPage"
+             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
              Title="Edit Timer">
-    <ScrollView>
+    <ScrollView BackgroundColor="{StaticResource Tertiary}">
         <VerticalStackLayout>
             <Grid Padding="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Text="Timer Type"
-                   Grid.Column="0"
-                   Grid.Row="0"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   FontAttributes="Bold"
-                   FontSize="16">
-                </Label>
+                <local:EditLabel Text="Timer Type"
+                                 Grid.Column="0"
+                                 Grid.Row="0"/>
                 <Picker x:Name="timerTypePicker"
-                    Title="Select a Timer Type"
-                    ItemsSource="{Binding TimerTypes}"
-                    SelectedItem="{Binding EditTimerModel.TimerType}"
-                    Grid.Column="1"
-                    Grid.Row="0"/>
-                <Label Text="Timer Name"
-                   Grid.Column="0"
-                   Grid.Row="1"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"
-                   FontAttributes="Bold"
-                   FontSize="16">
-                </Label>
+                        Title="Select a Timer Type"
+                        ItemsSource="{Binding TimerTypes}"
+                        SelectedItem="{Binding EditTimerModel.TimerType}"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        TextColor="White"/>
+                <local:EditLabel Text="Timer Name"
+                                 Grid.Column="0"
+                                 Grid.Row="1"/>
                 <Entry x:Name="timerName"
                    Placeholder="Enter a Timer Name"
                    Grid.Column="1"
                    Grid.Row="1"
-                   Text="{Binding EditTimerModel.Name}"
+                   Text="{Binding EditTimerModel.TimerModel.Name}"
                    ClearButtonVisibility="WhileEditing"
-                   ></Entry>
+                   TextColor="White"/>
             </Grid>
-            <StackLayout x:Name="timerLayout">
-            </StackLayout>
+            <StackLayout x:Name="timerLayout"/>
+            <Button Text="View JSON" Clicked="Button_Clicked"></Button>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

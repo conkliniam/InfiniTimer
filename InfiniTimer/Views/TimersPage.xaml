@@ -19,8 +19,20 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="editButton" ImageSource="pencil_square.svg" Margin="5" Clicked="Edit_Timer_Clicked" IsEnabled="False" Grid.Column="0" Text="Edit Timer"></Button>
-            <Button x:Name="stageButton" ImageSource="plus_square.svg" Margin="5" Clicked="Stage_Timer_Clicked" IsEnabled="False" Grid.Column="1" Text="Stage Timer"></Button>
+            <Button x:Name="editButton"
+                    ImageSource="{AppThemeBinding Dark=pencil_square_dark.png Light=pencil_square_light.png}"
+                    Margin="5"
+                    Clicked="Edit_Timer_Clicked"
+                    IsEnabled="False"
+                    Grid.Column="0"
+                    Text="Edit Timer"></Button>
+            <Button x:Name="stageButton"
+                    ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}"
+                    Margin="5"
+                    Clicked="Stage_Timer_Clicked"
+                    IsEnabled="False"
+                    Grid.Column="1"
+                    Text="Stage Timer"></Button>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

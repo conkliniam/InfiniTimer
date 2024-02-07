@@ -1,4 +1,6 @@
-﻿namespace InfiniTimer.Models.Timers
+﻿using System.Collections.ObjectModel;
+
+namespace InfiniTimer.Models.Timers
 {
     public class SequentialTimerSection : ITimerSection
     {
@@ -6,7 +8,7 @@
         {
             Depth = depth;
         }
-        public List<ITimerSection> TimerSections {  get; set; }
+        public ObservableCollection<ITimerSection> TimerSections {  get; set; }
         public int Depth { get; private set; }
     }
 }

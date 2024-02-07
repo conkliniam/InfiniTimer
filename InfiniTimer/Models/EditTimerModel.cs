@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using InfiniTimer.Enums;
 using InfiniTimer.Models.Timers;
 
@@ -18,7 +13,6 @@ namespace InfiniTimer.Models
             TimerType = timerModel is SimpleTimerModel
                 ? Enum.GetName(typeof(TimerType), Enums.TimerType.Simple)
                 : Enum.GetName(typeof(TimerType), Enums.TimerType.Advanced);
-            Name = timerModel.Name;
         }
 
         public string TimerType
@@ -36,8 +30,6 @@ namespace InfiniTimer.Models
                 }
             }
         }
-
-        public string Name { get; set; }
 
         public TimerModel TimerModel { get; set; }
 

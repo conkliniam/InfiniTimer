@@ -2,7 +2,7 @@
 {
     public enum TimerColor
     {
-        White = 0,
+        Black = 0,
         Blue = 1,
         Brown = 2,
         Gray = 3,

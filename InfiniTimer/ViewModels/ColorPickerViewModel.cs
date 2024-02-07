@@ -1,4 +1,5 @@
-﻿using InfiniTimer.Enums;
+﻿using InfiniTimer.Common;
+using InfiniTimer.Enums;
 using InfiniTimer.Models;
 using System.Collections.ObjectModel;
 
@@ -6,10 +7,8 @@ namespace InfiniTimer.ViewModels
 {
     public class ColorPickerViewModel
     {
-        private ResourceDictionary _resources;
-        public ColorPickerViewModel(ResourceDictionary resources, Action<string, Color, Color> HandleColorSelection)
-        {
-            _resources = resources;            
+        public ColorPickerViewModel(Action<string, Color, Color> HandleColorSelection)
+        {           
             PopulateTimerColors();
             OnChangeColor = HandleColorSelection;
         }
@@ -30,28 +29,10 @@ namespace InfiniTimer.ViewModels
                     EnumValue = timerColor,
                 };
 
-                switch (timerColor)
+                if (ColorHelper.TimerColors.TryGetValue(timerColor, out ColorOption value))
                 {
-                    case TimerColor.White:
-                        if (_resources.TryGetValue("White", out var white))
-                        {
-                            colorPickerModel.ForegroundColor = (Color)white;
-                        }
-                        if (_resources.TryGetValue("Black", out var black))
-                        {
-                            colorPickerModel.BackgroundColor = (Color)black;
-                        }
-                        break;
-                    default:
-                        if (_resources.TryGetValue("Light" + colorPickerModel.Text, out var foreColor))
-                        {
-                            colorPickerModel.ForegroundColor = (Color)foreColor;
-                        }
-                        if (_resources.TryGetValue("Dark" + colorPickerModel.Text, out var backColor))
-                        {
-                            colorPickerModel.BackgroundColor = (Color)backColor;
-                        }
-                        break;
+                    colorPickerModel.ForegroundColor = value.Light;
+                    colorPickerModel.BackgroundColor = value.Dark;
                 }
                 options.Add(colorPickerModel);
             }

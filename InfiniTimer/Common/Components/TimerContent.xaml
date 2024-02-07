@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfiniTimer.Common.Components.TimerContent"
+             Margin="5,0" Padding="5,10">
+    <VerticalStackLayout Spacing="10" x:Name="timerStack">
+        <StackLayout x:Name="buttonContent" Spacing="10">
+            <Button ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}" Text="Timer" Clicked="AddTimerClicked"></Button>
+            <Button ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}" Text="List Section" Clicked="AddTimerListClicked"></Button>
+            <Button ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}" Text="Alternating Section" Clicked="AddTimerAlternatesClicked"></Button>
+        </StackLayout>
+        <StackLayout x:Name="timerContent">
+        </StackLayout>
+    </VerticalStackLayout>
+</ContentView>

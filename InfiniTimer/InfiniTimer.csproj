@@ -51,12 +51,14 @@
 	  <None Remove="Resources\Images\hourglass_split.svg" />
 	  <None Remove="Resources\Images\house_door_fill.svg" />
 	  <None Remove="Resources\Images\infini_timer.svg" />
-	  <None Remove="Resources\Images\pencil_square.svg" />
-	  <None Remove="Resources\Images\plus_square.svg" />
+	  <None Remove="Resources\Images\pencil_square_dark.svg" />
+	  <None Remove="Resources\Images\pencil_square_light.svg" />
+	  <None Remove="Resources\Images\plus_square_dark.svg" />
+	  <None Remove="Resources\Images\plus_square_light.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AddTimerButtonsView.xaml">
+	  <MauiXaml Update="Common\Components\TimerContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AlternatingTimerView.xaml">
@@ -74,6 +76,7 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>

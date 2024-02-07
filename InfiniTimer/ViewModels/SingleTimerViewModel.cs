@@ -1,4 +1,5 @@
-﻿using InfiniTimer.Enums;
+﻿using InfiniTimer.Common;
+using InfiniTimer.Enums;
 using InfiniTimer.Models.Timers;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,18 +11,17 @@ namespace InfiniTimer.ViewModels
     {
         public const int SecondsPerHour = 3600;
         public const int SecondsPerMinute = 60;
-        private readonly ResourceDictionary _resources;
         private string _color;
         private Color _background;
         private Color _foreground;
 
-        public SingleTimerViewModel(SingleTimerSection timer, ResourceDictionary resources)
+        public SingleTimerViewModel(SingleTimerSection timer)
         {
             Timer = timer;
-            _resources = resources;
             TimerColorOptions = new ObservableCollection<string>(Enum.GetNames(typeof(TimerColor)).ToList());
             HoursOptions = new ObservableCollection<int>(Enumerable.Range(0, 24));
             MinutesSeconds = new ObservableCollection<int>(Enumerable.Range(0, 60));
+            Margin = new Thickness(timer.Depth * 5, 0);
             _color = Enum.GetName(typeof(TimerColor), Timer.Color);
             SetColors();
         }
@@ -30,6 +30,7 @@ namespace InfiniTimer.ViewModels
         public ObservableCollection<string> TimerColorOptions { get; private set; }
         public ObservableCollection<int> HoursOptions { get; private set; }
         public ObservableCollection<int> MinutesSeconds { get; private set; }
+        public Thickness Margin { get; private set; }
         public Color ForegroundColor
         {
             get
@@ -138,28 +139,12 @@ namespace InfiniTimer.ViewModels
 
         private void SetColors()
         {
-            switch (Timer.Color)
+            if (ColorHelper.TimerColors.ContainsKey(Timer.Color))
             {
-                case TimerColor.White:
-                    if (_resources.TryGetValue("White", out var white))
-                    {
-                        ForegroundColor = (Color)white;
-                    }
-                    if (_resources.TryGetValue("Black", out var black))
-                    {
-                        BackgroundColor = (Color)black;
-                    }
-                    break;
-                default:
-                    if (_resources.TryGetValue("Light" + _color, out var foreColor))
-                    {
-                        ForegroundColor = (Color)foreColor;
-                    }
-                    if (_resources.TryGetValue("Dark" + _color, out var backColor))
-                    {
-                        BackgroundColor = (Color)backColor;
-                    }
-                    break;
+                var colorOption = ColorHelper.TimerColors[Timer.Color];
+                Color = colorOption.Name;
+                BackgroundColor = colorOption.Dark;
+                ForegroundColor = colorOption.Light;
             }
         }
 

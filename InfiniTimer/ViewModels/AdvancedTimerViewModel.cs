@@ -1,65 +1,31 @@
-﻿using InfiniTimer.Models.Timers;
-using InfiniTimer.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InfiniTimer.Common;
+using InfiniTimer.Models.Timers;
+using System.ComponentModel;
 
 namespace InfiniTimer.ViewModels
 {
-    public class AdvancedTimerViewModel
+    public class AdvancedTimerViewModel : INotifyPropertyChanged
     {
-        private readonly StackLayout _timerLayout;
-
-        public AdvancedTimerViewModel(AdvancedTimerModel advancedTimerModel, StackLayout timerLayout)
+        public AdvancedTimerViewModel(AdvancedTimerModel advancedTimerModel)
         {
-            _timerLayout = timerLayout;
             AdvancedTimerModel = advancedTimerModel;
-            FillTimerLayout();
+            NextColor = ColorHelper.ThemeColors[ColorHelper.Primary];
+            SetTimer = (ITimerSection timerSection) =>
+            {
+                AdvancedTimerModel.TimerSection = timerSection;
+                OnPropertyChanged(nameof(AdvancedTimerModel.TimerSection));
+            };
         }
 
         public AdvancedTimerModel AdvancedTimerModel { get; set;}
+        public Action<ITimerSection> SetTimer { get; private set; }
+        public Color NextColor { get; set; }
 
-        private void FillTimerLayout()
-        {
-            if (AdvancedTimerModel.TimerSection == null)
-            {
-                _timerLayout.Children.Add(new AddTimerButtonsView(HandleAddTimer, HandleAddList, HandleAddAlternates));
-            }
-            else if (AdvancedTimerModel.TimerSection is AlternatingTimerSection alternatingTimerSection)
-            {
-                _timerLayout.Children.Add(new AlternatingTimerView(alternatingTimerSection));
-            }
-            else if (AdvancedTimerModel.TimerSection is SequentialTimerSection sequentialTimerSection)
-            {
-                _timerLayout.Children.Add(new SequentialTimerView(sequentialTimerSection));
-            }
-            else if (AdvancedTimerModel.TimerSection is SingleTimerSection singleTimerSection)
-            {
-                _timerLayout.Children.Add(new SingleTimerView(singleTimerSection));
-            }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private void HandleAddTimer()
+        protected virtual void OnPropertyChanged(string propertyName)
         {
-            _timerLayout.Children.Clear();
-            AdvancedTimerModel.TimerSection = new SingleTimerSection(1);
-            FillTimerLayout();
-        }
-
-        private void HandleAddList()
-        {
-            _timerLayout.Children.Clear();
-            AdvancedTimerModel.TimerSection = new SequentialTimerSection(1);
-            FillTimerLayout();
-        }
-
-        private void HandleAddAlternates()
-        {
-            _timerLayout.Children.Clear();
-            AdvancedTimerModel.TimerSection = new AlternatingTimerSection(1);
-            FillTimerLayout();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

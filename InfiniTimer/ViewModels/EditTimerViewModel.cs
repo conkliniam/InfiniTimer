@@ -26,13 +26,21 @@ namespace InfiniTimer.ViewModels
             {
                 _timerLayout.Children.Clear();
 
+                var timerName = EditTimerModel.TimerModel.Name;
+
                 if (EditTimerModel.TimerType == Enum.GetName(typeof(TimerType), TimerType.Simple))
                 {
-                    EditTimerModel.TimerModel = new SimpleTimerModel();
+                    EditTimerModel.TimerModel = new SimpleTimerModel()
+                    {
+                        Name = timerName
+                    };
                 }
                 else if (EditTimerModel.TimerType == Enum.GetName(typeof(TimerType), TimerType.Advanced))
                 {
-                    EditTimerModel.TimerModel = new AdvancedTimerModel();
+                    EditTimerModel.TimerModel = new AdvancedTimerModel()
+                    {
+                        Name = timerName
+                    };
                 }
 
                 FillTimerLayout();

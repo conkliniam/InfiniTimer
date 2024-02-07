@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using InfiniTimer.Services;
 using InfiniTimer.ViewModels;
 using InfiniTimer.Views;
+using InfiniTimer.Common;
 
 namespace InfiniTimer
 {
@@ -17,11 +18,11 @@ namespace InfiniTimer
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("Comfortaa-Light.ttf", "ComfortaaLight");
-                    fonts.AddFont("Comfortaa-Medium.ttf", "ComfortaaMedium");
-                    fonts.AddFont("Comfortaa-Regular.ttf", "ComfortaaRegular");
-                    fonts.AddFont("Comfortaa-Semibold.ttf", "ComfortaaSemibold");
-                    fonts.AddFont("Comfortaa-Bold.ttf", "ComfortaaBold");
+                    fonts.AddFont("Comfortaa-Light.ttf", AppConstants.ComfortaaLight);
+                    fonts.AddFont("Comfortaa-Medium.ttf", AppConstants.ComfortaaMedium);
+                    fonts.AddFont("Comfortaa-Regular.ttf", AppConstants.ComfortaaRegular);
+                    fonts.AddFont("Comfortaa-Semibold.ttf", AppConstants.ComfortaaSemibold);
+                    fonts.AddFont("Comfortaa-Bold.ttf", AppConstants.ComfortaaBold);
                 })
                 .RegisterAppServices()
                 .RegisterViewModels()

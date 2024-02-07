@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.Views.ColorPickerView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
              Title="ColorPickerView">
     <VerticalStackLayout Spacing="10">
-        <Label Text="Pick a Timer Color"></Label>
+        <local:EditLabel Text="Pick a Timer Color"></local:EditLabel>
         <ListView x:Name="listColors" BackgroundColor="Transparent" ItemsSource="{Binding TimerColorOptions}" ItemSelected="ColorSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>

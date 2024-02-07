@@ -8,7 +8,7 @@ public partial class ColorPickerView : ContentPage
 	public ColorPickerView(Action<string, Color, Color> HandleColorSelection)
 	{
 		InitializeComponent();
-		BindingContext = new ColorPickerViewModel(App.Current.Resources, HandleColorSelection);
+		BindingContext = new ColorPickerViewModel(HandleColorSelection);
 	}
 
     private void CancelClicked(object sender, EventArgs e)
