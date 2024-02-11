@@ -8,7 +8,6 @@ public partial class AdvancedTimerView : ContentView
 	public AdvancedTimerView(AdvancedTimerModel advancedTimerModel)
 	{
 		InitializeComponent();
-		BindingContext = new AdvancedTimerViewModel(advancedTimerModel);
-		timerContent.SetTimer = ((AdvancedTimerViewModel)BindingContext).SetTimer;
+		BindingContext = new AdvancedTimerViewModel(advancedTimerModel, timerContent);
     }
 }

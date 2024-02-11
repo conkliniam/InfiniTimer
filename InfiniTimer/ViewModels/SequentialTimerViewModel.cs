@@ -21,8 +21,8 @@ namespace InfiniTimer.ViewModels
                 SequentialTimerSection.TimerSections = new ObservableCollection<ITimerSection>();
             }
 
-            NextDepth = SequentialTimerSection.Depth + 1;
-            NextColor = ColorHelper.ThemeColors[NextDepth % 2 == 0 ? ColorHelper.Tertiary : ColorHelper.Primary];
+            int nextDepth = SequentialTimerSection.Depth + 1;
+            NextColor = ColorHelper.ThemeColors[nextDepth % 2 == 0 ? ColorHelper.Tertiary : ColorHelper.Primary];
 
             timerButtons.SetTimer = (ITimerSection timerSection) =>
             {
@@ -43,11 +43,11 @@ namespace InfiniTimer.ViewModels
                     }
                 }
             };
+
+            timerButtons.Depth = nextDepth;
         }
 
-        public ITimerSection TimerSection { get;  set; }
         public SequentialTimerSection SequentialTimerSection { get; set; }
-        public int NextDepth { get; set; }
         public Color NextColor { get; set; }
     }
 }

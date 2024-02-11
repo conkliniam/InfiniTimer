@@ -38,8 +38,6 @@
                     OnColor="{StaticResource BtnGreen}"/>
         </Grid>
         <local:TimerContent x:Name="timerContent"
-                            TimerSection="{Binding AdvancedTimerModel.TimerSection}"
-                            Depth="1"
                             BackgroundColor="{Binding NextColor}"/>
     </VerticalStackLayout>
 </ContentView>

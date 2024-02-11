@@ -27,16 +27,12 @@
             HorizontalTextAlignment="Start"
             Margin="{Binding Margin}"/>
         <local:TimerContent x:Name="mainTimerLayout"
-                            TimerSection="{Binding AlternatingTimerSection.MainTimerSection}"
-                            Depth="{Binding NextDepth}"
                             BackgroundColor="{Binding NextColor}"/>
         <local:EditLabel 
             Text="Alternate"
             HorizontalTextAlignment="Start"
             Margin="{Binding Margin}"/>
         <local:TimerContent x:Name="alternateTimerLayout"
-                            TimerSection="{Binding AlternatingTimerSection.AlternateTimerSection}"
-                            Depth="{Binding NextDepth}"
                             BackgroundColor="{Binding NextColor}"/>
     </VerticalStackLayout>
 </ContentView>

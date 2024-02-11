@@ -14,8 +14,6 @@
         </StackLayout>
         <local:TimerContent x:Name="timerButtons"
                             Grid.Row="2"
-                            TimerSection="{Binding TimerSection}"
-                            Depth="{Binding NextDepth}"
                             BackgroundColor="{Binding NextColor}"
                             ButtonsOnly="True"/>
     </Grid>

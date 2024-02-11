@@ -5,11 +5,18 @@
              Margin="5,0" Padding="5,10">
     <VerticalStackLayout Spacing="10" x:Name="timerStack">
         <StackLayout x:Name="buttonContent" Spacing="10">
-            <Button ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}" Text="Timer" Clicked="AddTimerClicked"></Button>
-            <Button ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}" Text="List Section" Clicked="AddTimerListClicked"></Button>
-            <Button ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}" Text="Alternating Section" Clicked="AddTimerAlternatesClicked"></Button>
+            <Button ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}"
+                    Text="Timer"
+                    Clicked="AddTimerClicked"/>
+            <Button x:Name="timerListButton"
+                    ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}"
+                    Text="List Section"
+                    Clicked="AddTimerListClicked"/>
+            <Button x:Name="alternateButton"
+                    ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}"
+                    Text="Alternating Section"
+                    Clicked="AddTimerAlternatesClicked"/>
         </StackLayout>
-        <StackLayout x:Name="timerContent">
-        </StackLayout>
+        <StackLayout x:Name="timerContent"/>
     </VerticalStackLayout>
 </ContentView>

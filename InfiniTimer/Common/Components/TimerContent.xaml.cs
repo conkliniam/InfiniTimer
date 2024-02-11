@@ -6,45 +6,49 @@ namespace InfiniTimer.Common.Components;
 
 public partial class TimerContent : ContentView, INotifyPropertyChanged
 {
+    private ITimerSection _timerSection;
+    private int _depth;
+
     public TimerContent()
     {
         InitializeComponent();
 
     }
 
-    public static readonly BindableProperty DepthProperty =
-        BindableProperty.Create(nameof(Depth), typeof(int), typeof(int));
 
     public int Depth
     {
         get
         {
-            return (int)GetValue(DepthProperty);
+            return _depth;
         }
         set
         {
-            SetValue(DepthProperty, value);
+            _depth = value;
+
+            if (_depth >= AppConstants.DepthLimit)
+            {
+                timerListButton.IsEnabled = false;
+                alternateButton.IsEnabled = false;
+            }
         }
     }
-
-    public static readonly BindableProperty TimerSectionProperty =
-        BindableProperty.Create(nameof(TimerSection), typeof(ITimerSection), typeof(SingleTimerSection));
 
     public ITimerSection TimerSection
     {
         get
         {
-            return (ITimerSection)GetValue(TimerSectionProperty);
+            return _timerSection;
         }
         set
         {
-            if (TimerSection != value)
+            if (_timerSection != value)
             {
-                SetValue(TimerSectionProperty, value);
+                _timerSection = value;
 
                 timerContent.Children.Clear();
 
-                if (TimerSection == null)
+                if (_timerSection == null)
                 {
                     buttonContent.IsVisible = true;
                 }
@@ -52,15 +56,15 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
                 {
                     buttonContent.IsVisible = false;
 
-                    if (TimerSection is AlternatingTimerSection alternatingTimerSection)
+                    if (_timerSection is AlternatingTimerSection alternatingTimerSection)
                     {
                         timerContent.Children.Add(new AlternatingTimerView(alternatingTimerSection));
                     }
-                    else if (TimerSection is SequentialTimerSection sequentialTimerSection)
+                    else if (_timerSection is SequentialTimerSection sequentialTimerSection)
                     {
                         timerContent.Children.Add(new SequentialTimerView(sequentialTimerSection));
                     }
-                    else if (TimerSection is SingleTimerSection singleTimerSection)
+                    else if (_timerSection is SingleTimerSection singleTimerSection)
                     {
                         timerContent.Children.Add(new SingleTimerView(singleTimerSection));
                     }
@@ -73,7 +77,7 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
 
     public bool ButtonsOnly { get; set; }
 
-    private void AddTimerClicked(object sender, EventArgs e)
+    private void AddSingleTimer()
     {
         if (ButtonsOnly)
         {
@@ -84,6 +88,11 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
             TimerSection = new SingleTimerSection(Depth);
             SetTimer(TimerSection);
         }
+    }
+
+    private void AddTimerClicked(object sender, EventArgs e)
+    {
+        AddSingleTimer();
     }
 
     private void AddTimerListClicked(object sender, EventArgs e)
