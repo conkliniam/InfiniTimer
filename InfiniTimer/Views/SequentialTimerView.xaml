@@ -3,18 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:InfiniTimer.Common.Components"
              x:Class="InfiniTimer.Views.SequentialTimerView">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <local:EditLabel Text="Timers List" Grid.Row="0"/>
-        <StackLayout x:Name="timerListLayout" Grid.Row="1">
-        </StackLayout>
-        <local:TimerContent x:Name="timerButtons"
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <local:EditLabel Text="List Section" Grid.Column="1"/>
+            <ImageButton x:Name="deleteButton"
+                         Source="{AppThemeBinding Dark=trash_fill_dark.png Light=trash_fill_light.png}"
+                         Grid.Column="2"
+                         Clicked="DeleteButtonClicked"/>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <StackLayout x:Name="timerListLayout" Grid.Row="1">
+            </StackLayout>
+            <local:TimerContent x:Name="timerButtons"
                             Grid.Row="2"
                             BackgroundColor="{Binding NextColor}"
                             ButtonsOnly="True"/>
-    </Grid>
+        </Grid>
+    </VerticalStackLayout>
 </ContentView>

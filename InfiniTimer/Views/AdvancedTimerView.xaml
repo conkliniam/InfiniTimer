@@ -4,38 +4,57 @@
              xmlns:local="clr-namespace:InfiniTimer.Common.Components"
              x:Class="InfiniTimer.Views.AdvancedTimerView">
     <VerticalStackLayout>
-        <local:EditLabel Text="Timer Description"/>
-        <Editor
-            Text="{Binding AdvancedTimerModel.Description}"
-            Placeholder="Enter a description here"
-            VerticalTextAlignment="End"
-            HeightRequest="100"
-            TextColor="White"/>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <local:EditLabel Text="Timer Description"
+                             Grid.Column="1"
+                             Grid.Row="0"/>
+            <Editor Grid.Column="1"
+                    Grid.Row="1"
+                    Text="{Binding AdvancedTimerModel.Description}"
+                    Placeholder="Enter a description here"
+                    HeightRequest="100"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    VerticalTextAlignment="Start"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <local:EditLabel Text="Auto Repeat"
-                   Grid.Column="0"
+                   Grid.Column="1"
                    Grid.Row="0"/>
             <Switch IsToggled="{Binding AdvancedTimerModel.AutoRepeat}"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Grid.Row="0"
                     ThumbColor="{StaticResource LightGray}"
-                    OnColor="{StaticResource BtnGreen}"/>
+                    OnColor="{StaticResource BtnGreen}"
+                    HorizontalOptions="Center"/>
             <local:EditLabel Text="Auto Continue"
-                             Grid.Column="0"
+                             Grid.Column="1"
                              Grid.Row="1"/>
             <Switch IsToggled="{Binding AdvancedTimerModel.AutoContinue}"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Grid.Row="1"
                     ThumbColor="{StaticResource LightGray}"
-                    OnColor="{StaticResource BtnGreen}"/>
+                    OnColor="{StaticResource BtnGreen}"
+                    HorizontalOptions="Center"/>
         </Grid>
         <local:TimerContent x:Name="timerContent"
                             BackgroundColor="{Binding NextColor}"/>

@@ -31,11 +31,27 @@ namespace InfiniTimer.ViewModels
                     SequentialTimerSection.TimerSections.Add(timerSection);
                     var timerContent = new TimerContent
                     {
-                        TimerSection = timerSection,
                         Depth = timerSection.Depth,
                         BackgroundColor = NextColor
                     };
+                    
                     _timerListLayout.Children.Add(timerContent);
+
+                    timerContent.SetTimer = (ITimerSection section) =>
+                    {
+                        if (section is null)
+                        {
+                            _timerListLayout.Children.Remove(timerContent);
+                            SequentialTimerSection.TimerSections.Remove(timerSection);
+
+                            if (SequentialTimerSection.TimerSections.Count < AppConstants.ListLimit)
+                            {
+                                _timerButtons.IsVisible = true;
+                            }
+                        }
+                    };
+
+                    timerContent.TimerSection = timerSection;
 
                     if (SequentialTimerSection.TimerSections.Count >= AppConstants.ListLimit)
                     {

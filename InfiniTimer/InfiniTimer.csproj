@@ -55,6 +55,8 @@
 	  <None Remove="Resources\Images\pencil_square_light.svg" />
 	  <None Remove="Resources\Images\plus_square_dark.svg" />
 	  <None Remove="Resources\Images\plus_square_light.svg" />
+	  <None Remove="Resources\Images\trash_fill_dark.svg" />
+	  <None Remove="Resources\Images\trash_fill_light.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

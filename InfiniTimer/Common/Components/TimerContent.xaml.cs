@@ -8,6 +8,7 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
 {
     private ITimerSection _timerSection;
     private int _depth;
+    private Action<ITimerSection> _setTimer;
 
     public TimerContent()
     {
@@ -58,22 +59,40 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
 
                     if (_timerSection is AlternatingTimerSection alternatingTimerSection)
                     {
-                        timerContent.Children.Add(new AlternatingTimerView(alternatingTimerSection));
+                        timerContent.Children.Add(new AlternatingTimerView(alternatingTimerSection, HandleDelete));
                     }
                     else if (_timerSection is SequentialTimerSection sequentialTimerSection)
                     {
-                        timerContent.Children.Add(new SequentialTimerView(sequentialTimerSection));
+                        timerContent.Children.Add(new SequentialTimerView(sequentialTimerSection, HandleDelete));
                     }
                     else if (_timerSection is SingleTimerSection singleTimerSection)
                     {
-                        timerContent.Children.Add(new SingleTimerView(singleTimerSection));
+                        timerContent.Children.Add(new SingleTimerView(singleTimerSection, HandleDelete));
                     }
                 }
             }
         }
     }
 
-    public Action<ITimerSection> SetTimer { get; set; }
+    private Action HandleDelete { get; set; }
+
+    public Action<ITimerSection> SetTimer
+    {
+        get
+        {
+            return _setTimer;
+        }
+        set
+        {
+            _setTimer = value;
+
+            HandleDelete = () =>
+            {
+                TimerSection = null;
+                _setTimer(null);
+            };
+        }
+    }
 
     public bool ButtonsOnly { get; set; }
 

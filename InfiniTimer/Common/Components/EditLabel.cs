@@ -4,7 +4,7 @@
     {
         public EditLabel()
         {
-            HorizontalTextAlignment = TextAlignment.Center;
+            HorizontalTextAlignment = TextAlignment.Start;
             VerticalTextAlignment = TextAlignment.Center;
             FontAttributes = FontAttributes.Bold;
             FontSize = 16;
