@@ -51,11 +51,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Text="Cancel" Grid.Column="0"/>
-            <Button Text="Stage" Grid.Column="1"/>
-            <Button Text="Save" Grid.Column="2"/>
+            <Button Text="Cancel" Grid.Column="0" Clicked="CancelClicked"/>
+            <Button x:Name="saveButton" Text="Save" Grid.Column="1" Clicked="SaveClicked"/>
+            <Button x:Name="stageButton" Text="Stage" Grid.Column="1" Clicked="StageClicked"/>
         </Grid>
     </Grid>
 </ContentPage>

@@ -2,9 +2,88 @@
 {
     public class AdvancedTimerModel : TimerModel
     {
-        public ITimerSection TimerSection { get; set; }
-        public string Description { get; set; }
-        public bool AutoContinue { get; set; }
-        public bool AutoRepeat { get; set; }
+        private ITimerSection _timerSection;
+        private string _description;
+        private bool _autoContinue;
+        private bool _autoRepeat;
+
+        public ITimerSection TimerSection
+        {
+            get
+            {
+                return _timerSection;
+            }
+            set
+            {
+                if (_timerSection != value)
+                {
+                    var old = _timerSection;
+                    _timerSection = value;
+
+                    if (old != null)
+                    {
+                        old.PropertyChanged -= TimerSection_PropertyChanged;
+                    }
+
+                    if (_timerSection != null)
+                    {
+                        _timerSection.PropertyChanged += TimerSection_PropertyChanged;
+                    }
+
+                    HandleChange();
+                }
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+
+                    HandleChange();
+                }
+            }
+        }
+
+        public bool AutoContinue
+        {
+            get
+            {
+                return _autoContinue;
+            }
+            set
+            {
+                if (_autoContinue != value)
+                {
+                    _autoContinue = value;
+
+                    HandleChange();
+                }
+            }
+        }
+
+        public bool AutoRepeat
+        {
+            get
+            {
+                return _autoRepeat;
+            }
+            set
+            {
+                if (_autoRepeat != value)
+                {
+                    _autoRepeat = value;
+
+                    HandleChange();
+                }
+            }
+        }
     }
 }

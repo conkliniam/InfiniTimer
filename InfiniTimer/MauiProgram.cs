@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
-using System.Runtime.CompilerServices;
 using InfiniTimer.Services;
 using InfiniTimer.ViewModels;
-using InfiniTimer.Views;
 using InfiniTimer.Common;
 
 namespace InfiniTimer

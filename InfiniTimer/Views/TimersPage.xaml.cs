@@ -1,5 +1,6 @@
 using InfiniTimer.Enums;
 using InfiniTimer.Models.Timers;
+using InfiniTimer.Services;
 using InfiniTimer.ViewModels;
 
 namespace InfiniTimer;
@@ -12,11 +13,11 @@ public partial class TimersPage : ContentPage
         BindingContext = timersViewModel;
     }
 
-    private async void New_Timer_Clicked(object sender, EventArgs e)
+    private async void NewTimerClicked(object sender, EventArgs e)
     {
         try
         {
-            await Navigation.PushAsync(new EditTimerPage());
+            await Navigation.PushAsync(new EditTimerPage(null, ((TimersViewModel)BindingContext).HandleSaveTimer));
         }
         catch (Exception ex)
         {
@@ -24,11 +25,11 @@ public partial class TimersPage : ContentPage
         }
     }
 
-    private async void Edit_Timer_Clicked(object sender, EventArgs e)
+    private async void EditTimerClicked(object sender, EventArgs e)
     {
         try
         {
-            await Navigation.PushAsync(new EditTimerPage((TimerModel)listTimers.SelectedItem));
+            await Navigation.PushAsync(new EditTimerPage((TimerModel)listTimers.SelectedItem, ((TimersViewModel)BindingContext).HandleSaveTimer));
         }
         catch (Exception ex)
         {
@@ -36,7 +37,7 @@ public partial class TimersPage : ContentPage
         }
     }
 
-    private async void Stage_Timer_Clicked(object sender, EventArgs e)
+    private async void StageTimerClicked(object sender, EventArgs e)
     {
 
     }
@@ -53,5 +54,10 @@ public partial class TimersPage : ContentPage
             editButton.IsEnabled = false;
             stageButton.IsEnabled = false;
         }
+    }
+
+    private void DeleteClicked(object sender, EventArgs e)
+    {
+        ((TimersViewModel)BindingContext).HandleDelete();
     }
 }

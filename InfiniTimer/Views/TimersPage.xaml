@@ -4,7 +4,7 @@
              x:Class="InfiniTimer.TimersPage"
              Title="Saved Timers">
     <VerticalStackLayout>
-        <Button Margin="10" Clicked="New_Timer_Clicked" Text="New Timer"></Button>
+        <Button Margin="10" Clicked="NewTimerClicked" Text="New Timer"></Button>
         <ListView x:Name="listTimers" BackgroundColor="Transparent" ItemsSource="{Binding TimerModels}" ItemSelected="listTimers_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -22,17 +22,18 @@
             <Button x:Name="editButton"
                     ImageSource="{AppThemeBinding Dark=pencil_square_dark.png Light=pencil_square_light.png}"
                     Margin="5"
-                    Clicked="Edit_Timer_Clicked"
+                    Clicked="EditTimerClicked"
                     IsEnabled="False"
                     Grid.Column="0"
                     Text="Edit Timer"></Button>
             <Button x:Name="stageButton"
                     ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}"
                     Margin="5"
-                    Clicked="Stage_Timer_Clicked"
+                    Clicked="StageTimerClicked"
                     IsEnabled="False"
                     Grid.Column="1"
                     Text="Stage Timer"></Button>
         </Grid>
+        <Button Text="Delete Saved Timers" Clicked="DeleteClicked"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -13,7 +13,6 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
     public TimerContent()
     {
         InitializeComponent();
-
     }
 
 

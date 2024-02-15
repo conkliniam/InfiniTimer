@@ -45,6 +45,10 @@ namespace InfiniTimer.ViewModels
 
                 FillTimerLayout();
             }
+            else
+            {
+                Console.WriteLine("PropertyChanged: " + e.PropertyName);
+            }
         }
 
         public ObservableCollection<String> TimerTypes { get; private set; }
