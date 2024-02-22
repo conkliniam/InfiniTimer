@@ -2,38 +2,109 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.TimersPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Saved Timers">
-    <VerticalStackLayout>
-        <Button Margin="10" Clicked="NewTimerClicked" Text="New Timer"></Button>
-        <ListView x:Name="listTimers" BackgroundColor="Transparent" ItemsSource="{Binding TimerModels}" ItemSelected="listTimers_ItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Label Margin="10" Text="{Binding Name}"></Label>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="headerRow" Height="*"/>
+            <RowDefinition x:Name="hiddenRow" Height="0"/>
+            <RowDefinition x:Name="listRow" Height="11*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button x:Name="editButton"
-                    ImageSource="{AppThemeBinding Dark=pencil_square_dark.png Light=pencil_square_light.png}"
-                    Margin="5"
-                    Clicked="EditTimerClicked"
-                    IsEnabled="False"
-                    Grid.Column="0"
-                    Text="Edit Timer"></Button>
-            <Button x:Name="stageButton"
-                    ImageSource="{AppThemeBinding Dark=plus_square_dark.png Light=plus_square_light.png}"
-                    Margin="5"
-                    Clicked="StageTimerClicked"
-                    IsEnabled="False"
-                    Grid.Column="1"
-                    Text="Stage Timer"></Button>
+            <Button Grid.Column="0" Margin="10" Clicked="NewTimerClicked" Text="New Timer"/>
+            <ImageButton Grid.Column="1"
+                         Source="{AppThemeBinding Dark=three_dots_vertical_dark.png, Light=three_dots_vertical_light.png}"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Padding="5"
+                         Clicked="OptionsIconClicked"/>
         </Grid>
-        <Button Text="Delete Saved Timers" Clicked="DeleteClicked"/>
-    </VerticalStackLayout>
+        <Grid Grid.Row="1"
+              BackgroundColor="{StaticResource Primary}"
+              IsVisible="false"
+              x:Name="actionButtons">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Select All"
+                    Margin="6,6,3,2"/>
+            <Button Grid.Row="0"
+                    Grid.Column="1"
+                    Text="Unselect All"
+                    Margin="3,6,6,2"/>
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Delete Selected"
+                    Clicked="DeleteSelectedClicked"
+                    TextColor="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource White}}"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource LightRed}, Light={StaticResource DarkRed}}"
+                    ImageSource="{AppThemeBinding Dark=trash_fill_light.png, Light=trash_fill_dark.png}"
+                    Margin="6,4,3,4"/>
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Text="Stage Selected"
+                    Clicked="DeleteSelectedClicked"
+                    Margin="3,4,6,4"/>
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Text="Delete All"
+                    Clicked="DeleteClicked"
+                    TextColor="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource White}}"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource LightRed}, Light={StaticResource DarkRed}}"
+                    ImageSource="{AppThemeBinding Dark=trash_fill_light.png, Light=trash_fill_dark.png}"
+                    Margin="6,2,3,6"/>
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Text="Add Defaults"
+                    Clicked="AddDefaultClicked"
+                    Margin="3,2,6,6"/>
+        </Grid>
+        <ScrollView Grid.Row="2" ZIndex="0">
+            <VerticalStackLayout>
+                <ListView x:Name="listTimers"
+                          BackgroundColor="Transparent"
+                          ItemsSource="{Binding TimerModels}"
+                          ItemSelected="ListTimersItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}"/>
+                                    <Label Grid.Column="1" Margin="10" Text="{Binding Name}"></Label>
+                                    <ImageButton Grid.Column="2"
+                                                 Source="{AppThemeBinding Dark=floppy_fill_dark.png, Light=floppy_fill_light.png}"
+                                                 Clicked="SaveIconClicked"
+                                                 IsVisible="{Binding IsDirty}"
+                                                 Padding="5"/>
+                                    <ImageButton Grid.Column="3"
+                                                 Source="{AppThemeBinding Dark=arrow_counterclockwise_dark.png, Light=arrow_counterclockwise_light.png}"
+                                                 Clicked="ResetIconClicked"
+                                                 IsVisible="{Binding IsDirty}"
+                                                 Padding="5"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

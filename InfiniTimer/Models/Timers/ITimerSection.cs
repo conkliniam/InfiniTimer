@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using InfiniTimer.Common;
 
 namespace InfiniTimer.Models.Timers
 {
-    public interface ITimerSection : INotifyPropertyChanged
+    public abstract class TimerSection : CommonBase
     {
         public int Depth { get; set; }
     }

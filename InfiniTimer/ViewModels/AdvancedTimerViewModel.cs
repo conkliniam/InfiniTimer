@@ -1,33 +1,16 @@
-﻿using InfiniTimer.Common;
-using InfiniTimer.Common.Components;
+﻿using InfiniTimer.Common.Components;
 using InfiniTimer.Models.Timers;
-using System.ComponentModel;
 
 namespace InfiniTimer.ViewModels
 {
-    public class AdvancedTimerViewModel : INotifyPropertyChanged
+    public class AdvancedTimerViewModel
     {
-        public AdvancedTimerViewModel(AdvancedTimerModel advancedTimerModel, TimerContent timerContent)
+        public AdvancedTimerViewModel(AdvancedTimerModel advancedTimerModel, ViewTimerContent viewTimerContent)
         {
             AdvancedTimerModel = advancedTimerModel;
-            NextColor = ColorHelper.ThemeColors[ColorHelper.Primary];
-            timerContent.TimerSection = advancedTimerModel.TimerSection;
-            timerContent.SetTimer = (ITimerSection timerSection) =>
-            {
-                AdvancedTimerModel.TimerSection = timerSection;
-                OnPropertyChanged(nameof(AdvancedTimerModel.TimerSection));
-            };
-            timerContent.Depth = 1;
+            viewTimerContent.TimerSection = advancedTimerModel.TimerSection;
         }
 
-        public AdvancedTimerModel AdvancedTimerModel { get; set;}
-        public Color NextColor { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public AdvancedTimerModel AdvancedTimerModel { get; set; }
     }
 }

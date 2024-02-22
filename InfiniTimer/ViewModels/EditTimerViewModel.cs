@@ -10,6 +10,8 @@ namespace InfiniTimer.ViewModels
     public class EditTimerViewModel
     {
         private readonly StackLayout _timerLayout;
+        private EditTimerModel _editTimerModel;
+
         public EditTimerViewModel(StackLayout timerLayout, TimerModel timerModel = null)
         {
             _timerLayout = timerLayout;
@@ -17,10 +19,41 @@ namespace InfiniTimer.ViewModels
             EditTimerModel = new EditTimerModel(timerModel);
             TimerTypes = new ObservableCollection<string>(Enum.GetNames(typeof(TimerType)).ToList());
             FillTimerLayout();
-            EditTimerModel.PropertyChanged += HandlePropertyChanged;
         }
 
-        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
+        public ObservableCollection<String> TimerTypes { get; private set; }
+
+        public EditTimerModel EditTimerModel
+        {
+            get
+            {
+                return _editTimerModel;
+            }
+            set
+            {
+                if (_editTimerModel != value)
+                {
+                    var old = _editTimerModel;
+                    _editTimerModel = value;
+
+                    if (old != null)
+                    {
+                        old.PropertyChanged -= EditTimerModel_PropertyChanged;
+                    }
+
+                    if (_editTimerModel != null)
+                    {
+                        _editTimerModel.PropertyChanged += EditTimerModel_PropertyChanged;
+                    }
+                }
+            }
+        }
+
+
+        public EditSingleTimerView SingleTimerView { get; set; }
+        public EditAdvancedTimerView AdvancedTimerView { get; set; }
+
+        private void EditTimerModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(EditTimerModel.TimerType))
             {
@@ -51,23 +84,16 @@ namespace InfiniTimer.ViewModels
             }
         }
 
-        public ObservableCollection<String> TimerTypes { get; private set; }
-
-        public EditTimerModel EditTimerModel { get; set; }
-
-        public SingleTimerView SingleTimerView { get; set; }
-        public AdvancedTimerView AdvancedTimerView { get; set; }
-
         private void FillTimerLayout()
         {
             if (EditTimerModel.TimerModel is SimpleTimerModel simpleTimerModel)
             {
                 simpleTimerModel.Timer ??= new SingleTimerSection(1);
-                _timerLayout.Children.Add(new SingleTimerView(simpleTimerModel.Timer));
+                _timerLayout.Children.Add(new EditSingleTimerView(simpleTimerModel.Timer));
             }
             else if (EditTimerModel.TimerModel is AdvancedTimerModel advancedTimerModel)
             {
-                _timerLayout.Children.Add(new AdvancedTimerView(advancedTimerModel));
+                _timerLayout.Children.Add(new EditAdvancedTimerView(advancedTimerModel));
             }
         }
     }

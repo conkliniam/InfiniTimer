@@ -2,12 +2,17 @@
 {
     public class AdvancedTimerModel : TimerModel
     {
-        private ITimerSection _timerSection;
+        private TimerSection _timerSection;
         private string _description;
         private bool _autoContinue;
         private bool _autoRepeat;
 
-        public ITimerSection TimerSection
+        public AdvancedTimerModel(bool ignoreChanges = true)
+        {
+            IgnoreChanges = ignoreChanges;
+        }
+
+        public TimerSection TimerSection
         {
             get
             {

@@ -1,9 +1,8 @@
 ﻿using InfiniTimer.Enums;
-using System.ComponentModel;
 
 namespace InfiniTimer.Models.Timers
 {
-    public class SingleTimerSection : ITimerSection
+    public class SingleTimerSection : TimerSection
     {
         private string _displayText;
         private int _seconds;
@@ -25,7 +24,7 @@ namespace InfiniTimer.Models.Timers
                 if (_displayText != value)
                 {
                     _displayText = value;
-                    OnPropertyChanged(nameof(DisplayText));
+                    RaisePropertyChanged(nameof(DisplayText));
                 }
             }
         }
@@ -41,7 +40,7 @@ namespace InfiniTimer.Models.Timers
                 if (_seconds != value)
                 {
                     _seconds = value;
-                    OnPropertyChanged(nameof(Seconds));
+                    RaisePropertyChanged(nameof(Seconds));
                 }
             }
         }
@@ -57,18 +56,9 @@ namespace InfiniTimer.Models.Timers
                 if (_color != value)
                 {
                     _color = value;
-                    OnPropertyChanged(nameof(Color));
+                    RaisePropertyChanged(nameof(Color));
                 }
             }
-        }
-
-        public int Depth { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

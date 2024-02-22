@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace InfiniTimer.Services.JsonConverters
 {
-    public class TimerSectionConverter : JsonConverter<ITimerSection>
+    public class TimerSectionConverter : JsonConverter<TimerSection>
     {
         enum TypeDiscriminator
         {
@@ -16,9 +16,9 @@ namespace InfiniTimer.Services.JsonConverters
         }
 
         public override bool CanConvert(Type typeToConvert) =>
-            typeof(ITimerSection).IsAssignableFrom(typeToConvert);
+            typeof(TimerSection).IsAssignableFrom(typeToConvert);
 
-        public override ITimerSection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override TimerSection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartObject)
             {
@@ -44,7 +44,7 @@ namespace InfiniTimer.Services.JsonConverters
             }
 
             TypeDiscriminator typeDiscriminator = (TypeDiscriminator)reader.GetInt32();
-            ITimerSection timerSection = typeDiscriminator switch
+            TimerSection timerSection = typeDiscriminator switch
             {
                 TypeDiscriminator.SingleTimer => new SingleTimerSection(),
                 TypeDiscriminator.AlternatingTimers => new AlternatingTimerSection(),
@@ -82,11 +82,11 @@ namespace InfiniTimer.Services.JsonConverters
                             ((SingleTimerSection)timerSection).Color = color;
                             break;
                         case "MainTimerSection":
-                            ITimerSection mainTimerSection = (ITimerSection)JsonSerializer.Deserialize(ref reader, typeof(ITimerSection), options);
+                            TimerSection mainTimerSection = (TimerSection)JsonSerializer.Deserialize(ref reader, typeof(TimerSection), options);
                             ((AlternatingTimerSection)timerSection).MainTimerSection = mainTimerSection;
                             break;
                         case "AlternateTimerSection":
-                            ITimerSection alternateTimerSection = (ITimerSection)JsonSerializer.Deserialize(ref reader, typeof(ITimerSection), options);
+                            TimerSection alternateTimerSection = (TimerSection)JsonSerializer.Deserialize(ref reader, typeof(TimerSection), options);
                             ((AlternatingTimerSection)timerSection).AlternateTimerSection = alternateTimerSection;
                             break;
                         case "Cycles":
@@ -100,11 +100,11 @@ namespace InfiniTimer.Services.JsonConverters
                             }
                             reader.Read();
 
-                            ObservableCollection<ITimerSection> timerSections = new();
+                            ObservableCollection<TimerSection> timerSections = new();
 
                             while (reader.TokenType != JsonTokenType.EndArray)
                             {
-                                timerSections.Add(JsonSerializer.Deserialize<ITimerSection>(ref reader, options)!);
+                                timerSections.Add(JsonSerializer.Deserialize<TimerSection>(ref reader, options)!);
 
                                 reader.Read();
                             }
@@ -118,7 +118,7 @@ namespace InfiniTimer.Services.JsonConverters
             throw new JsonException();
         }
 
-        public override void Write(Utf8JsonWriter writer, ITimerSection timerSection, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, TimerSection timerSection, JsonSerializerOptions options)
         {
             writer.WriteStartObject();
 
@@ -133,9 +133,9 @@ namespace InfiniTimer.Services.JsonConverters
             {
                 writer.WriteNumber("TypeDiscriminator", (int)TypeDiscriminator.AlternatingTimers);
                 writer.WritePropertyName("MainTimerSection");
-                JsonSerializer.Serialize(writer, alternatingTimerSection.MainTimerSection, typeof(ITimerSection), options);
+                JsonSerializer.Serialize(writer, alternatingTimerSection.MainTimerSection, typeof(TimerSection), options);
                 writer.WritePropertyName("AlternateTimerSection");
-                JsonSerializer.Serialize(writer, alternatingTimerSection.AlternateTimerSection, typeof(ITimerSection), options);
+                JsonSerializer.Serialize(writer, alternatingTimerSection.AlternateTimerSection, typeof(TimerSection), options);
                 writer.WriteNumber("Cycles", alternatingTimerSection.Cycles);
             }
             else if (timerSection is SequentialTimerSection sequentialTimerSection)
@@ -144,9 +144,9 @@ namespace InfiniTimer.Services.JsonConverters
                 writer.WritePropertyName("TimerSections");
                 writer.WriteStartArray();
 
-                foreach (ITimerSection section in sequentialTimerSection.TimerSections)
+                foreach (TimerSection section in sequentialTimerSection.TimerSections)
                 {
-                    JsonSerializer.Serialize(writer, section, typeof(ITimerSection), options);
+                    JsonSerializer.Serialize(writer, section, typeof(TimerSection), options);
                 }
 
                 writer.WriteEndArray();

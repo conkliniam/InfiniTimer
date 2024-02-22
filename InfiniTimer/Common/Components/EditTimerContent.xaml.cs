@@ -4,13 +4,13 @@ using System.ComponentModel;
 
 namespace InfiniTimer.Common.Components;
 
-public partial class TimerContent : ContentView, INotifyPropertyChanged
+public partial class EditTimerContent : ContentView, INotifyPropertyChanged
 {
-    private ITimerSection _timerSection;
+    private TimerSection _timerSection;
     private int _depth;
-    private Action<ITimerSection> _setTimer;
+    private Action<TimerSection> _setTimer;
 
-    public TimerContent()
+    public EditTimerContent()
     {
         InitializeComponent();
     }
@@ -34,7 +34,7 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
         }
     }
 
-    public ITimerSection TimerSection
+    public TimerSection TimerSection
     {
         get
         {
@@ -58,15 +58,15 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
 
                     if (_timerSection is AlternatingTimerSection alternatingTimerSection)
                     {
-                        timerContent.Children.Add(new AlternatingTimerView(alternatingTimerSection, HandleDelete));
+                        timerContent.Children.Add(new EditAlternatingTimerView(alternatingTimerSection, HandleDelete));
                     }
                     else if (_timerSection is SequentialTimerSection sequentialTimerSection)
                     {
-                        timerContent.Children.Add(new SequentialTimerView(sequentialTimerSection, HandleDelete));
+                        timerContent.Children.Add(new EditSequentialTimerView(sequentialTimerSection, HandleDelete));
                     }
                     else if (_timerSection is SingleTimerSection singleTimerSection)
                     {
-                        timerContent.Children.Add(new SingleTimerView(singleTimerSection, HandleDelete));
+                        timerContent.Children.Add(new EditSingleTimerView(singleTimerSection, HandleDelete));
                     }
                 }
             }
@@ -75,7 +75,7 @@ public partial class TimerContent : ContentView, INotifyPropertyChanged
 
     private Action HandleDelete { get; set; }
 
-    public Action<ITimerSection> SetTimer
+    public Action<TimerSection> SetTimer
     {
         get
         {

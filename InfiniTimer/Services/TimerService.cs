@@ -30,6 +30,14 @@ namespace InfiniTimer.Services
             return GetTimersDictionary().Values.ToList();
         }
 
+        public TimerModel GetSavedTimer(Guid timerId)
+        {
+            GetTimersDictionary().TryGetValue(timerId, out var timer);
+            return timer;
+        }
+
+        
+
         public bool SaveTimer(TimerModel timer)
         {
             try
@@ -93,7 +101,53 @@ namespace InfiniTimer.Services
                 Console.WriteLine("Encountered exception: " + ex.ToString());
                 return false; 
             }
+        }
 
+        public bool DeleteTimer(Guid timerId)
+        {
+            try
+            {
+                var savedTimers = GetTimersDictionary();
+
+                savedTimers.Remove(timerId);
+
+                var serializedData = JsonSerializer.Serialize(savedTimers, _serializerOptions);
+                File.WriteAllText(_filePath, serializedData);
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return false;
+            }
+        }
+
+        public bool SaveTimers(List<TimerModel> timers)
+        {
+            try
+            {
+                var savedTimers = GetTimersDictionary();
+
+                foreach (var timer in timers)
+                {
+                    if (timer.Id == Guid.Empty)
+                    {
+                        timer.Id = Guid.NewGuid();
+                    }
+
+                    savedTimers[timer.Id] = timer;
+                }
+
+                var serializedData = JsonSerializer.Serialize(savedTimers, _serializerOptions);
+                File.WriteAllText(_filePath, serializedData);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                return false;
+            }
         }
     }
 }

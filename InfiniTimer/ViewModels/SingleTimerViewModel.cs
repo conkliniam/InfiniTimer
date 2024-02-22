@@ -1,158 +1,94 @@
 ﻿using InfiniTimer.Common;
-using InfiniTimer.Enums;
 using InfiniTimer.Models.Timers;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace InfiniTimer.ViewModels
 {
-    public class SingleTimerViewModel : INotifyPropertyChanged
+    public class SingleTimerViewModel : CommonBase
     {
-        public const int SecondsPerHour = 3600;
-        public const int SecondsPerMinute = 60;
-        private string _color;
-        private Color _background;
-        private Color _foreground;
+        private Color _backColor;
+        private Color _foreColor;
 
-        public SingleTimerViewModel(SingleTimerSection timer)
+        public SingleTimerViewModel(SingleTimerSection singleTimerSection, Application application)
         {
-            Timer = timer;
-            TimerColorOptions = new ObservableCollection<string>(Enum.GetNames(typeof(TimerColor)).ToList());
-            HoursOptions = new ObservableCollection<int>(Enumerable.Range(0, 24));
-            MinutesSeconds = new ObservableCollection<int>(Enumerable.Range(0, 60));
-            Margin = new Thickness(timer.Depth * 5, 0);
-            _color = Enum.GetName(typeof(TimerColor), Timer.Color);
-            SetColors();
+            SingleTimerSection = singleTimerSection;
+            application.RequestedThemeChanged += Application_RequestedThemeChanged;
+
+            if (null != SingleTimerSection)
+            {
+                TimerDisplay = GetTimerDisplay(SingleTimerSection.Seconds);
+            }
+
+            GetDisplayColors(application.RequestedTheme);
+
         }
 
-        public SingleTimerSection Timer { get; set; }
-        public ObservableCollection<string> TimerColorOptions { get; private set; }
-        public ObservableCollection<int> HoursOptions { get; private set; }
-        public ObservableCollection<int> MinutesSeconds { get; private set; }
-        public Thickness Margin { get; private set; }
-        public Color ForegroundColor
+        private void Application_RequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
+        {
+            GetDisplayColors(e.RequestedTheme);
+        }
+
+        public SingleTimerSection SingleTimerSection { get; }
+
+        public Color ForeColor
         {
             get
             {
-                return _foreground;
+                return _foreColor;
             }
-            set
+            private set
             {
-                if (_foreground != value)
+                if (_foreColor != value)
                 {
-                    _foreground = value;
-                    OnPropertyChanged(nameof(ForegroundColor));
+                    _foreColor = value;
+                    RaisePropertyChanged(nameof(ForeColor));
                 }
             }
         }
 
-        public Color BackgroundColor
+        public Color BackColor
         {
             get
             {
-                return _background;
+                return _backColor;
             }
-            set
+            private set
             {
-                if (_background != value)
+                if (_backColor != value)
                 {
-                    _background = value;
-                    OnPropertyChanged(nameof(BackgroundColor));
-                }
-                
-            }
-        }
-
-        public string Color
-        {
-            get
-            {
-                return _color;
-            }
-            set
-            {
-                if (value != _color)
-                {
-                    _color = value;
-
-                    if (Enum.TryParse<TimerColor>(_color, out var newColor))
-                    {
-                        Timer.Color = newColor;
-                    }
-                    OnPropertyChanged(nameof(Color));
+                    _backColor = value;
+                    RaisePropertyChanged(nameof(BackColor));
                 }
             }
         }
 
-        public int Hours
+        public string TimerDisplay { get; private set; }
+
+        private void GetDisplayColors(AppTheme appTheme)
         {
-            get
+            if (null != SingleTimerSection)
             {
-                return Timer.Seconds / SecondsPerHour;
-            }
-            set
-            {
-                if (value != Hours)
-                {
-                    Timer.Seconds = Timer.Seconds + (SecondsPerHour * (value - Hours));
-                }
+                var colors = ColorHelper.TimerColors[SingleTimerSection.Color];
+                BackColor = appTheme == AppTheme.Light ? colors.Light : colors.Dark;
+                ForeColor = appTheme == AppTheme.Light ? Colors.Black : Colors.White;
             }
         }
 
-        public int Minutes
+        private static string GetTimerDisplay(int totalSeconds)
         {
-            get
-            {
-                return (Timer.Seconds % SecondsPerHour) / SecondsPerMinute;
-            }
-            set
-            {
-                if (value != Minutes)
-                {
-                    Timer.Seconds = Timer.Seconds + (SecondsPerMinute * (value - Minutes));
-                }
-            }
-        }
-        public int Seconds
-        {
-            get
-            {
-                return Timer.Seconds % SecondsPerMinute;
-            }
-            set
-            {
-                if (value != Seconds)
-                {
-                    Timer.Seconds = Timer.Seconds + value - Seconds;
-                }
-            }
-        }
+            int hours = totalSeconds / 3600;
+            int minutes = totalSeconds % 3600 / 60;
+            int seconds = totalSeconds % 60;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propName = null)
-        {
-            PropertyChanged?.Invoke(this,
-                 new PropertyChangedEventArgs(propName));
-        }
-
-        private void SetColors()
-        {
-            if (ColorHelper.TimerColors.ContainsKey(Timer.Color))
-            {
-                var colorOption = ColorHelper.TimerColors[Timer.Color];
-                Color = colorOption.Name;
-                BackgroundColor = colorOption.Dark;
-                ForegroundColor = colorOption.Light;
-            }
-        }
-
-        public void HandleColorSelection(string colorText, Color backgroundColor, Color foregroundColor)
-        {
-            Color = colorText;
-            BackgroundColor = backgroundColor;
-            ForegroundColor = foregroundColor;
+            if (hours > 0)
+                return $"{Convert.ToString(hours)}:{Convert.ToString(minutes).PadLeft(2, '0')}:{Convert.ToString(seconds).PadLeft(2, '0')}";
+            if (minutes > 0)
+                return $"{Convert.ToString(minutes).PadLeft(2, '0')}:{Convert.ToString(seconds).PadLeft(2, '0')}";
+            return $"00:{Convert.ToString(seconds).PadLeft(2, '0')}";
         }
     }
 }

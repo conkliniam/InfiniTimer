@@ -8,6 +8,6 @@ public partial class AdvancedTimerView : ContentView
 	public AdvancedTimerView(AdvancedTimerModel advancedTimerModel)
 	{
 		InitializeComponent();
-		BindingContext = new AdvancedTimerViewModel(advancedTimerModel, timerContent);
-    }
+		BindingContext = new AdvancedTimerViewModel(advancedTimerModel, viewTimerContent);
+	}
 }

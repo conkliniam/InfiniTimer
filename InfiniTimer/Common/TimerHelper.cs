@@ -8,7 +8,24 @@ namespace InfiniTimer.Common
     {
         public static void AddDefaultTimers(ObservableCollection<TimerModel> Timers)
         {
-            Timers.Add(new AdvancedTimerModel
+            Timers.Add(GetPomodoroTimer());
+            Timers.Add(GetFiftyTwoSeventeenTimer());
+            Timers.Add(GetSparacusTimer());
+        }
+
+        public static List<TimerModel> GetDefaultTimers()
+        {
+            return new List<TimerModel>()
+            {
+                GetPomodoroTimer(),
+                GetFiftyTwoSeventeenTimer(),
+                GetSparacusTimer()
+            };
+        }
+
+        private static AdvancedTimerModel GetPomodoroTimer()
+        {
+            return new AdvancedTimerModel
             {
                 Name = "Pomodoro Technique",
                 TimerSection = new AlternatingTimerSection(1)
@@ -39,9 +56,15 @@ namespace InfiniTimer.Common
                 },
                 Description = "25 minutes of work, followed by 5 minute breaks, with a 15 minute break after 4 work sessions.",
                 AutoRepeat = true,
-                AutoContinue = false
-            });
-            Timers.Add(new AdvancedTimerModel
+                AutoContinue = false,
+                IsDirty = false,
+                IgnoreChanges = false
+            };
+        }
+
+        private static AdvancedTimerModel GetFiftyTwoSeventeenTimer()
+        {
+            return new AdvancedTimerModel
             {
                 Name = "52/17",
                 TimerSection = new AlternatingTimerSection(1)
@@ -64,9 +87,14 @@ namespace InfiniTimer.Common
                 },
                 Description = "52 minutes of work followed by a 17 minute break",
                 AutoRepeat = true,
-                AutoContinue = false
-            });
-            Timers.Add(new AdvancedTimerModel
+                AutoContinue = false,
+                IsDirty = false
+            };
+        }
+
+        private static AdvancedTimerModel GetSparacusTimer()
+        {
+            return new AdvancedTimerModel
             {
                 Name = "Spartacus Timers",
                 TimerSection = new AlternatingTimerSection(1)
@@ -97,8 +125,9 @@ namespace InfiniTimer.Common
                 },
                 Description = "Timers for sparacus workout consisting of 3 sets of 10 60 second exercises",
                 AutoRepeat = false,
-                AutoContinue = true
-            });
+                AutoContinue = true,
+                IsDirty = false
+            };
         }
     }
 }

@@ -67,6 +67,7 @@ namespace InfiniTimer.Services.JsonConverters
 
         public override void Write(Utf8JsonWriter writer, TimerModel timerModel, JsonSerializerOptions options)
         {
+            timerModel.IgnoreChanges = true;
 
             writer.WriteStartObject();
 
@@ -80,7 +81,7 @@ namespace InfiniTimer.Services.JsonConverters
             {
                 writer.WriteNumber("TypeDiscriminator", (int)TypeDiscriminator.AdvancedTimer);
                 writer.WritePropertyName("TimerSection");
-                JsonSerializer.Serialize(writer, advancedTimerModel.TimerSection, typeof(ITimerSection), options);
+                JsonSerializer.Serialize(writer, advancedTimerModel.TimerSection, typeof(TimerSection), options);
                 writer.WriteString("Description", advancedTimerModel.Description);
                 writer.WriteBoolean("AutoContinue", advancedTimerModel.AutoContinue);
                 writer.WriteBoolean("AutoRepeat", advancedTimerModel.AutoRepeat);
@@ -89,6 +90,8 @@ namespace InfiniTimer.Services.JsonConverters
             writer.WriteString("Id", timerModel.Id);
             writer.WriteString("Name", timerModel.Name);
             writer.WriteBoolean("IsDirty", timerModel.IsDirty);
+
+            timerModel.IgnoreChanges = false;
 
             writer.WriteEndObject();
         }

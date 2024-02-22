@@ -1,106 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
              x:Class="InfiniTimer.Views.SingleTimerView">
-    <VerticalStackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="8*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <local:EditLabel Text="Timer"
-                             TextColor="White"
-                             Grid.Column="1"/>
-            <ImageButton x:Name="deleteButton"
-                         Source="{AppThemeBinding Dark=trash_fill_dark.png Light=trash_fill_light.png}"
-                         Grid.Column="2"
-                         Clicked="DeleteButtonClicked"/>
-        </Grid>
-        <Frame BorderColor="{StaticResource DarkGray}" Padding="10">
-            <VerticalStackLayout BackgroundColor="{Binding BackgroundColor}">
-                <Grid Padding="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="3*"/>
-                    </Grid.ColumnDefinitions>
-                    <local:EditLabel Text="Display Text"
-                                     Grid.Column="0"
-                                     TextColor="White"/>
-                    <Entry x:Name="displayText"
-                           Placeholder="Enter Display Text"
-                           Grid.Column="1"
-                           Text="{Binding Timer.DisplayText}"
-                           ClearButtonVisibility="WhileEditing"
-                           TextColor="White"/>
-                </Grid>
-                <Grid Padding="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <local:EditLabel Text="Hours"
-                                     Grid.Column="0"
-                                     Grid.Row="0"
-                                     HorizontalTextAlignment="Center"
-                                     TextColor="White"/>
-                    <local:EditLabel Text="Min"
-                                     Grid.Column="1"
-                                     Grid.Row="0"
-                                     HorizontalTextAlignment="Center"
-                                     TextColor="White"/>
-                    <local:EditLabel Text="Sec"
-                                     Grid.Column="2"
-                                     Grid.Row="0"
-                                     HorizontalTextAlignment="Center"
-                                     TextColor="White">
-                    </local:EditLabel>
-                    <Picker x:Name="hoursPicker"
-                            Title="Hours"
-                            ItemsSource="{Binding HoursOptions}"
-                            SelectedItem="{Binding Hours}"
-                            HorizontalTextAlignment="Center"
-                            Grid.Column="0"
-                            Grid.Row="1"
-                            TextColor="White"/>
-                    <Picker x:Name="minutesPicker"
-                            Title="Minutes"
-                            ItemsSource="{Binding MinutesSeconds}"
-                            SelectedItem="{Binding Minutes}"
-                            HorizontalTextAlignment="Center"
-                            Grid.Column="1"
-                            Grid.Row="1"
-                            TextColor="White"/>
-                    <Picker x:Name="secondsPicker"
-                        Title="Seconds"
-                        ItemsSource="{Binding MinutesSeconds}"
-                        SelectedItem="{Binding Seconds}"
-                        HorizontalTextAlignment="Center"
-                        Grid.Column="2"
-                        Grid.Row="1"
-                        TextColor="White"/>
-                </Grid>
-                <Grid Padding="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <local:EditLabel Text="Color"
-                                     Grid.Column="0"
-                                     TextColor="White"/>
-                    <Button BackgroundColor="{Binding ForegroundColor}"
-                            Text="{Binding Color}"
-                            Clicked="PickColorClicked"
-                            Grid.Column="1"
-                            TextColor="Black"></Button>
-                </Grid>
-            </VerticalStackLayout>
-        </Frame>
+    <VerticalStackLayout BackgroundColor="{Binding BackColor}"
+                         Padding="5,10">
+        <Label Text="{Binding SingleTimerSection.DisplayText}"
+                   TextColor="{Binding ForeColor}"
+                   HorizontalTextAlignment="Center"
+                   FontSize="20"/>
+        <Label Text="{Binding TimerDisplay}"
+                   TextColor="{Binding ForeColor}"
+                   HorizontalTextAlignment="Center"
+                   FontSize="15"/>
     </VerticalStackLayout>
 </ContentView>

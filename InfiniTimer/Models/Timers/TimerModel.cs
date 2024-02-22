@@ -1,11 +1,14 @@
-﻿using System.ComponentModel;
+﻿using InfiniTimer.Common;
+using System.ComponentModel;
 
 namespace InfiniTimer.Models.Timers
 {
-    public abstract class TimerModel : INotifyPropertyChanged
+    public abstract class TimerModel : CommonBase
     {
         private string _name;
         private bool _isDirty;
+        private bool _isSelected;
+        private bool _isStaged;
 
         public Guid Id { get; set; }
 
@@ -24,7 +27,7 @@ namespace InfiniTimer.Models.Timers
                     if (!IgnoreChanges)
                     {
                         HandleChange();
-                        OnPropertyChanged(nameof(Name));
+                        RaisePropertyChanged(nameof(Name));
                     }
                 }
             }
@@ -43,20 +46,54 @@ namespace InfiniTimer.Models.Timers
 
                     if (!IgnoreChanges)
                     {
-                        OnPropertyChanged(nameof(IsDirty));
+                        RaisePropertyChanged(nameof(IsDirty));
+                    }
+                }
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+
+                    if (!IgnoreChanges)
+                    {
+                        RaisePropertyChanged(nameof(IsSelected));
+                    }
+                }
+            }
+        }
+
+        public bool IsStaged
+        {
+            get
+            {
+                return _isStaged;
+            }
+            set
+            {
+                if (_isStaged != value)
+                {
+                    _isStaged = value;
+
+                    if (!IgnoreChanges)
+                    {
+                        HandleChange();
+                        RaisePropertyChanged(nameof(IsStaged));
                     }
                 }
             }
         }
 
         public bool IgnoreChanges { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         protected void HandleChange()
         {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
+             x:Class="InfiniTimer.Views.EditAlternatingTimerView">
+    <VerticalStackLayout >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="21*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <local:EditLabel Text="Alternating Section"
+                             HorizontalTextAlignment="Start"
+                             Margin="{Binding Margin}"
+                             Grid.Column="1"/>
+            <ImageButton x:Name="deleteButton"
+                         Source="{AppThemeBinding Dark=trash_fill_dark.png Light=trash_fill_light.png}"
+                         Grid.Column="2"
+                         Clicked="DeleteButtonClicked"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <local:EditLabel Text="Cycles"
+                             Grid.Column="1"/>
+            <Picker x:Name="cyclesPicker"
+                    Title="Number of cycles"
+                    ItemsSource="{Binding CycleOptions}"
+                    SelectedItem="{Binding AlternatingTimerSection.Cycles}"
+                    HorizontalTextAlignment="Center"
+                    Grid.Column="2"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <local:EditLabel
+                Grid.Column="1"
+                Text="Main Section"
+                HorizontalTextAlignment="Start"
+                Margin="{Binding Margin}"/>
+        </Grid>
+        <local:EditTimerContent x:Name="mainTimerLayout"
+                            BackgroundColor="{Binding NextColor}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <local:EditLabel Text="Alternate Section"
+                             HorizontalTextAlignment="Start"
+                             Margin="{Binding Margin}"
+                             Grid.Column="1"/>
+        </Grid>
+        
+        <local:EditTimerContent x:Name="alternateTimerLayout"
+                            BackgroundColor="{Binding NextColor}"/>
+    </VerticalStackLayout>
+</ContentView>

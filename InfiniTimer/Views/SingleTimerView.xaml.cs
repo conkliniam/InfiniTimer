@@ -5,31 +5,9 @@ namespace InfiniTimer.Views;
 
 public partial class SingleTimerView : ContentView
 {
-	private readonly Action _handleDelete;
-	public SingleTimerView(SingleTimerSection singleTimerSection, Action handleDelete = null)
+	public SingleTimerView(SingleTimerSection singleTimerSection)
 	{
 		InitializeComponent();
-		BindingContext = new SingleTimerViewModel(singleTimerSection);
-		
-		if (null != handleDelete)
-		{
-            _handleDelete = handleDelete;
-        }
-		else
-		{
-			deleteButton.IsVisible = false;
-		}
-			
+		BindingContext = new SingleTimerViewModel(singleTimerSection, Application.Current);
 	}
-
-    private async void PickColorClicked(object sender, EventArgs e)
-    {
-		await Navigation.PushModalAsync
-			(new ColorPickerView(((SingleTimerViewModel)BindingContext).HandleColorSelection));
-    }
-
-    private void DeleteButtonClicked(object sender, EventArgs e)
-    {
-		_handleDelete();
-    }
 }

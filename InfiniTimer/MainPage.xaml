@@ -9,6 +9,7 @@
             Spacing="25"
             Padding="30,0">
             <Image
+                x:Name="infiniTimerLogo"
                 Source="infini_timer.png"
                 SemanticProperties.Description="InfiniTimer logo"
                 HorizontalOptions="Center" />

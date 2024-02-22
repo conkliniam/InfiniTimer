@@ -2,10 +2,10 @@
 
 namespace InfiniTimer.Models.Timers
 {
-    public class AlternatingTimerSection : ITimerSection
+    public class AlternatingTimerSection : TimerSection
     {
-        private ITimerSection _mainTimerSection;
-        private ITimerSection _alternateTimerSection;
+        private TimerSection _mainTimerSection;
+        private TimerSection _alternateTimerSection;
         private int _cycles;
 
         public AlternatingTimerSection(int depth = 0)
@@ -13,7 +13,7 @@ namespace InfiniTimer.Models.Timers
             Depth = depth;
         }
 
-        public ITimerSection MainTimerSection
+        public TimerSection MainTimerSection
         {
             get
             {
@@ -36,12 +36,12 @@ namespace InfiniTimer.Models.Timers
                         _mainTimerSection.PropertyChanged += TimerSection_PropertyChanged;
                     }
 
-                    OnPropertyChanged(nameof(MainTimerSection));
+                    RaisePropertyChanged(nameof(MainTimerSection));
                 }
             }
         }
 
-        public ITimerSection AlternateTimerSection
+        public TimerSection AlternateTimerSection
         {
             get
             {
@@ -64,7 +64,7 @@ namespace InfiniTimer.Models.Timers
                         _alternateTimerSection.PropertyChanged += TimerSection_PropertyChanged;
                     }
 
-                    OnPropertyChanged(nameof(AlternateTimerSection));
+                    RaisePropertyChanged(nameof(AlternateTimerSection));
                 }
             }
         }
@@ -80,23 +80,14 @@ namespace InfiniTimer.Models.Timers
                 if (_cycles != value)
                 {
                     _cycles = value;
-                    OnPropertyChanged(nameof(Cycles));
+                    RaisePropertyChanged(nameof(Cycles));
                 }
             }
         }
 
-        public int Depth { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         protected void TimerSection_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            OnPropertyChanged("AlternatingTimerSection." + e.PropertyName);
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            RaisePropertyChanged("AlternatingTimerSection." + e.PropertyName);
         }
     }
 }

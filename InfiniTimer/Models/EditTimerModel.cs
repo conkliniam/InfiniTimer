@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
+using InfiniTimer.Common;
 using InfiniTimer.Enums;
 using InfiniTimer.Models.Timers;
 
 namespace InfiniTimer.Models
 {
-    public class EditTimerModel : INotifyPropertyChanged
+    public class EditTimerModel : CommonBase
     {
         private string _timerType;
         private TimerModel _timerModel;
@@ -28,7 +29,7 @@ namespace InfiniTimer.Models
                 if (_timerType != value)
                 {
                     _timerType = value;
-                    OnPropertyChanged(nameof(TimerType));
+                    RaisePropertyChanged(nameof(TimerType));
                 }
             }
         }
@@ -59,16 +60,9 @@ namespace InfiniTimer.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private void TimerModel_PropertyChange(object sender, PropertyChangedEventArgs e)
         {
-            OnPropertyChanged("EditTimerModel." + e.PropertyName);
-        }
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            RaisePropertyChanged("TimerModel." + e.PropertyName);
         }
     }
 }
