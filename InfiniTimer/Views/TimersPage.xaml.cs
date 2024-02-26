@@ -1,5 +1,4 @@
 using InfiniTimer.Common;
-using InfiniTimer.Enums;
 using InfiniTimer.Models.Timers;
 using InfiniTimer.Services;
 using InfiniTimer.ViewModels;
@@ -9,17 +8,26 @@ namespace InfiniTimer;
 
 public partial class TimersPage : ContentPage
 {
-    public TimersPage(TimersViewModel timersViewModel)
+    private readonly ISavedTimerService _savedTimerService;
+    private readonly IStagedTimerService _stagedTimerService;
+
+    public TimersPage(TimersViewModel timersViewModel,
+                      ISavedTimerService savedTimerService,
+                      IStagedTimerService stagedTimerService)
     {
         InitializeComponent();
         BindingContext = timersViewModel;
+        _savedTimerService = savedTimerService;
+        _stagedTimerService = stagedTimerService;
     }
 
     private async void NewTimerClicked(object sender, EventArgs e)
     {
         try
         {
-            await Navigation.PushAsync(new EditTimerPage(null, ((TimersViewModel)BindingContext).HandleSaveTimer));
+            TimerModel newTimerModel = new SimpleTimerModel();
+            _savedTimerService.AddSessionTimer(newTimerModel);
+            await Navigation.PushAsync(new EditTimerPage(newTimerModel, _savedTimerService, _stagedTimerService));
         }
         catch (Exception ex)
         {
@@ -27,14 +35,12 @@ public partial class TimersPage : ContentPage
         }
     }
 
-    private async void EditTimerClicked(object sender, EventArgs e)
+    private async void StageSelectedClicked(object sender, EventArgs e)
     {
         try
         {
-            await Navigation.PushAsync
-                (new EditTimerPage
-                    ((TimerModel)((ImageButton)sender).CommandParameter,
-                     ((TimersViewModel)BindingContext).HandleSaveTimer));
+            ((TimersViewModel)BindingContext).HandleStageSelected();
+            await MessageHelper.ShowSuccessMessage("Timers Staged");
         }
         catch (Exception ex)
         {
@@ -42,21 +48,45 @@ public partial class TimersPage : ContentPage
         }
     }
 
-    private async void StageTimerClicked(object sender, EventArgs e)
+    private async void UnstageSelectedClicked(object sender, EventArgs e)
     {
-
+        try
+        {
+            ((TimersViewModel)BindingContext).HandleUnstageSelected();
+            await MessageHelper.ShowSuccessMessage("Timers Unstaged");
+        }
+        catch (Exception ex)
+        {
+            await MessageHelper.HandleException(ex);
+        }
     }
 
     private async void DeleteSelectedClicked(object sender, EventArgs e)
     {
+        try
+        {
+            bool success = ((TimersViewModel)BindingContext).HandleDeleteSelected();
 
+            if (success)
+            {
+                await MessageHelper.ShowSuccessMessage("Delete Successful");
+            }
+            else
+            {
+                await MessageHelper.ShowFailureMessage("Delete Failed");
+            }
+        }
+        catch (Exception ex)
+        {
+            await MessageHelper.HandleException(ex);
+        }
     }
 
     private async void DeleteClicked(object sender, EventArgs e)
     {
         try
         {
-            bool success = ((TimersViewModel)BindingContext).HandleDelete();
+            bool success = ((TimersViewModel)BindingContext).HandleDeleteAll();
 
             if (success)
             {
@@ -159,9 +189,9 @@ public partial class TimersPage : ContentPage
         else
         {
             actionButtons.IsVisible = true;
-            hiddenRow.Height = new GridLength(5, GridUnitType.Star);
+            hiddenRow.Height = new GridLength(7, GridUnitType.Star);
             headerRow.Height = new GridLength(2, GridUnitType.Star);
-            listRow.Height = new GridLength(17, GridUnitType.Star);
+            listRow.Height = new GridLength(15, GridUnitType.Star);
         }
     }
 
@@ -169,8 +199,21 @@ public partial class TimersPage : ContentPage
     {
         if (listTimers.SelectedItem != null)
         {
-            await Navigation.PushAsync(new TimerView((TimerModel)listTimers.SelectedItem));
+            var timer = (TimerModel)listTimers.SelectedItem;
+
+            await Navigation.PushAsync(new TimerView(timer, _savedTimerService, _stagedTimerService));
+
             listTimers.SelectedItem = null;
         }
+    }
+
+    private void SelectAllClicked(object sender, EventArgs e)
+    {
+        ((TimersViewModel)BindingContext).SelectAll();
+    }
+
+    private void UnselectAllClicked(object sender, EventArgs e)
+    {
+        ((TimersViewModel)BindingContext).UnselectAll();
     }
 }

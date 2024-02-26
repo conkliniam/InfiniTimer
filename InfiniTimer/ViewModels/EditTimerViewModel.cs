@@ -1,6 +1,7 @@
 ﻿using InfiniTimer.Enums;
 using InfiniTimer.Models;
 using InfiniTimer.Models.Timers;
+using InfiniTimer.Services;
 using InfiniTimer.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,18 +10,36 @@ namespace InfiniTimer.ViewModels
 {
     public class EditTimerViewModel
     {
+        #region Private Fields
         private readonly StackLayout _timerLayout;
+        private readonly ISavedTimerService _savedTimerService;
+        private readonly IStagedTimerService _stagedTimerService;
         private EditTimerModel _editTimerModel;
+        #endregion
 
-        public EditTimerViewModel(StackLayout timerLayout, TimerModel timerModel = null)
+        #region Constructors
+        public EditTimerViewModel(StackLayout timerLayout,
+                                  TimerModel timerModel,
+                                  ISavedTimerService savedTimerService,
+                                  IStagedTimerService stagedTimerService)
         {
             _timerLayout = timerLayout;
-            timerModel ??= new SimpleTimerModel();
+            _savedTimerService = savedTimerService;
+            _stagedTimerService = stagedTimerService;
+            
+            if (timerModel == null)
+            {
+                timerModel = new SimpleTimerModel();
+                _savedTimerService.AddSessionTimer(timerModel);
+            }
+
             EditTimerModel = new EditTimerModel(timerModel);
             TimerTypes = new ObservableCollection<string>(Enum.GetNames(typeof(TimerType)).ToList());
             FillTimerLayout();
         }
+        #endregion
 
+        #region Public Properties
         public ObservableCollection<String> TimerTypes { get; private set; }
 
         public EditTimerModel EditTimerModel
@@ -52,6 +71,22 @@ namespace InfiniTimer.ViewModels
 
         public EditSingleTimerView SingleTimerView { get; set; }
         public EditAdvancedTimerView AdvancedTimerView { get; set; }
+        #endregion
+
+        public void HandleCancel()
+        {
+            _savedTimerService.ResetTimer(EditTimerModel.TimerModel.Id);
+        }
+
+        public bool HandleSave()
+        {
+            return _savedTimerService.SaveTimer(EditTimerModel.TimerModel.Id);
+        }
+
+        public void HandleStage()
+        {
+            _stagedTimerService.StageTimer(EditTimerModel.TimerModel);
+        }
 
         private void EditTimerModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

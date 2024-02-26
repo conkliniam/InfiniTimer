@@ -35,7 +35,8 @@ namespace InfiniTimer
 
         public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder mauiAppBuilder)
         {
-            mauiAppBuilder.Services.AddSingleton<ITimerService, TimerService>();
+            mauiAppBuilder.Services.AddSingleton<ISavedTimerService, SavedTimerService>();
+            mauiAppBuilder.Services.AddSingleton<IStagedTimerService, StagedTimerService>();
 
             return mauiAppBuilder;
         }

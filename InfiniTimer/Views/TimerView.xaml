@@ -22,38 +22,55 @@
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"/>
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <ImageButton Grid.Column="0"
-                         Margin="15"
-                         Source="{AppThemeBinding Dark=pencil_square_light.png, Light=pencil_square_dark.png}"
-                         Clicked="EditClicked"/>
-            <ImageButton Grid.Column="1"
-                         Margin="15"
-                         Source="{AppThemeBinding Dark=plus_square_light.png, Light=plus_square_dark.png}"
-                         Clicked="StageClicked"
-                         IsVisible="{Binding TimerModel.IsStaged, Converter={StaticResource InvertedBoolConverter}}"
-                         x:Name="stageButton"/>
-            <ImageButton Grid.Column="1"
-                         Margin="15"
-                         Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
-                         Clicked="UnstageClicked"
-                         IsVisible="{Binding TimerModel.IsStaged}"
-                         x:Name="unstageButton"/>
-            <ImageButton Grid.Column="2"
-                         Margin="15"
-                         Source="{AppThemeBinding Dark=floppy_fill_dark.png, Light=floppy_fill_light.png}"
-                         Clicked="SaveClicked"
-                         IsVisible="{Binding TimerModel.IsDirty}"/>
-            <ImageButton Grid.Column="3"
-                         Margin="15"
-                         Source="{AppThemeBinding Dark=arrow_counterclockwise_dark.png, Light=arrow_counterclockwise_light.png}"
-                         Clicked="ResetClicked"
-                         IsVisible="{Binding TimerModel.IsDirty}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ImageButton Grid.Column="0"
+                             Padding="5"
+                             Source="{AppThemeBinding Dark=pencil_square_light.png, Light=pencil_square_dark.png}"
+                             Clicked="EditClicked"/>
+                <ImageButton Grid.Column="1"
+                             Padding="5"
+                             Source="{AppThemeBinding Dark=plus_square_light.png, Light=plus_square_dark.png}"
+                             Clicked="StageClicked"
+                             IsVisible="{Binding TimerModel.IsStaged, Converter={StaticResource InvertedBoolConverter}}"
+                             x:Name="stageButton"/>
+                <ImageButton Grid.Column="1"
+                             Padding="5"
+                             Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
+                             Clicked="UnstageClicked"
+                             IsVisible="{Binding TimerModel.IsStaged}"
+                             x:Name="unstageButton"/>
+                <ImageButton Grid.Column="2"
+                             Padding="5"
+                             Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
+                             Clicked="SaveClicked"
+                             IsVisible="{Binding TimerModel.IsDirty}"/>
+                <ImageButton Grid.Column="3"
+                             Padding="5"
+                             Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
+                             Clicked="ResetClicked"
+                             IsVisible="{Binding TimerModel.IsDirty}"/>
+                <ImageButton Grid.Column="4"
+                             Padding="5"
+                             Source="{AppThemeBinding Dark=clipboard_plus_fill_light.png, Light=clipboard_plus_fill_dark.png}"
+                             Clicked="CopyClicked"/>
+                <ImageButton Grid.Column="5"
+                             Padding="5"
+                             Source="{AppThemeBinding Dark=trash_fill_light.png, Light=trash_fill_dark.png}"
+                             Clicked="DeleteClicked"/>
+            </Grid>
+            <BoxView Grid.Row="1" Color="White" HeightRequest="5"/>
         </Grid>
         <ScrollView Grid.Row="2" >
             <StackLayout x:Name="timerContent">

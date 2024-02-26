@@ -48,6 +48,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\clipboard_plus_fill_dark.svg" />
+	  <None Remove="Resources\Images\clipboard_plus_fill_light.svg" />
 	  <None Remove="Resources\Images\dash_square_dark.svg" />
 	  <None Remove="Resources\Images\dash_square_light.svg" />
 	  <None Remove="Resources\Images\floppy_fill_dark.svg" />

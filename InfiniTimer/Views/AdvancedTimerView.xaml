@@ -4,7 +4,6 @@
              x:Class="InfiniTimer.Views.AdvancedTimerView"
              xmlns:local="clr-namespace:InfiniTimer.Common.Components">
     <VerticalStackLayout Margin="5">
-        <BoxView Color="White" HeightRequest="5" Margin="0,5,0,5"/>
         <Label 
             Text="{Binding AdvancedTimerModel.Description}"
             FontSize="20"

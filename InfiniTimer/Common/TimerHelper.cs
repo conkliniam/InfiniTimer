@@ -88,7 +88,8 @@ namespace InfiniTimer.Common
                 Description = "52 minutes of work followed by a 17 minute break",
                 AutoRepeat = true,
                 AutoContinue = false,
-                IsDirty = false
+                IsDirty = false,
+                IgnoreChanges = false
             };
         }
 
@@ -126,7 +127,8 @@ namespace InfiniTimer.Common
                 Description = "Timers for sparacus workout consisting of 3 sets of 10 60 second exercises",
                 AutoRepeat = false,
                 AutoContinue = true,
-                IsDirty = false
+                IsDirty = false,
+                IgnoreChanges = false
             };
         }
     }

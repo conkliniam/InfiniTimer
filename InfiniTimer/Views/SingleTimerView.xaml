@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.Views.SingleTimerView">
     <VerticalStackLayout BackgroundColor="{Binding BackColor}"
-                         Padding="5,10">
+                         Padding="5,20">
         <Label Text="{Binding SingleTimerSection.DisplayText}"
                    TextColor="{Binding ForeColor}"
                    HorizontalTextAlignment="Center"
-                   FontSize="20"/>
+                   FontSize="{Binding DisplayFont}"/>
         <Label Text="{Binding TimerDisplay}"
                    TextColor="{Binding ForeColor}"
                    HorizontalTextAlignment="Center"
-                   FontSize="15"/>
+                   FontSize="{Binding TimerFont}"/>
     </VerticalStackLayout>
 </ContentView>

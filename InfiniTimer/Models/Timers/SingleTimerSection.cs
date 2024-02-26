@@ -1,4 +1,5 @@
-﻿using InfiniTimer.Enums;
+﻿using InfiniTimer.Common;
+using InfiniTimer.Enums;
 
 namespace InfiniTimer.Models.Timers
 {
@@ -24,6 +25,7 @@ namespace InfiniTimer.Models.Timers
                 if (_displayText != value)
                 {
                     _displayText = value;
+
                     RaisePropertyChanged(nameof(DisplayText));
                 }
             }

@@ -1,4 +1,6 @@
-﻿using InfiniTimer.Models.Timers;
+﻿using InfiniTimer.Common;
+using InfiniTimer.Models.Timers;
+using InfiniTimer.Services;
 using InfiniTimer.ViewModels;
 using Newtonsoft.Json;
 
@@ -6,30 +8,24 @@ namespace InfiniTimer
 {
     public partial class EditTimerPage : ContentPage
     {
-        private readonly Func<TimerModel, bool> _handleSave;
-        private readonly Action<TimerModel> _handleStage;
-
-        public EditTimerPage(TimerModel timerModel = null, Func<TimerModel, bool> handleSave = null, Action<TimerModel> handleStage = null)
+        public EditTimerPage(TimerModel timerModel,
+                             ISavedTimerService savedTimerService,
+                             IStagedTimerService stagedTimerService,
+                             bool showSave = true)
         {
             InitializeComponent();
-            BindingContext = new EditTimerViewModel(timerLayout, timerModel);
+            BindingContext = new EditTimerViewModel(timerLayout,
+                                                    timerModel,
+                                                    savedTimerService,
+                                                    stagedTimerService);
 
-            if (handleSave is null)
-            {
-                saveButton.IsVisible = false;
-            }
-            else
-            {
-                _handleSave = handleSave;
-            }
-
-            if (handleStage is null)
+            if (showSave)
             {
                 stageButton.IsVisible = false;
             }
             else
             {
-                _handleStage = handleStage;
+                saveButton.IsVisible = false;
             }
         }
 
@@ -41,33 +37,51 @@ namespace InfiniTimer
 
         private async void CancelClicked(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            try
+            {
+                ((EditTimerViewModel)BindingContext).HandleCancel();
+                await Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                await MessageHelper.HandleException(ex);
+            }
         }
 
         private async void SaveClicked(object sender, EventArgs e)
         {
-            bool success = false;
+            try
+            {
+                bool success = ((EditTimerViewModel)BindingContext).HandleSave();
 
-            if (_handleSave != null)
-            {
-                success = _handleSave.Invoke(((EditTimerViewModel)BindingContext).EditTimerModel.TimerModel);
+                if (!success)
+                {
+                    await MessageHelper.ShowFailureMessage("Save Failed");
+                }
+                else
+                {
+                    await Navigation.PopAsync(true);
+                    await MessageHelper.ShowSuccessMessage("Save Successful");
+                }
             }
-
-            if (!success)
+            catch (Exception ex)
             {
-                await DisplayAlert("Save Failed", "Unable to save changes, please fix any errors and try again.", "Ok");
-            }
-            else
-            {
-                await Navigation.PopAsync(true);
+                await MessageHelper.HandleException(ex);
             }
         }
 
-        private void StageClicked(object sender, EventArgs e)
+        private async void StageClicked(object sender, EventArgs e)
         {
-            var timerModel = ((EditTimerViewModel)BindingContext).EditTimerModel.TimerModel;
-            timerModel.IsDirty = true;
-            _handleStage?.Invoke(timerModel);
+            try
+            {
+                ((EditTimerViewModel)BindingContext).HandleStage();
+                await Navigation.PopAsync(true);
+                await MessageHelper.ShowSuccessMessage("Stage Successful");
+            }
+            catch (Exception ex)
+            {
+                await MessageHelper.HandleException(ex);
+            }
         }
     }
 }

@@ -22,6 +22,7 @@ namespace InfiniTimer.Models.Timers
             {
                 if (_name != value)
                 {
+
                     _name = value;
 
                     if (!IgnoreChanges)

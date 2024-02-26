@@ -10,9 +10,14 @@ namespace InfiniTimer.ViewModels
 {
     public class SingleTimerViewModel : CommonBase
     {
+        #region Private Variables
         private Color _backColor;
         private Color _foreColor;
+        private int _timerFont;
+        private int _displayFont;
+        #endregion
 
+        #region Constructors
         public SingleTimerViewModel(SingleTimerSection singleTimerSection, Application application)
         {
             SingleTimerSection = singleTimerSection;
@@ -24,14 +29,12 @@ namespace InfiniTimer.ViewModels
             }
 
             GetDisplayColors(application.RequestedTheme);
+            GetFontSizes();
 
         }
+        #endregion
 
-        private void Application_RequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
-        {
-            GetDisplayColors(e.RequestedTheme);
-        }
-
+        #region Properties
         public SingleTimerSection SingleTimerSection { get; }
 
         public Color ForeColor
@@ -66,7 +69,56 @@ namespace InfiniTimer.ViewModels
             }
         }
 
+        public int DisplayFont
+        {
+            get
+            {
+                return _displayFont;
+            }
+            set
+            {
+                if (_displayFont != value)
+                {
+                    _displayFont = value;
+                    RaisePropertyChanged(nameof(DisplayFont));
+                }
+            }
+        }
+
+        public int TimerFont
+        {
+            get
+            {
+                return _timerFont;
+            }
+            set
+            {
+                if (_timerFont != value)
+                {
+                    _timerFont = value;
+                    RaisePropertyChanged(nameof(TimerFont));
+                }
+            }
+        }
+
         public string TimerDisplay { get; private set; }
+        #endregion
+
+        #region Private Methods
+        private void GetFontSizes()
+        {
+            // Depth 5: Display Font = 20
+            // Depth 5 Timer Font = 15
+            DisplayFont = 45 - 5 * SingleTimerSection.Depth;
+            TimerFont = DisplayFont - 5;
+        }
+
+        private void Application_RequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
+        {
+            GetDisplayColors(e.RequestedTheme);
+        }
+
+
 
         private void GetDisplayColors(AppTheme appTheme)
         {
@@ -90,5 +142,6 @@ namespace InfiniTimer.ViewModels
                 return $"{Convert.ToString(minutes).PadLeft(2, '0')}:{Convert.ToString(seconds).PadLeft(2, '0')}";
             return $"00:{Convert.ToString(seconds).PadLeft(2, '0')}";
         }
+        #endregion
     }
 }

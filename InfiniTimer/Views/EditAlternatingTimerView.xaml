@@ -15,7 +15,7 @@
                              Margin="{Binding Margin}"
                              Grid.Column="1"/>
             <ImageButton x:Name="deleteButton"
-                         Source="{AppThemeBinding Dark=trash_fill_dark.png Light=trash_fill_light.png}"
+                         Source="{AppThemeBinding Dark=trash_fill_light.png Light=trash_fill_dark.png}"
                          Grid.Column="2"
                          Clicked="DeleteButtonClicked"/>
         </Grid>

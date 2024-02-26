@@ -91,8 +91,6 @@ namespace InfiniTimer.Services.JsonConverters
             writer.WriteString("Name", timerModel.Name);
             writer.WriteBoolean("IsDirty", timerModel.IsDirty);
 
-            timerModel.IgnoreChanges = false;
-
             writer.WriteEndObject();
         }
     }
