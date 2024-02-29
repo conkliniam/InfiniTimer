@@ -15,6 +15,7 @@ namespace InfiniTimer.ViewModels
         private readonly StackLayout _timerContent;
         private readonly ISavedTimerService _savedTimerService;
         private readonly IStagedTimerService _stagedTimerService;
+        private readonly INavigation _navigation;
         private TimerModel _timerModel;
         #endregion
 
@@ -22,11 +23,13 @@ namespace InfiniTimer.ViewModels
         public TimerViewModel(TimerModel timerModel,
                               StackLayout timerContent,
                               ISavedTimerService savedTimerService,
-                              IStagedTimerService stagedTimerService)
+                              IStagedTimerService stagedTimerService,
+                              INavigation navigation)
         {
             _timerContent = timerContent;
             _savedTimerService = savedTimerService;
             _stagedTimerService = stagedTimerService;
+            _navigation = navigation;
             TimerModel = timerModel;
             RegisterForMessages();
         }
@@ -115,6 +118,19 @@ namespace InfiniTimer.ViewModels
             {
                 OnTimerDoneEditing(m.Value);
             });
+
+            WeakReferenceMessenger.Default.Register<TimerRemovedMessage>(this, async (r, m) =>
+            {
+                await OnTimerRemoved(m.Value);
+            });
+        }
+
+        private async Task OnTimerRemoved(Guid timerId)
+        {
+            if (TimerModel.Id == timerId)
+            {
+                await _navigation.PopAsync();
+            }
         }
 
         private void OnTimerDoneEditing(TimerModel value)

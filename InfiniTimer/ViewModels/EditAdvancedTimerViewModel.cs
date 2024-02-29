@@ -11,12 +11,12 @@ namespace InfiniTimer.ViewModels
         {
             AdvancedTimerModel = advancedTimerModel;
             NextColor = ColorHelper.ThemeColors[ColorHelper.Primary];
-            timerContent.TimerSection = advancedTimerModel.TimerSection;
             timerContent.SetTimer = (TimerSection timerSection) =>
             {
                 AdvancedTimerModel.TimerSection = timerSection;
                 RaisePropertyChanged(nameof(AdvancedTimerModel.TimerSection));
             };
+            timerContent.TimerSection = advancedTimerModel.TimerSection;
             timerContent.Depth = 1;
         }
 

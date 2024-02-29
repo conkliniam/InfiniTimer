@@ -13,11 +13,11 @@ namespace InfiniTimer.ViewModels
             CycleOptions = new ObservableCollection<int>(Enumerable.Range(1, AppConstants.CycleLimit));
             int nextDepth = AlternatingTimerSection.Depth + 1;
             NextColor = ColorHelper.ThemeColors[nextDepth % 2 == 0 ? ColorHelper.Tertiary : ColorHelper.Primary];
-            mainContent.TimerSection = AlternatingTimerSection.MainTimerSection;
             mainContent.SetTimer = (TimerSection timerSection) => AlternatingTimerSection.MainTimerSection = timerSection;
+            mainContent.TimerSection = AlternatingTimerSection.MainTimerSection;
             mainContent.Depth = nextDepth;
-            alternateContent.TimerSection = AlternatingTimerSection.AlternateTimerSection;
             alternateContent.SetTimer = (TimerSection timerSection) => AlternatingTimerSection.AlternateTimerSection = timerSection;
+            alternateContent.TimerSection = AlternatingTimerSection.AlternateTimerSection;
             alternateContent.Depth = nextDepth;
         }
 

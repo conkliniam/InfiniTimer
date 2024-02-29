@@ -15,7 +15,8 @@ public partial class TimerView : ContentPage
         BindingContext = new TimerViewModel(timerModel,
                                             timerContent,
                                             savedTimerService,
-                                            stagedTimerService);
+                                            stagedTimerService,
+                                            Navigation);
     }
 
     private async void EditClicked(object sender, EventArgs e)
