@@ -146,10 +146,6 @@ namespace InfiniTimer.ViewModels
 
                 FillTimerLayout();
             }
-            else
-            {
-                Console.WriteLine("PropertyChanged: " + e.PropertyName);
-            }
         }
 
         private void FillTimerLayout()

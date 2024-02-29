@@ -21,7 +21,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Margin ="2" Text="Start All Timers"/>
-            <Button Grid.Column="1" Margin ="2" Text="Unstage All Timers"/>
+            <Button Grid.Column="1" Margin ="2" Text="Unstage All Timers" Clicked="UnstageAllClicked"/>
         </Grid>
         <ScrollView Grid.Row="1">
             <VerticalStackLayout>
@@ -55,18 +55,20 @@
                                     <ImageButton Grid.Column="1"
                                                  Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
                                                  Clicked="UnstageIconClicked"
-                                                 IsVisible="{Binding IsDirty}"
-                                                 Padding="5"/>
+                                                 Padding="5"
+                                                 CommandParameter="{Binding .}"/>
                                     <ImageButton Grid.Column="2"
                                                  Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
                                                  Clicked="SaveIconClicked"
                                                  IsVisible="{Binding IsDirty}"
-                                                 Padding="5"/>
+                                                 Padding="5"
+                                                 CommandParameter="{Binding .}"/>
                                     <ImageButton Grid.Column="3"
                                                  Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
                                                  Clicked="ResetIconClicked"
                                                  IsVisible="{Binding IsDirty}"
-                                                 Padding="5"/>
+                                                 Padding="5"
+                                                 CommandParameter="{Binding .}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

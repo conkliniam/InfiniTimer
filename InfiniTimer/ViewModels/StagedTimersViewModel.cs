@@ -11,6 +11,7 @@ namespace InfiniTimer.ViewModels
     {
         #region Private Fields
         private readonly IStagedTimerService _stagedTimerService;
+        private readonly ISavedTimerService _savedTimerService;
         private readonly Image _logoImage;
         private Animation _rotateAnimation;
         private GridLength _topHeight;
@@ -19,9 +20,10 @@ namespace InfiniTimer.ViewModels
         #endregion
 
         #region Constructor
-        public StagedTimersViewModel(IStagedTimerService stagedTimerService, Image logoImage)
+        public StagedTimersViewModel(IStagedTimerService stagedTimerService, ISavedTimerService savedTimerService, Image logoImage)
         {
             _stagedTimerService = stagedTimerService;
+            _savedTimerService = savedTimerService;
             _logoImage = logoImage;
             StagedTimers = _stagedTimerService.GetStagedTimers();
             InitializeContent();
@@ -72,6 +74,28 @@ namespace InfiniTimer.ViewModels
                     RaisePropertyChanged(nameof(WelcomeVisible));
                 }
             }
+        }
+        #endregion
+
+        #region Public Methods
+        public void UnstageAll()
+        {
+            _stagedTimerService.UnstageAllTimers();
+        }
+
+        public void ResetTimer(TimerModel timerModel)
+        {
+            _savedTimerService.ResetTimer(timerModel.Id);
+        }
+
+        public bool SaveTimer(TimerModel timerModel)
+        {
+            return _savedTimerService.SaveTimer(timerModel.Id);
+        }
+
+        public void UnstageTimer(TimerModel timerModel)
+        {
+            _stagedTimerService.UnstageTimer(timerModel);
         }
         #endregion
 
