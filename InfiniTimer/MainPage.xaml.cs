@@ -13,7 +13,7 @@ namespace InfiniTimer
         public MainPage(IStagedTimerService stagedTimerService, ISavedTimerService savedTimerService)
         {
             InitializeComponent();
-            BindingContext = new StagedTimersViewModel(stagedTimerService, savedTimerService, infiniTimerLogo);
+            BindingContext = new StagedTimersViewModel(stagedTimerService, savedTimerService, infiniTimerLogo, stagedTimers);
             _stagedTimerService = stagedTimerService;
             _savedTimerService = savedTimerService;
         }
@@ -27,68 +27,6 @@ namespace InfiniTimer
                                                    _stagedTimerService,
                                                    "Add Timer",
                                                    false));
-        }
-
-        private async void UnstageIconClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                TimerModel timerModel = (TimerModel)((ImageButton)sender).CommandParameter;
-
-                if (null != timerModel)
-                {
-                    ((StagedTimersViewModel)BindingContext).UnstageTimer(timerModel);
-                    await MessageHelper.ShowSuccessMessage("Timer Unstaged");
-                }
-            }
-            catch (Exception ex)
-            {
-                await MessageHelper.HandleException(ex);
-            }
-        }
-
-        private async void SaveIconClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                TimerModel timerModel = (TimerModel)((ImageButton)sender).CommandParameter;
-
-                if (null != timerModel)
-                {
-                    var success = ((StagedTimersViewModel)BindingContext).SaveTimer(timerModel);
-
-                    if (success)
-                    {
-                        await MessageHelper.ShowSuccessMessage("Timer Saved");
-                    }
-                    else
-                    {
-                        await MessageHelper.ShowFailureMessage("Save Failed");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await MessageHelper.HandleException(ex);
-            }
-        }
-
-        private async void ResetIconClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                TimerModel timerModel = (TimerModel)((ImageButton)sender).CommandParameter;
-
-                if (null != timerModel)
-                {
-                    ((StagedTimersViewModel)BindingContext).ResetTimer(timerModel);
-                    await MessageHelper.ShowSuccessMessage("Timer Reset");
-                }
-            }
-            catch (Exception ex)
-            {
-                await MessageHelper.HandleException(ex);
-            }
         }
 
         private async void UnstageAllClicked(object sender, EventArgs e)

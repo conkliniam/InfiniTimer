@@ -138,6 +138,9 @@
 	  <MauiXaml Update="Views\SingleTimerView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\StagedTimerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TimersPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

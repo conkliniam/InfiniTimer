@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:views="clr-namespace:InfiniTimer.Views"
              Title="InfiniTimer Staged Timers">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -40,40 +41,7 @@
                         FontSize="18"
                         HorizontalOptions="Center" />
                 </VerticalStackLayout>
-                <ListView IsVisible="{Binding WelcomeVisible, Converter={StaticResource InvertedBoolConverter}}" ItemsSource="{Binding StagedTimers}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="5*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Margin="10" Text="{Binding Name}"></Label>
-                                    <ImageButton Grid.Column="1"
-                                                 Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
-                                                 Clicked="UnstageIconClicked"
-                                                 Padding="5"
-                                                 CommandParameter="{Binding .}"/>
-                                    <ImageButton Grid.Column="2"
-                                                 Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
-                                                 Clicked="SaveIconClicked"
-                                                 IsVisible="{Binding IsDirty}"
-                                                 Padding="5"
-                                                 CommandParameter="{Binding .}"/>
-                                    <ImageButton Grid.Column="3"
-                                                 Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
-                                                 Clicked="ResetIconClicked"
-                                                 IsVisible="{Binding IsDirty}"
-                                                 Padding="5"
-                                                 CommandParameter="{Binding .}"/>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <VerticalStackLayout x:Name="stagedTimers"></VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
         <Button x:Name="AddTimerButton"

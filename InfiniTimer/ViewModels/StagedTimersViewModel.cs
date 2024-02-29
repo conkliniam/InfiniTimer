@@ -3,7 +3,10 @@ using InfiniTimer.Common;
 using InfiniTimer.Models.Timers;
 using InfiniTimer.Services;
 using InfiniTimer.Services.Messages;
+using InfiniTimer.Views;
+using System.Collections;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace InfiniTimer.ViewModels
 {
@@ -13,26 +16,58 @@ namespace InfiniTimer.ViewModels
         private readonly IStagedTimerService _stagedTimerService;
         private readonly ISavedTimerService _savedTimerService;
         private readonly Image _logoImage;
+        private readonly VerticalStackLayout _stagedTimerLayout;
         private Animation _rotateAnimation;
         private GridLength _topHeight;
         private GridLength _midHeight;
         private bool _welcomeVisible;
+        private ObservableCollection<TimerModel> _stagedTimers;
+        private Dictionary<Guid, StagedTimerView> _stagedTimerViews;
         #endregion
 
         #region Constructor
-        public StagedTimersViewModel(IStagedTimerService stagedTimerService, ISavedTimerService savedTimerService, Image logoImage)
+        public StagedTimersViewModel(IStagedTimerService stagedTimerService,
+                                     ISavedTimerService savedTimerService,
+                                     Image logoImage,
+                                     VerticalStackLayout stagedTimerLayout)
         {
             _stagedTimerService = stagedTimerService;
             _savedTimerService = savedTimerService;
             _logoImage = logoImage;
+            _stagedTimerLayout = stagedTimerLayout;
             StagedTimers = _stagedTimerService.GetStagedTimers();
             InitializeContent();
             RegisterForMessages();
+            FillStagedTimerViews();
         }
         #endregion
 
         #region Public Properties
-        public ObservableCollection<TimerModel> StagedTimers { get; set; }
+        public ObservableCollection<TimerModel> StagedTimers
+        {
+            get
+            {
+                return _stagedTimers;
+            }
+            set
+            {
+                if (_stagedTimers != value)
+                {
+                    var old = _stagedTimers;
+                    _stagedTimers = value;
+
+                    if (old != null)
+                    {
+                        old.CollectionChanged -= StagedTimers_CollectionChanged;
+                    }
+
+                    if (_stagedTimers != null)
+                    {
+                        _stagedTimers.CollectionChanged += StagedTimers_CollectionChanged;
+                    }
+                }
+            }
+        }
 
         public GridLength TopHeight
         {
@@ -82,24 +117,58 @@ namespace InfiniTimer.ViewModels
         {
             _stagedTimerService.UnstageAllTimers();
         }
-
-        public void ResetTimer(TimerModel timerModel)
-        {
-            _savedTimerService.ResetTimer(timerModel.Id);
-        }
-
-        public bool SaveTimer(TimerModel timerModel)
-        {
-            return _savedTimerService.SaveTimer(timerModel.Id);
-        }
-
-        public void UnstageTimer(TimerModel timerModel)
-        {
-            _stagedTimerService.UnstageTimer(timerModel);
-        }
         #endregion
 
         #region Private Methods
+        private void StagedTimers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (null != e.OldItems && e.OldItems.Count > 0)
+            {
+                RemoveTimers(e.OldItems);
+            }
+
+            if (null != e.NewItems && e.NewItems.Count > 0)
+            {
+                AddTimers(e.NewItems);
+            }
+        }
+
+        private void AddTimers(IList newTimers)
+        {
+            foreach (TimerModel timerModel in newTimers)
+            {
+                var stagedTimerView = new StagedTimerView(timerModel, _savedTimerService, _stagedTimerService);
+
+                _stagedTimerLayout.Children.Add(stagedTimerView);
+                _stagedTimerViews[timerModel.Id] = stagedTimerView;
+            }
+        }
+
+        private void RemoveTimers(IList oldTimers)
+        {
+            foreach (TimerModel timerModel in oldTimers)
+            {
+                _stagedTimerViews.TryGetValue(timerModel.Id, out var view);
+
+                if (view != null)
+                {
+                    _stagedTimerLayout.Children.Remove(view);
+                    _stagedTimerViews.Remove(timerModel.Id);
+                }
+            }
+        }
+
+        private void FillStagedTimerViews()
+        {
+            _stagedTimerViews = new Dictionary<Guid, StagedTimerView>();
+            _stagedTimerLayout.Clear();
+
+            if (StagedTimers.Any())
+            {
+                AddTimers(StagedTimers);
+            }
+        }
+
         private void RegisterForMessages()
         {
             WeakReferenceMessenger.Default.Register<StagedTimersChangedMessage>(this, (r, m) =>
