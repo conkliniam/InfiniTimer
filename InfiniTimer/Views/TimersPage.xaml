@@ -6,81 +6,65 @@
              Title="Saved Timers">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="headerRow" Height="*"/>
-            <RowDefinition x:Name="hiddenRow" Height="0"/>
-            <RowDefinition x:Name="listRow" Height="11*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="10" Clicked="NewTimerClicked" Text="New Timer"/>
-            <ImageButton Grid.Column="1"
-                         Source="{AppThemeBinding Dark=three_dots_vertical_light.png, Light=three_dots_vertical_dark.png}"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center"
-                         Padding="5"
-                         Clicked="OptionsIconClicked"/>
-        </Grid>
+        <Button Grid.Row="0" Margin="10" Clicked="NewTimerClicked" Text="New Timer"/>
         <Grid Grid.Row="1"
-              BackgroundColor="{StaticResource Primary}"
-              IsVisible="false"
-              x:Name="actionButtons">
+              x:Name="actionButtons"
+              ColumnSpacing="5"
+              Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0"
-                    Grid.Column="0"
-                    Text="Select All"
-                    Margin="2"
-                    Clicked="SelectAllClicked"
-                    IsEnabled="{Binding AnyUnselected}"/>
-            <Button Grid.Row="0"
-                    Grid.Column="1"
-                    Text="Unselect All"
-                    Margin="2"
-                    Clicked="UnselectAllClicked"
-                    IsEnabled="{Binding AnySelected}"/>
-            <Button Grid.Row="1"
-                    Grid.Column="0"
-                    Text="Stage Selected"
-                    Clicked="StageSelectedClicked"
-                    IsEnabled="{Binding AnyUnstagedSelected}"
-                    Margin="2"/>
-            <Button Grid.Row="1"
-                    Grid.Column="1"
-                    Text="Unstage Selected"
-                    Clicked="UnstageSelectedClicked"
-                    IsEnabled="{Binding AnyStagedSelected}"
-                    Margin="2"/>
-            <Button Grid.Row="2"
-                    Grid.Column="0"
-                    Text="Delete Selected"
-                    Clicked="DeleteSelectedClicked"
-                    IsEnabled="{Binding AnySelected}"
-                    ImageSource="{AppThemeBinding Dark=trash_fill_dark.png, Light=trash_fill_light.png}"
-                    Margin="2">
-            </Button>
-            <Button Grid.Row="2"
-                    Grid.Column="1"
-                    Text="Delete All"
-                    Clicked="DeleteClicked"
-                    ImageSource="{AppThemeBinding Dark=trash_fill_dark.png, Light=trash_fill_light.png}"
-                    IsEnabled="{Binding AnyTimers}"
-                    Margin="2"/>
-            <Button Grid.Row="3"
-                    Grid.Column="0"
-                    Text="Add Defaults"
-                    Clicked="AddDefaultClicked"
-                    Margin="2"/>
+            <ImageButton Grid.Column="0"
+                         Source="{AppThemeBinding Dark=check_square_light.png, Light=check_square_dark.png}"
+                         Clicked="SelectAllClicked"
+                         IsVisible="{Binding AnyUnselected}"
+                         Margin="5"/>
+            <ImageButton Grid.Column="1"
+                         Source="{AppThemeBinding Dark=x_square_light.png, Light=x_square_dark.png}"
+                         Margin="5"
+                         Clicked="UnselectAllClicked"
+                         IsVisible="{Binding AnySelected}"/>
+            <ImageButton Grid.Column="2"
+                         Source="{AppThemeBinding Dark=plus_square_light.png, Light=plus_square_dark.png}"
+                         Clicked="StageSelectedClicked"
+                         IsVisible="{Binding AnyUnstagedSelected}"
+                         Margin="5"/>
+            <ImageButton Grid.Column="3"
+                         Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
+                         Clicked="UnstageSelectedClicked"
+                         IsVisible="{Binding AnyStagedSelected}"
+                         Margin="5"/>
+            <ImageButton Grid.Column="4"
+                         Source="{AppThemeBinding Dark=trash_fill_light.png, Light=trash_fill_dark.png}"
+                         Clicked="DeleteSelectedClicked"
+                         IsVisible="{Binding AnySelected}"
+                         Margin="5">
+            </ImageButton>
+            <ImageButton Grid.Column="5"
+                         Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
+                         Clicked="SaveSelectedClicked"
+                         IsVisible="{Binding AnyDirtySelected}"
+                         Margin="5"/>
+            <ImageButton Grid.Column="6"
+                         Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
+                         Clicked="ResetSelectedClicked"
+                         IsVisible="{Binding AnyDirtySelected}"
+                         Margin="5"/>
+            <ImageButton Grid.Column="7"
+                         Source="{AppThemeBinding Dark=database_add_light.png, Light=database_add_light.png}"
+                         Clicked="AddDefaultClicked"
+                         Margin="5"/>
         </Grid>
         <ScrollView Grid.Row="2" ZIndex="0">
             <VerticalStackLayout>
@@ -104,12 +88,14 @@
                                                  Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
                                                  Clicked="SaveIconClicked"
                                                  IsVisible="{Binding IsDirty}"
-                                                 Padding="5"/>
+                                                 Padding="5"
+                                                 CommandParameter="{Binding .}"/>
                                     <ImageButton Grid.Column="3"
                                                  Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
                                                  Clicked="ResetIconClicked"
                                                  IsVisible="{Binding IsDirty}"
-                                                 Padding="5"/>
+                                                 Padding="5"
+                                                 CommandParameter="{Binding .}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

@@ -18,6 +18,7 @@ namespace InfiniTimer.ViewModels
         private bool _anyUnselected;
         private bool _anyStagedSelected;
         private bool _anyUnstagedSelected;
+        private bool _anyDirtySelected;
         #endregion
 
         #region Constructors
@@ -117,6 +118,23 @@ namespace InfiniTimer.ViewModels
                 }
             }
         }
+
+        public bool AnyDirtySelected
+        {
+            get
+            {
+                return _anyDirtySelected;
+            }
+            set
+            {
+                if (_anyDirtySelected != value)
+                {
+                    _anyDirtySelected = value;
+                    RaisePropertyChanged(nameof(AnyDirtySelected));
+                }
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -128,6 +146,8 @@ namespace InfiniTimer.ViewModels
             {
                 success = _savedTimerService.SaveTimer(timerModel.Id);
             }
+
+            CalculateDirtySelected();
 
             return success;
         }
@@ -141,6 +161,8 @@ namespace InfiniTimer.ViewModels
                 _savedTimerService.ResetTimer(timerModel.Id);
                 success = true;
             }
+
+            CalculateDirtySelected();
 
             return success;
         }
@@ -169,8 +191,7 @@ namespace InfiniTimer.ViewModels
                 .ToList();
 
             var success = _savedTimerService.DeleteTimers(selectedIds);
-            AnySelected = false;
-            AnyUnselected = AnyTimers = TimerModels.Any();
+            CalculateSelected();
             return success;
         }
 
@@ -184,11 +205,6 @@ namespace InfiniTimer.ViewModels
         {
             var selectedTimers = TimerModels.Where(timerModel => timerModel.IsSelected && timerModel.IsStaged).ToList();
             _stagedTimerService.UnstageTimers(selectedTimers);
-        }
-
-        public bool HandleDeleteAll()
-        {
-            return _savedTimerService.DeleteAllTimers();
         }
 
         public bool HandleAddDefault()
@@ -237,6 +253,28 @@ namespace InfiniTimer.ViewModels
 
             CalculateSelected();
         }
+
+        public bool SaveSelected()
+        {
+            var timerIds = TimerModels
+                .Where(timer => timer.IsSelected && timer.IsDirty)
+                .Select(timer => timer.Id)
+                .ToList();
+            var success = _savedTimerService.SaveTimers(timerIds);
+            CalculateDirtySelected();
+            return success;
+        }
+
+        public void ResetSelected()
+        {
+            var timerIds = TimerModels
+                .Where(timer => timer.IsSelected && timer.IsDirty)
+                .Select(timer => timer.Id)
+                .ToList();
+
+            _savedTimerService.ResetTimers(timerIds);
+            CalculateDirtySelected();
+        }
         #endregion
 
         #region Private Methods
@@ -244,11 +282,18 @@ namespace InfiniTimer.ViewModels
         {
             var totalSelected = TimerModels.Where(timer => timer.IsSelected).Count();
             var selectedStaged = TimerModels.Where(timer => timer.IsSelected && timer.IsStaged).Count();
+
             var totalTimers = TimerModels.Count;
             AnySelected = totalSelected > 0;
             AnyUnselected = totalSelected < totalTimers;
             AnyStagedSelected = selectedStaged > 0;
             AnyUnstagedSelected = selectedStaged < totalSelected;
+            CalculateDirtySelected();
+        }
+
+        private void CalculateDirtySelected()
+        {
+            AnyDirtySelected = TimerModels.Where(timer => timer.IsSelected && timer.IsDirty).Any();
         }
 
         private void AddPropertyChangedChecks()
@@ -288,6 +333,19 @@ namespace InfiniTimer.ViewModels
             {
                 CalculateSelected();
             });
+
+            WeakReferenceMessenger.Default.Register<TimerDoneEditingMessage>(this, (r, m) =>
+            {
+                OnTimerDoneEditing(m.Value);
+            });
+        }
+
+        private void OnTimerDoneEditing(TimerModel timer)
+        {
+            if (TimerModels.Contains(timer))
+            {
+                timer.RaisePropertyChanged(nameof(TimerModel.Name));
+            }
         }
 
         private void OnTimerAdded(TimerModel savedTimer)
@@ -316,6 +374,8 @@ namespace InfiniTimer.ViewModels
 
                 newTimer.PropertyChanged += Timer_PropertyChanged;
                 TimerModels.Add(newTimer);
+
+                CalculateSelected();
             }
         }
 
@@ -340,6 +400,8 @@ namespace InfiniTimer.ViewModels
                     TimerModels.Remove(timer);
                 }
             }
+
+            CalculateSelected();
         }
         #endregion
     }

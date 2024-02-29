@@ -2,6 +2,7 @@
 using InfiniTimer.Models.Timers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +16,16 @@ namespace InfiniTimer.ViewModels
         private Color _foreColor;
         private int _timerFont;
         private int _displayFont;
+        private SingleTimerSection _singleTimerSection;
+        private AppTheme _currentTheme;
+        private string _timerDisplay;
         #endregion
 
         #region Constructors
         public SingleTimerViewModel(SingleTimerSection singleTimerSection, Application application)
         {
             SingleTimerSection = singleTimerSection;
+            _currentTheme = application.RequestedTheme;
             application.RequestedThemeChanged += Application_RequestedThemeChanged;
 
             if (null != SingleTimerSection)
@@ -28,14 +33,38 @@ namespace InfiniTimer.ViewModels
                 TimerDisplay = GetTimerDisplay(SingleTimerSection.Seconds);
             }
 
-            GetDisplayColors(application.RequestedTheme);
+            GetDisplayColors();
             GetFontSizes();
 
         }
         #endregion
 
         #region Properties
-        public SingleTimerSection SingleTimerSection { get; }
+        public SingleTimerSection SingleTimerSection
+        {
+            get
+            {
+                return _singleTimerSection;
+            }
+            set
+            {
+                if (_singleTimerSection != value)
+                {
+                    //var old = _singleTimerSection;
+                    _singleTimerSection = value;
+
+                    //if (old != null)
+                    //{
+                    //    old.PropertyChanged -= SingleTimerSection_PropertyChanged;
+                    //}
+
+                    //if (_singleTimerSection != null)
+                    //{
+                    //    _singleTimerSection.PropertyChanged += SingleTimerSection_PropertyChanged;
+                    //}
+                }
+            }
+        }
 
         public Color ForeColor
         {
@@ -101,32 +130,57 @@ namespace InfiniTimer.ViewModels
             }
         }
 
-        public string TimerDisplay { get; private set; }
+        public string TimerDisplay
+        {
+            get
+            {
+                return _timerDisplay;
+            }
+            set
+            {
+                if (_timerDisplay != value)
+                {
+                    _timerDisplay = value;
+                    RaisePropertyChanged(nameof(TimerDisplay));
+                }
+            }
+        }
         #endregion
 
         #region Private Methods
+        private void SingleTimerSection_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SingleTimerSection.Seconds))
+            {
+                TimerDisplay = GetTimerDisplay(SingleTimerSection.Seconds);
+            }
+            else if (e.PropertyName == nameof(SingleTimerSection.Color))
+            {
+                GetDisplayColors();
+            }
+        }
+
         private void GetFontSizes()
         {
-            // Depth 5: Display Font = 20
-            // Depth 5 Timer Font = 15
             DisplayFont = 45 - 5 * SingleTimerSection.Depth;
             TimerFont = DisplayFont - 5;
         }
 
         private void Application_RequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
         {
-            GetDisplayColors(e.RequestedTheme);
+            _currentTheme = e.RequestedTheme;
+            GetDisplayColors();
         }
 
 
 
-        private void GetDisplayColors(AppTheme appTheme)
+        private void GetDisplayColors()
         {
             if (null != SingleTimerSection)
             {
                 var colors = ColorHelper.TimerColors[SingleTimerSection.Color];
-                BackColor = appTheme == AppTheme.Light ? colors.Light : colors.Dark;
-                ForeColor = appTheme == AppTheme.Light ? Colors.Black : Colors.White;
+                BackColor = _currentTheme == AppTheme.Light ? colors.Light : colors.Dark;
+                ForeColor = _currentTheme == AppTheme.Light ? Colors.Black : Colors.White;
             }
         }
 

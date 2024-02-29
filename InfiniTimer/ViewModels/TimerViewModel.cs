@@ -24,11 +24,10 @@ namespace InfiniTimer.ViewModels
                               ISavedTimerService savedTimerService,
                               IStagedTimerService stagedTimerService)
         {
-            TimerModel = timerModel;
             _timerContent = timerContent;
             _savedTimerService = savedTimerService;
             _stagedTimerService = stagedTimerService;
-            FillTimerContent();
+            TimerModel = timerModel;
             RegisterForMessages();
         }
         #endregion
@@ -47,6 +46,7 @@ namespace InfiniTimer.ViewModels
                     _timerModel = value;
 
                     RaisePropertyChanged(nameof(TimerModel));
+                    FillTimerContent();
                 }
             }
         }
@@ -68,6 +68,7 @@ namespace InfiniTimer.ViewModels
             var copy = TimerModel.Copy();
             copy.Name = $"{copy.Name} Copy";
             copy.Id = Guid.NewGuid();
+            copy.IsDirty = true;
             _savedTimerService.AddSessionTimer(copy);
             TimerModel = copy;
         }
@@ -109,6 +110,20 @@ namespace InfiniTimer.ViewModels
             {
                 OnTimerReplaced(m.Value);
             });
+
+            WeakReferenceMessenger.Default.Register<TimerDoneEditingMessage>(this, (r, m) =>
+            {
+                OnTimerDoneEditing(m.Value);
+            });
+        }
+
+        private void OnTimerDoneEditing(TimerModel value)
+        {
+            if (TimerModel.Id == value.Id)
+            {
+                RaisePropertyChanged(nameof(TimerModel));
+                FillTimerContent();
+            }
         }
 
         private void OnTimerReplaced(TimerModel value)

@@ -56,6 +56,14 @@ namespace InfiniTimer.Services
             }
         }
 
+        public void ResetTimers(List<Guid> timerIds)
+        {
+            foreach (var timerId in timerIds)
+            {
+                ResetTimer(timerId);
+            }
+        }
+
         public bool DeleteTimer(Guid timerId)
         {
             try
@@ -102,31 +110,6 @@ namespace InfiniTimer.Services
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
-                return false;
-            }
-        }
-
-        public bool DeleteAllTimers()
-        {
-            try
-            {
-                _sessionTimers.Clear();
-                _savedTimers.Clear();
-
-                WeakReferenceMessenger.Default.Send(new TimerRemovedMessage(Guid.Empty));
-
-                var rawData = string.Empty;
-
-                if (File.Exists(_filePath))
-                {
-                    File.Delete(_filePath);
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Encountered exception: " + ex.ToString());
                 return false;
             }
         }
@@ -201,9 +184,16 @@ namespace InfiniTimer.Services
                 timer.Id = Guid.NewGuid();
             }
 
-            _sessionTimers[timer.Id] = timer;
-            WeakReferenceMessenger.Default.Send(new TimerAddedMessage(timer));
-
+            if (_sessionTimers.ContainsKey(timer.Id))
+            {
+                _sessionTimers[timer.Id] = timer;
+                WeakReferenceMessenger.Default.Send(new TimerReplacedMessage(timer));
+            }
+            else
+            {
+                _sessionTimers[timer.Id] = timer;
+                WeakReferenceMessenger.Default.Send(new TimerAddedMessage(timer));
+            }
         }
         #endregion
 

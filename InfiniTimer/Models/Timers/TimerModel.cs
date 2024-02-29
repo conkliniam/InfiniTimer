@@ -1,38 +1,17 @@
 ﻿using InfiniTimer.Common;
-using System.ComponentModel;
 
 namespace InfiniTimer.Models.Timers
 {
     public abstract class TimerModel : CommonBase
     {
-        private string _name;
-        private bool _isDirty;
+        private bool _isDirty = true;
         private bool _isSelected;
         private bool _isStaged;
 
         public Guid Id { get; set; }
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (_name != value)
-                {
+        public string Name { get; set; }
 
-                    _name = value;
-
-                    if (!IgnoreChanges)
-                    {
-                        HandleChange();
-                        RaisePropertyChanged(nameof(Name));
-                    }
-                }
-            }
-        }
         public bool IsDirty
         {
             get
@@ -85,28 +64,24 @@ namespace InfiniTimer.Models.Timers
                 {
                     _isStaged = value;
 
-                    if (!IgnoreChanges)
-                    {
-                        HandleChange();
-                        RaisePropertyChanged(nameof(IsStaged));
-                    }
+                    HandleChange(nameof(IsStaged));
                 }
             }
         }
 
         public bool IgnoreChanges { get; set; }
 
-        protected void HandleChange()
+        protected void HandleChange(string propName)
         {
-            if (!IgnoreChanges && !IsDirty)
+            if (!IgnoreChanges)
             {
-                IsDirty = true;
-            }
-        }
+                if (!IsDirty)
+                {
+                    IsDirty = true;
+                }
 
-        protected void TimerSection_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            HandleChange();
+                RaisePropertyChanged(propName);
+            }
         }
     }
 }

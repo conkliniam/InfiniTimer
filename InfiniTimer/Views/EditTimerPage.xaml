@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.EditTimerPage"
              xmlns:local="clr-namespace:InfiniTimer.Common.Components"
-             Title="Edit Timer">
+             Title="{Binding Title}">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <Grid BackgroundColor="{StaticResource Tertiary}">
         <Grid.RowDefinitions>
             <RowDefinition Height="11*"/>

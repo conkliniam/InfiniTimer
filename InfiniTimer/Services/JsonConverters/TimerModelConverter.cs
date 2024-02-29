@@ -90,6 +90,7 @@ namespace InfiniTimer.Services.JsonConverters
             writer.WriteString("Id", timerModel.Id);
             writer.WriteString("Name", timerModel.Name);
             writer.WriteBoolean("IsDirty", timerModel.IsDirty);
+            writer.WriteBoolean("IsStaged", timerModel.IsStaged);
 
             writer.WriteEndObject();
         }

@@ -2,8 +2,6 @@
 using InfiniTimer.Enums;
 using InfiniTimer.Models.Timers;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace InfiniTimer.ViewModels
 {
@@ -21,7 +19,6 @@ namespace InfiniTimer.ViewModels
             TimerColorOptions = new ObservableCollection<string>(Enum.GetNames(typeof(TimerColor)).ToList());
             HoursOptions = new ObservableCollection<int>(Enumerable.Range(0, 24));
             MinutesSeconds = new ObservableCollection<int>(Enumerable.Range(0, 60));
-            Margin = new Thickness(timer.Depth * 5, 0);
             _color = Enum.GetName(typeof(TimerColor), Timer.Color);
             SetColors();
         }

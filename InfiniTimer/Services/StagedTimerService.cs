@@ -19,6 +19,54 @@ namespace InfiniTimer.Services
         {
             _savedTimerService = savedTimerService;
             InitializeStagedTimers();
+            RegisterForMessages();
+        }
+
+        private void RegisterForMessages()
+        {
+            WeakReferenceMessenger.Default.Register<TimerRemovedMessage>(this, (r, m) =>
+            {
+                OnTimerRemoved(m.Value);
+            });
+
+            WeakReferenceMessenger.Default.Register<TimerReplacedMessage>(this, (r, m) =>
+            {
+                OnTimerReplaced(m.Value);
+            });
+        }
+
+        private void OnTimerReplaced(TimerModel timerModel)
+        {
+            if (timerModel != null)
+            {
+                OnTimerRemoved(timerModel.Id);
+
+                if (timerModel.IsStaged)
+                {
+                    _stagedTimers.Add(timerModel);
+                    WeakReferenceMessenger.Default.Send(new StagedTimersChangedMessage(Staged));
+                }
+            }
+        }
+
+        private void OnTimerRemoved(Guid timerId)
+        {
+            if (timerId == Guid.Empty)
+            {
+                _stagedTimers.Clear();
+                WeakReferenceMessenger.Default.Send(new StagedTimersChangedMessage(Unstaged));
+            }
+            else
+            {
+                var oldTimer = _stagedTimers.Where(timer => timer.Id == timerId).FirstOrDefault();
+
+                if (oldTimer != null)
+                {
+                    _stagedTimers.Remove(oldTimer);
+                    WeakReferenceMessenger.Default.Send(new StagedTimersChangedMessage(Unstaged));
+                }
+            }
+
         }
         #endregion
 

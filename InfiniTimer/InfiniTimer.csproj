@@ -48,23 +48,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\check_square_dark.svg" />
+	  <None Remove="Resources\Images\check_square_light.svg" />
 	  <None Remove="Resources\Images\clipboard_plus_fill_dark.svg" />
 	  <None Remove="Resources\Images\clipboard_plus_fill_light.svg" />
 	  <None Remove="Resources\Images\dash_square_dark.svg" />
 	  <None Remove="Resources\Images\dash_square_light.svg" />
+	  <None Remove="Resources\Images\database_add_dark.svg" />
+	  <None Remove="Resources\Images\database_add_light.svg" />
 	  <None Remove="Resources\Images\floppy_fill_dark.svg" />
 	  <None Remove="Resources\Images\floppy_fill_light.svg" />
 	  <None Remove="Resources\Images\hourglass_split.svg" />
 	  <None Remove="Resources\Images\house_door_fill.svg" />
-	  <None Remove="Resources\Images\infini_timer.svg" />
+	  <None Remove="Resources\Images\infini_timer_dark.svg" />
+	  <None Remove="Resources\Images\infini_timer_light.svg" />
 	  <None Remove="Resources\Images\pencil_square_dark.svg" />
 	  <None Remove="Resources\Images\pencil_square_light.svg" />
 	  <None Remove="Resources\Images\plus_square_dark.svg" />
 	  <None Remove="Resources\Images\plus_square_light.svg" />
-	  <None Remove="Resources\Images\three_dots_vertical_dark.svg" />
-	  <None Remove="Resources\Images\three_dots_vertical_light.svg" />
 	  <None Remove="Resources\Images\trash_fill_dark.svg" />
 	  <None Remove="Resources\Images\trash_fill_light.svg" />
+	  <None Remove="Resources\Images\x_square_dark.svg" />
+	  <None Remove="Resources\Images\x_square_light.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

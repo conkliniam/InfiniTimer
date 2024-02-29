@@ -1,25 +1,145 @@
-﻿using InfiniTimer.Models.Timers;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using InfiniTimer.Common;
+using InfiniTimer.Models.Timers;
 using InfiniTimer.Services;
-using System;
-using System.Collections.Generic;
+using InfiniTimer.Services.Messages;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfiniTimer.ViewModels
 {
-    public class StagedTimersViewModel
+    public class StagedTimersViewModel : CommonBase
     {
+        #region Private Fields
         private readonly IStagedTimerService _stagedTimerService;
+        private readonly Image _logoImage;
+        private Animation _rotateAnimation;
+        private GridLength _topHeight;
+        private GridLength _midHeight;
+        private bool _welcomeVisible;
+        #endregion
 
-        public StagedTimersViewModel(IStagedTimerService stagedTimerService)
+        #region Constructor
+        public StagedTimersViewModel(IStagedTimerService stagedTimerService, Image logoImage)
         {
             _stagedTimerService = stagedTimerService;
-
+            _logoImage = logoImage;
             StagedTimers = _stagedTimerService.GetStagedTimers();
+            InitializeContent();
+            RegisterForMessages();
+        }
+        #endregion
+
+        #region Public Properties
+        public ObservableCollection<TimerModel> StagedTimers { get; set; }
+
+        public GridLength TopHeight
+        {
+            get
+            {
+                return _topHeight;
+            }
+            set
+            {
+                _topHeight = value;
+                RaisePropertyChanged(nameof(TopHeight));
+            }
         }
 
-        public ObservableCollection<TimerModel> StagedTimers { get; set; }
+        public GridLength MidHeight
+        {
+            get
+            {
+                return _midHeight;
+            }
+            set
+            {
+                _midHeight = value;
+                RaisePropertyChanged(nameof(MidHeight));
+            }
+        }
+
+        public bool WelcomeVisible
+        {
+            get
+            {
+                return _welcomeVisible;
+            }
+            set
+            {
+                if (_welcomeVisible != value)
+                {
+                    _welcomeVisible = value;
+                    RaisePropertyChanged(nameof(WelcomeVisible));
+                }
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        private void RegisterForMessages()
+        {
+            WeakReferenceMessenger.Default.Register<StagedTimersChangedMessage>(this, (r, m) =>
+            {
+                OnStagedTimersChange(m.Value);
+            });
+
+            WeakReferenceMessenger.Default.Register<TimerDoneEditingMessage>(this, (r, m) =>
+            {
+                OnTimerDoneEditing(m.Value);
+            });
+        }
+
+        private void OnTimerDoneEditing(TimerModel timer)
+        {
+            if (timer.IsStaged)
+            {
+                timer.RaisePropertyChanged(nameof(TimerModel.Name));
+            }
+        }
+
+        private void OnStagedTimersChange(bool staged)
+        {
+            if (staged && WelcomeVisible)
+            {
+                DisplayTimers();
+            }
+            else if (!staged && !WelcomeVisible)
+            {
+                if (!StagedTimers.Any())
+                {
+                    DisplayWelcome();
+                }
+            }
+        }
+
+        private void InitializeContent()
+        {
+            _rotateAnimation = new Animation(v => _logoImage.Rotation = v, 0, 360);
+
+            if (StagedTimers.Any())
+            {
+                DisplayTimers();
+            }
+            else
+            {
+                DisplayWelcome();
+            }
+        }
+
+        private void DisplayWelcome()
+        {
+            TopHeight = new GridLength(0);
+            MidHeight = new GridLength(11, GridUnitType.Star);
+            WelcomeVisible = true;
+            _rotateAnimation.Commit(_logoImage, "RotateAnimation", 16, 4000, null, null, () => !StagedTimers.Any());
+        }
+
+        private void DisplayTimers()
+        {
+            TopHeight = new GridLength(1, GridUnitType.Star);
+            MidHeight = new GridLength(10, GridUnitType.Star);
+            WelcomeVisible = false;
+        }
+        #endregion
     }
 }

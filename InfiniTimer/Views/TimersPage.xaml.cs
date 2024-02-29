@@ -27,7 +27,10 @@ public partial class TimersPage : ContentPage
         {
             TimerModel newTimerModel = new SimpleTimerModel();
             _savedTimerService.AddSessionTimer(newTimerModel);
-            await Navigation.PushAsync(new EditTimerPage(newTimerModel, _savedTimerService, _stagedTimerService));
+            await Navigation.PushAsync(new EditTimerPage(newTimerModel,
+                                                         _savedTimerService,
+                                                         _stagedTimerService,
+                                                         "New Timer"));
         }
         catch (Exception ex)
         {
@@ -66,27 +69,6 @@ public partial class TimersPage : ContentPage
         try
         {
             bool success = ((TimersViewModel)BindingContext).HandleDeleteSelected();
-
-            if (success)
-            {
-                await MessageHelper.ShowSuccessMessage("Delete Successful");
-            }
-            else
-            {
-                await MessageHelper.ShowFailureMessage("Delete Failed");
-            }
-        }
-        catch (Exception ex)
-        {
-            await MessageHelper.HandleException(ex);
-        }
-    }
-
-    private async void DeleteClicked(object sender, EventArgs e)
-    {
-        try
-        {
-            bool success = ((TimersViewModel)BindingContext).HandleDeleteAll();
 
             if (success)
             {
@@ -176,22 +158,38 @@ public partial class TimersPage : ContentPage
         }
     }
 
-    private void OptionsIconClicked(object sender, EventArgs e)
+    private async void ResetSelectedClicked(object sender, EventArgs e)
     {
-        if (actionButtons.IsVisible)
+        try
         {
-            actionButtons.IsVisible = false;
-            hiddenRow.Height = 0;
-            headerRow.Height = new GridLength(1, GridUnitType.Star);
-            listRow.Height = new GridLength(11, GridUnitType.Star);
-            
+            ((TimersViewModel)BindingContext).ResetSelected();
+
+            await MessageHelper.ShowSuccessMessage("Reset Successful");
         }
-        else
+        catch (Exception ex)
         {
-            actionButtons.IsVisible = true;
-            hiddenRow.Height = new GridLength(7, GridUnitType.Star);
-            headerRow.Height = new GridLength(2, GridUnitType.Star);
-            listRow.Height = new GridLength(15, GridUnitType.Star);
+            await MessageHelper.HandleException(ex);
+        }
+    }
+
+    private async void SaveSelectedClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            bool success = ((TimersViewModel)BindingContext).SaveSelected();
+
+            if (success)
+            {
+                await MessageHelper.ShowSuccessMessage("Save Successful");
+            }
+            else
+            {
+                await MessageHelper.ShowFailureMessage("Save Failed");
+            }
+        }
+        catch (Exception ex)
+        {
+            await MessageHelper.HandleException(ex);
         }
     }
 

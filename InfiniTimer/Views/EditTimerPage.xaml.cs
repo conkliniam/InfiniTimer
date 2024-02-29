@@ -11,13 +11,16 @@ namespace InfiniTimer
         public EditTimerPage(TimerModel timerModel,
                              ISavedTimerService savedTimerService,
                              IStagedTimerService stagedTimerService,
+                             string title = "Edit Timer",
                              bool showSave = true)
         {
             InitializeComponent();
             BindingContext = new EditTimerViewModel(timerLayout,
                                                     timerModel,
                                                     savedTimerService,
-                                                    stagedTimerService);
+                                                    stagedTimerService,
+                                                    title,
+                                                    Navigation);
 
             if (showSave)
             {
@@ -82,6 +85,12 @@ namespace InfiniTimer
             {
                 await MessageHelper.HandleException(ex);
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            ((EditTimerViewModel)BindingContext).SendDoneEditingMessage();
+            return base.OnBackButtonPressed();
         }
     }
 }

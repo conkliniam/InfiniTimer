@@ -2,42 +2,82 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.MainPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="InfiniTimer Staged Timers">
-
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0">
-            <Image
-                x:Name="infiniTimerLogo"
-                Source="infini_timer.png"
-                SemanticProperties.Description="InfiniTimer logo"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to InfiniTimer!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="24"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Add a Timer to Begin"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to InfiniTimer"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <ListView>
-
-            </ListView>
-
-            <Button
-                x:Name="AddTimerButton"
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding TopHeight}"/>
+            <RowDefinition Height="{Binding MidHeight}"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin ="2" Text="Start All Timers"/>
+            <Button Grid.Column="1" Margin ="2" Text="Unstage All Timers"/>
+        </Grid>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+                <VerticalStackLayout IsVisible="{Binding WelcomeVisible}">
+                    <Image  x:Name="infiniTimerLogo"
+                        Source="{AppThemeBinding Dark=infini_timer_light.png, Light=infini_timer_dark.png}"
+                        SemanticProperties.Description="InfiniTimer logo"
+                        HorizontalOptions="Center"/>
+                    <Label  Text="Welcome to InfiniTimer!"
+                        SemanticProperties.HeadingLevel="Level1"
+                        FontSize="24"
+                        HorizontalOptions="Center" />
+                    <Label  Text="Add a Timer to Begin"
+                        SemanticProperties.HeadingLevel="Level2"
+                        SemanticProperties.Description="Welcome to InfiniTimer"
+                        FontSize="18"
+                        HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <ListView IsVisible="{Binding WelcomeVisible, Converter={StaticResource InvertedBoolConverter}}" ItemsSource="{Binding StagedTimers}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Margin="10" Text="{Binding Name}"></Label>
+                                    <ImageButton Grid.Column="1"
+                                                 Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
+                                                 Clicked="UnstageIconClicked"
+                                                 IsVisible="{Binding IsDirty}"
+                                                 Padding="5"/>
+                                    <ImageButton Grid.Column="2"
+                                                 Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
+                                                 Clicked="SaveIconClicked"
+                                                 IsVisible="{Binding IsDirty}"
+                                                 Padding="5"/>
+                                    <ImageButton Grid.Column="3"
+                                                 Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
+                                                 Clicked="ResetIconClicked"
+                                                 IsVisible="{Binding IsDirty}"
+                                                 Padding="5"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button x:Name="AddTimerButton"
                 Text="Add Timer"
                 SemanticProperties.Hint="Navigate to select a Timer"
-                Clicked="OnAddTimerClicked"/>
-
-        </VerticalStackLayout>
-    </ScrollView>
-
+                Clicked="OnAddTimerClicked"
+                Grid.Row="2"/>
+    </Grid>
 </ContentPage>
