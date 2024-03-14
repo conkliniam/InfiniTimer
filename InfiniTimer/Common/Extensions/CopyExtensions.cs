@@ -55,7 +55,9 @@ namespace InfiniTimer.Common.Extensions
                 DisplayText = singleTimerSection.DisplayText,
                 Depth = singleTimerSection.Depth,
                 Color = singleTimerSection.Color,
-                Seconds = singleTimerSection.Seconds
+                Seconds = singleTimerSection.Seconds,
+                Vibrate = singleTimerSection.Vibrate,
+                Sound = singleTimerSection.Sound,
             };
         }
 

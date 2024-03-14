@@ -11,9 +11,9 @@ public partial class ColorPickerView : ContentPage
 		BindingContext = new ColorPickerViewModel(HandleColorSelection);
 	}
 
-    private void CancelClicked(object sender, EventArgs e)
+    private async void CancelClicked(object sender, EventArgs e)
     {
-		Navigation.PopModalAsync();
+		await Navigation.PopModalAsync();
     }
 
     private void ColorSelected(object sender, SelectedItemChangedEventArgs e)

@@ -2,42 +2,42 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.Views.StagedTimerView">
-    <VerticalStackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <VerticalStackLayout Grid.Column="0">
-                <Label 
-                    Text="{Binding TimerModel.Name}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    FontSize="20"/>
-                <VerticalStackLayout x:Name="currentTimerSection">
-                </VerticalStackLayout>
-            </VerticalStackLayout>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <ImageButton Grid.Row="0"
-                     Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
-                     Clicked="UnstageIconClicked"
-                     Padding="5"/>
-                <ImageButton Grid.Row="1"
-                     Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
-                     Clicked="SaveIconClicked"
-                     IsVisible="{Binding TimerModel.IsDirty}"
-                     Padding="5"/>
-                <ImageButton Grid.Row="2"
-                     Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
-                     Clicked="ResetIconClicked"
-                     IsVisible="{Binding TimerModel.IsDirty}"
-                     Padding="5"/>
+    <Frame BorderColor="Black"
+           Grid.Row="1"
+           Padding="3"
+           CornerRadius="0"
+           BackgroundColor="{AppThemeBinding Dark={StaticResource Primary}, Light=White}"
+           Margin="2">
+        <VerticalStackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       Text="{Binding TimerModel.Name}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       FontSize="20"/>
+                <ImageButton Grid.Column="1"
+                             Source="{AppThemeBinding Dark=floppy_fill_light.png, Light=floppy_fill_dark.png}"
+                             Clicked="SaveIconClicked"
+                             IsVisible="{Binding TimerModel.IsDirty}"
+                             Padding="5"/>
+                <ImageButton Grid.Column="2"
+                             Source="{AppThemeBinding Dark=arrow_counterclockwise_light.png, Light=arrow_counterclockwise_dark.png}"
+                             Clicked="ResetIconClicked"
+                             IsVisible="{Binding TimerModel.IsDirty}"
+                             Padding="5"/>
+                <ImageButton Grid.Column="3"
+                             Source="{AppThemeBinding Dark=dash_square_light.png, Light=dash_square_dark.png}"
+                             Clicked="UnstageIconClicked"
+                             Padding="5"/>
             </Grid>
-        </Grid>
-    </VerticalStackLayout>
+            <VerticalStackLayout x:Name="currentTimerSection">
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
 </ContentView>

@@ -7,8 +7,8 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="21*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <local:EditLabel Text="Alternating Section"
                              HorizontalTextAlignment="Start"

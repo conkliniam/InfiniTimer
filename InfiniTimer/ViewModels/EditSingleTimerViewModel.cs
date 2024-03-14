@@ -10,6 +10,7 @@ namespace InfiniTimer.ViewModels
         public const int SecondsPerHour = 3600;
         public const int SecondsPerMinute = 60;
         private string _color;
+        private string _sound;
         private Color _background;
         private Color _foreground;
 
@@ -20,6 +21,7 @@ namespace InfiniTimer.ViewModels
             HoursOptions = new ObservableCollection<int>(Enumerable.Range(0, 24));
             MinutesSeconds = new ObservableCollection<int>(Enumerable.Range(0, 60));
             _color = Enum.GetName(typeof(TimerColor), Timer.Color);
+            _sound = SoundHelper.SoundInfo[Timer.Sound].DisplayName;
             SetColors();
         }
 
@@ -82,6 +84,22 @@ namespace InfiniTimer.ViewModels
             }
         }
 
+        public string Sound
+        {
+            get
+            {
+                return _sound;
+            }
+            set
+            {
+                if (_sound != value)
+                {
+                    _sound = value;
+                    RaisePropertyChanged(nameof(Sound));
+                }
+            }
+        }
+
         public int Hours
         {
             get
@@ -101,7 +119,7 @@ namespace InfiniTimer.ViewModels
         {
             get
             {
-                return (Timer.Seconds % SecondsPerHour) / SecondsPerMinute;
+                return Timer.Seconds % SecondsPerHour / SecondsPerMinute;
             }
             set
             {
@@ -142,6 +160,12 @@ namespace InfiniTimer.ViewModels
             Color = colorText;
             BackgroundColor = backgroundColor;
             ForegroundColor = foregroundColor;
+        }
+
+        public void HandleSoundSelection(TimerSound timerSound, string soundText)
+        {
+            Timer.Sound = timerSound;
+            Sound = soundText;
         }
     }
 }

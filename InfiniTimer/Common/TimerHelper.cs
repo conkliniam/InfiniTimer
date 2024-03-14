@@ -23,6 +23,24 @@ namespace InfiniTimer.Common
             };
         }
 
+        public static string GetTimerDisplay(decimal totalSeconds)
+        {
+            return GetTimerDisplay(Convert.ToInt32(Math.Ceiling(totalSeconds)));
+        }
+
+        public static string GetTimerDisplay(int totalSeconds)
+        {
+            int hours = totalSeconds / 3600;
+            int minutes = totalSeconds % 3600 / 60;
+            int seconds = totalSeconds % 60;
+
+            if (hours > 0)
+                return $"{Convert.ToString(hours)}:{Convert.ToString(minutes).PadLeft(2, '0')}:{Convert.ToString(seconds).PadLeft(2, '0')}";
+            if (minutes > 0)
+                return $"{Convert.ToString(minutes).PadLeft(2, '0')}:{Convert.ToString(seconds).PadLeft(2, '0')}";
+            return $"00:{Convert.ToString(seconds).PadLeft(2, '0')}";
+        }
+
         private static AdvancedTimerModel GetPomodoroTimer()
         {
             return new AdvancedTimerModel
@@ -44,13 +62,23 @@ namespace InfiniTimer.Common
                             Color = TimerColor.Red,
                             Seconds = 300
                         },
-                        Cycles = 4
+                        Cycles = 3
                     },
-                    AlternateTimerSection = new SingleTimerSection(2)
+                    AlternateTimerSection = new AlternatingTimerSection(2)
                     {
-                        DisplayText = "Break",
-                        Color = TimerColor.Red,
-                        Seconds = 900
+                        MainTimerSection = new SingleTimerSection(3)
+                        {
+                            DisplayText = "Work",
+                            Color = TimerColor.Green,
+                            Seconds = 1500
+                        },
+                        AlternateTimerSection = new SingleTimerSection(3)
+                        {
+                            DisplayText = "Break",
+                            Color = TimerColor.Red,
+                            Seconds = 900
+                        },
+                        Cycles = 1
                     },
                     Cycles = 1
                 },
@@ -110,17 +138,27 @@ namespace InfiniTimer.Common
                         },
                         AlternateTimerSection = new SingleTimerSection(3)
                         {
-                            DisplayText = "Get Ready",
+                            DisplayText = "Rest",
                             Color = TimerColor.Red,
                             Seconds = 15
                         },
-                        Cycles = 10
+                        Cycles = 9
                     },
-                    AlternateTimerSection = new SingleTimerSection(2)
+                    AlternateTimerSection = new AlternatingTimerSection(2)
                     {
-                        DisplayText = "Rest",
-                        Color = TimerColor.Blue,
-                        Seconds = 120
+                        MainTimerSection = new SingleTimerSection(3)
+                        {
+                            DisplayText = "Move",
+                            Color = TimerColor.Green,
+                            Seconds = 60
+                        },
+                        AlternateTimerSection = new SingleTimerSection(3)
+                        {
+                            DisplayText = "Rest",
+                            Color = TimerColor.Blue,
+                            Seconds = 120
+                        },
+                        Cycles = 1
                     },
                     Cycles = 3
                 },

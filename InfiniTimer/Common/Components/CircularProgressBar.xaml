@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfiniTimer.Common.Components.CircularProgressBar"
+             xmlns:drawables="clr-namespace:InfiniTimer.Common.Drawables"
+             x:Name="progressBar">
+    <GraphicsView x:Name="ProgressView">
+        <GraphicsView.Drawable>
+            <drawables:CircularProgressBarDrawable
+                x:Name="ProgressBar"
+                TotalSeconds="{Binding TotalSeconds, Source={x:Reference progressBar}}"
+                RemainingSeconds="{Binding RemainingSeconds, Source={x:Reference progressBar}}"
+                Size="{Binding Size, Source={x:Reference progressBar}}"
+                TextColor="{Binding TextColor, Source={x:Reference progressBar}}"
+                Thickness="{Binding Thickness, Source={x:Reference progressBar}}"
+                ProgressColor="{Binding ProgressColor, Source={x:Reference progressBar}}"
+                ProgressLeftColor="{Binding ProgressLeftColor, Source={x:Reference progressBar}}"/>
+        </GraphicsView.Drawable>
+    </GraphicsView>
+</ContentView>

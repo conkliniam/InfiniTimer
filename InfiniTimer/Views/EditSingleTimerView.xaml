@@ -7,7 +7,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <local:EditLabel Text="Timer"
@@ -91,14 +91,42 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
                     <local:EditLabel Text="Color"
                                      Grid.Column="0"
+                                     Grid.Row="0"
                                      TextColor="White"/>
                     <Button BackgroundColor="{Binding ForegroundColor}"
                             Text="{Binding Color}"
                             Clicked="PickColorClicked"
                             Grid.Column="1"
-                            TextColor="Black"></Button>
+                            Grid.Row="0"
+                            TextColor="Black"
+                            Margin="2"/>
+                    <local:EditLabel Text="Sound"
+                                     Grid.Column="0"
+                                     Grid.Row="1"
+                                     TextColor="White"/>
+                    <Button BackgroundColor="{Binding ForegroundColor}"
+                            Text="{Binding Sound}"
+                            Clicked="PickSoundClicked"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            TextColor="Black"
+                            Margin="2"/>
+                    <local:EditLabel Text="Vibrate"
+                                     Grid.Column="0"
+                                     Grid.Row="2"/>
+                    <Switch IsToggled="{Binding Timer.Vibrate}"
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            ThumbColor="{StaticResource LightGray}"
+                            OnColor="{StaticResource BtnGreen}"
+                            HorizontalOptions="Center"/>
                 </Grid>
             </VerticalStackLayout>
         </Frame>

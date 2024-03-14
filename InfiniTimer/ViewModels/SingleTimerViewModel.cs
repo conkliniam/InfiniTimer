@@ -1,11 +1,6 @@
 ﻿using InfiniTimer.Common;
 using InfiniTimer.Models.Timers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfiniTimer.ViewModels
 {
@@ -19,6 +14,7 @@ namespace InfiniTimer.ViewModels
         private SingleTimerSection _singleTimerSection;
         private AppTheme _currentTheme;
         private string _timerDisplay;
+        private string _timerSound;
         #endregion
 
         #region Constructors
@@ -30,11 +26,12 @@ namespace InfiniTimer.ViewModels
 
             if (null != SingleTimerSection)
             {
-                TimerDisplay = GetTimerDisplay(SingleTimerSection.Seconds);
+                TimerDisplay = TimerHelper.GetTimerDisplay(SingleTimerSection.Seconds);
             }
 
             GetDisplayColors();
             GetFontSizes();
+            GetTimerSound();
 
         }
         #endregion
@@ -50,18 +47,7 @@ namespace InfiniTimer.ViewModels
             {
                 if (_singleTimerSection != value)
                 {
-                    //var old = _singleTimerSection;
                     _singleTimerSection = value;
-
-                    //if (old != null)
-                    //{
-                    //    old.PropertyChanged -= SingleTimerSection_PropertyChanged;
-                    //}
-
-                    //if (_singleTimerSection != null)
-                    //{
-                    //    _singleTimerSection.PropertyChanged += SingleTimerSection_PropertyChanged;
-                    //}
                 }
             }
         }
@@ -145,19 +131,29 @@ namespace InfiniTimer.ViewModels
                 }
             }
         }
+
+        public string TimerSound
+        {
+            get
+            {
+                return _timerSound;
+            }
+            set
+            {
+                if (_timerSound != value)
+                {
+                    _timerSound = value;
+                    RaisePropertyChanged(nameof(TimerSound));
+                }
+            }
+        }
         #endregion
 
         #region Private Methods
-        private void SingleTimerSection_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void GetTimerSound()
         {
-            if (e.PropertyName == nameof(SingleTimerSection.Seconds))
-            {
-                TimerDisplay = GetTimerDisplay(SingleTimerSection.Seconds);
-            }
-            else if (e.PropertyName == nameof(SingleTimerSection.Color))
-            {
-                GetDisplayColors();
-            }
+            var soundInfo = SoundHelper.SoundInfo[SingleTimerSection?.Sound ?? Enums.TimerSound.None];
+            TimerSound = soundInfo.DisplayName;
         }
 
         private void GetFontSizes()
@@ -172,8 +168,6 @@ namespace InfiniTimer.ViewModels
             GetDisplayColors();
         }
 
-
-
         private void GetDisplayColors()
         {
             if (null != SingleTimerSection)
@@ -182,19 +176,6 @@ namespace InfiniTimer.ViewModels
                 BackColor = _currentTheme == AppTheme.Light ? colors.Light : colors.Dark;
                 ForeColor = _currentTheme == AppTheme.Light ? Colors.Black : Colors.White;
             }
-        }
-
-        private static string GetTimerDisplay(int totalSeconds)
-        {
-            int hours = totalSeconds / 3600;
-            int minutes = totalSeconds % 3600 / 60;
-            int seconds = totalSeconds % 60;
-
-            if (hours > 0)
-                return $"{Convert.ToString(hours)}:{Convert.ToString(minutes).PadLeft(2, '0')}:{Convert.ToString(seconds).PadLeft(2, '0')}";
-            if (minutes > 0)
-                return $"{Convert.ToString(minutes).PadLeft(2, '0')}:{Convert.ToString(seconds).PadLeft(2, '0')}";
-            return $"00:{Convert.ToString(seconds).PadLeft(2, '0')}";
         }
         #endregion
     }

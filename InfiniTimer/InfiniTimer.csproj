@@ -48,6 +48,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\arrow_left_short_dark.svg" />
+	  <None Remove="Resources\Images\arrow_left_short_light.svg" />
+	  <None Remove="Resources\Images\arrow_right_short_dark.svg" />
+	  <None Remove="Resources\Images\arrow_right_short_light.svg" />
 	  <None Remove="Resources\Images\check_square_dark.svg" />
 	  <None Remove="Resources\Images\check_square_light.svg" />
 	  <None Remove="Resources\Images\clipboard_plus_fill_dark.svg" />
@@ -62,10 +66,19 @@
 	  <None Remove="Resources\Images\house_door_fill.svg" />
 	  <None Remove="Resources\Images\infini_timer_dark.svg" />
 	  <None Remove="Resources\Images\infini_timer_light.svg" />
+	  <None Remove="Resources\Images\music_note_beamed.svg" />
+	  <None Remove="Resources\Images\pause_fill_dark.svg" />
+	  <None Remove="Resources\Images\pause_fill_light.svg" />
 	  <None Remove="Resources\Images\pencil_square_dark.svg" />
 	  <None Remove="Resources\Images\pencil_square_light.svg" />
+	  <None Remove="Resources\Images\phone_vibrate_fill.svg" />
+	  <None Remove="Resources\Images\play_fill_dark.svg" />
+	  <None Remove="Resources\Images\play_fill_light.svg" />
 	  <None Remove="Resources\Images\plus_square_dark.svg" />
 	  <None Remove="Resources\Images\plus_square_light.svg" />
+	  <None Remove="Resources\Images\question_circle.svg" />
+	  <None Remove="Resources\Images\stop_fill_dark.svg" />
+	  <None Remove="Resources\Images\stop_fill_light.svg" />
 	  <None Remove="Resources\Images\trash_fill_dark.svg" />
 	  <None Remove="Resources\Images\trash_fill_light.svg" />
 	  <None Remove="Resources\Images\x_square_dark.svg" />
@@ -73,7 +86,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Common\Components\CircularProgressBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Common\Components\EditTimerContent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HelpView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SoundPickerView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\StagedTimerSectionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Common\Components\ViewTimerContent.xaml">
@@ -98,10 +123,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="epj.Expander.Maui" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Plugin.Maui.Audio" Version="2.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -119,6 +146,9 @@
 	  </Compile>
 	  <Compile Update="Views\EditAdvancedTimerView.xaml.cs">
 	    <DependentUpon>EditAdvancedTimerView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\StagedTimerSectionView.xaml.cs">
+	    <DependentUpon>StagedTimerSectionView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

@@ -66,12 +66,13 @@
                          Clicked="AddDefaultClicked"
                          Margin="5"/>
         </Grid>
-        <ScrollView Grid.Row="2" ZIndex="0">
+        <ScrollView Grid.Row="2">
             <VerticalStackLayout>
                 <ListView x:Name="listTimers"
                           BackgroundColor="Transparent"
                           ItemsSource="{Binding TimerModels}"
-                          ItemSelected="ListTimersItemSelected">
+                          ItemSelected="ListTimersItemSelected"
+                          MinimumHeightRequest="500">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

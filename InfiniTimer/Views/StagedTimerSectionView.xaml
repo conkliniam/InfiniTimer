@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="InfiniTimer.Views.StagedTimerSectionView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <VerticalStackLayout BackgroundColor="{Binding CurrentBackColor}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{Binding NavigableTimers.Current.DisplayText}"
+                   HorizontalTextAlignment="Center"
+                   FontSize="30"/>
+            <Grid Grid.Column="0"
+                  Grid.Row="1"
+                  IsVisible="{Binding PrevVisible}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ImageButton 
+                         Grid.Row="0"
+                         Source="{AppThemeBinding Dark=arrow_left_short_light.png, Light=arrow_left_short_dark.png}"
+                         Clicked="BackArrowClicked"
+                         VerticalOptions="Start"/>
+                <Frame BorderColor="Black"
+                       Grid.Row="1"
+                       Padding="3"
+                       CornerRadius="0"
+                       BackgroundColor="{AppThemeBinding Dark=Black, Light=White}">
+                    <VerticalStackLayout BackgroundColor="{Binding PrevBackColor}">
+                        <Label Text="{Binding NavigableTimers.Previous.DisplayText}"
+                               HorizontalTextAlignment="Center"/>
+                        <local:CircularProgressBar TotalSeconds="{Binding NavigableTimers.Previous.Seconds}"
+                                                   RemainingSeconds="{Binding NavigableTimers.Previous.Seconds}"
+                                                   ProgressColor="{Binding PrevForeColor}"
+                                                   ProgressLeftColor="{StaticResource LightGray}"
+                                                   Size="50"
+                                                   TextColor="White"
+                                                   Thickness="2"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+            <local:CircularProgressBar x:Name="currentTimerView"
+                                       Grid.Column="1"
+                                       Grid.Row="1"
+                                       TotalSeconds="{Binding NavigableTimers.Current.Seconds}"
+                                       RemainingSeconds="{Binding SecondsRemaining}"
+                                       ProgressColor="{Binding CurrentForeColor}"
+                                       ProgressLeftColor="{StaticResource LightGray}"
+                                       Size="200"
+                                       TextColor="White"
+                                       Thickness="10"/>
+            <Grid Grid.Column="2"
+                  Grid.Row="1"
+                  IsVisible="{Binding NextVisible}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ImageButton Grid.Row="0"
+                             Source="{AppThemeBinding Dark=arrow_right_short_light.png, Light=arrow_right_short_dark.png}"
+                             Clicked="ForwardArrowClicked"
+                             VerticalOptions="Start"/>
+                <Frame BorderColor="Black"
+                       Grid.Row="1"
+                       Padding="3"
+                       CornerRadius="0"
+                       BackgroundColor="{AppThemeBinding Dark=Black, Light=White}"
+                       >
+                    <VerticalStackLayout BackgroundColor="{Binding NextBackColor}">
+                        <Label Text="{Binding NavigableTimers.Next.DisplayText}"
+                               HorizontalTextAlignment="Center"/>
+                        <local:CircularProgressBar TotalSeconds="{Binding NavigableTimers.Next.Seconds}"
+                               RemainingSeconds="{Binding NavigableTimers.Next.Seconds}"
+                               ProgressColor="{Binding NextForeColor}"
+                               ProgressLeftColor="{StaticResource LightGray}"
+                               Size="50"
+                               TextColor="White"
+                               Thickness="2"/>
+                    </VerticalStackLayout>
+                </Frame>
+                
+                
+            </Grid>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Text="Cancel"
+                    Clicked="CancelClicked"
+                    CornerRadius="50"
+                    HeightRequest="80"
+                    WidthRequest="80"
+                    FontSize="14"
+                    BackgroundColor="{StaticResource BtnGray}"
+                    TextColor="White"
+                    BorderColor="{StaticResource DarkGray}"
+                    BorderWidth="5"
+                    Margin="0,-10,0,10"/>
+            <Button Text="Start"
+                    Grid.Column="2"
+                    Clicked="StartClicked"
+                    IsVisible="{Binding TimerRunning, Converter={StaticResource InvertedBoolConverter}}"
+                    CornerRadius="50"
+                    HeightRequest="80"
+                    WidthRequest="80"
+                    FontSize="14"
+                    BackgroundColor="{StaticResource BtnGreen}"
+                    TextColor="White"
+                    BorderColor="{StaticResource DarkGray}"
+                    BorderWidth="5"
+                    Margin="0,-10,0,10"
+                    />
+            <Button Grid.Column="2"
+                    Text="Pause"
+                    Clicked="PauseClicked"
+                    IsVisible="{Binding TimerRunning}"
+                    CornerRadius="50"
+                    HeightRequest="80"
+                    WidthRequest="80"
+                    FontSize="14"
+                    BackgroundColor="{StaticResource BtnYellow}"
+                    TextColor="White"
+                    BorderColor="{StaticResource DarkGray}"
+                    BorderWidth="5"
+Margin="0,-10,0,10"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentView>

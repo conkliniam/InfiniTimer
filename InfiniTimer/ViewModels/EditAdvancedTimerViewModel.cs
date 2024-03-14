@@ -1,7 +1,6 @@
 ﻿using InfiniTimer.Common;
 using InfiniTimer.Common.Components;
 using InfiniTimer.Models.Timers;
-using System.ComponentModel;
 
 namespace InfiniTimer.ViewModels
 {

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:InfiniTimer"
+    xmlns:views="clr-namespace:InfiniTimer.Views"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     FlyoutBackgroundColor="{DynamicResource Primary}"
     >
@@ -31,7 +32,7 @@
                         <toolkit:IconTintColorBehavior TintColor="White" />
                     </Image.Behaviors>
                 </Image>
-                <Label Grid.Column="1" Text="{Binding Title}" TextColor="White" FontAttributes="Bold" />
+                <Label Grid.Column="1" Text="{Binding Title}" TextColor="White" FontAttributes="Bold" FontSize="20" />
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
@@ -45,6 +46,12 @@
                 Icon="hourglass_split.png">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:TimersPage}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Help"
+                Icon="question_circle.png">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:HelpView}" />
         </Tab>
     </FlyoutItem>
 </Shell>

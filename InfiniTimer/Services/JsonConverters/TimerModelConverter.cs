@@ -30,7 +30,7 @@ namespace InfiniTimer.Services.JsonConverters
                 throw new JsonException();
             }
 
-            string? propertyName = readerClone.GetString();
+            string propertyName = readerClone.GetString();
             if (propertyName != "TypeDiscriminator")
             {
                 throw new JsonException();

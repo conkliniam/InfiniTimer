@@ -31,7 +31,7 @@ namespace InfiniTimer.Services.JsonConverters
                 throw new JsonException();
             }
 
-            string? propertyName = reader.GetString();
+            string propertyName = reader.GetString();
             if (propertyName != "TypeDiscriminator")
             {
                 throw new JsonException();
@@ -81,6 +81,14 @@ namespace InfiniTimer.Services.JsonConverters
                             TimerColor color = (TimerColor)reader.GetInt32();
                             ((SingleTimerSection)timerSection).Color = color;
                             break;
+                        case "Sound":
+                            TimerSound sound = (TimerSound)reader.GetInt32();
+                            ((SingleTimerSection)timerSection).Sound = sound;
+                            break;
+                        case "Vibrate":
+                            bool vibrate = reader.GetBoolean();
+                            ((SingleTimerSection)timerSection).Vibrate = vibrate;
+                            break;
                         case "MainTimerSection":
                             TimerSection mainTimerSection = (TimerSection)JsonSerializer.Deserialize(ref reader, typeof(TimerSection), options);
                             ((AlternatingTimerSection)timerSection).MainTimerSection = mainTimerSection;
@@ -128,6 +136,8 @@ namespace InfiniTimer.Services.JsonConverters
                 writer.WriteString("DisplayText", singleTimerSection.DisplayText);
                 writer.WriteNumber("Seconds", singleTimerSection.Seconds);
                 writer.WriteNumber("Color", (int)singleTimerSection.Color);
+                writer.WriteBoolean("Vibrate", singleTimerSection.Vibrate);
+                writer.WriteNumber("Sound", (int)singleTimerSection.Sound);
             }
             else if (timerSection is AlternatingTimerSection alternatingTimerSection)
             {

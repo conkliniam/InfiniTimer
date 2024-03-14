@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
+             xmlns:views="clr-namespace:InfiniTimer.Views"
+             xmlns:audio="clr-namespace:Plugin.Maui.Audio;assembly=Plugin.Maui.Audio"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="InfiniTimer.Views.SoundPickerView"
+             Title="Sound Picker">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <local:EditLabel Grid.Row="0"
+                         Text="Pick a Timer Sound"/>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+            <ListView x:Name="listSounds" ItemsSource="{Binding TimerSoundOptions}" ItemSelected="SoundSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding DisplayName}"
+                                       Grid.Column="0"/>
+                                <ImageButton Source="{AppThemeBinding Dark=play_fill_light.png, Light=play_fill_dark.png}"
+                                             Clicked="OnPlayPauseButtonClicked"
+                                             IsVisible="{Binding IsPlaying, Converter={StaticResource Key=InvertedBoolConverter}}"
+                                             CommandParameter="{Binding .}"
+                                             Grid.Column="1"/>
+                                <ImageButton Source="{AppThemeBinding Dark=pause_fill_light.png, Light=pause_fill_dark.png}"
+                                             Clicked="OnPlayPauseButtonClicked"
+                                             IsVisible="{Binding IsPlaying}"
+                                             CommandParameter="{Binding .}"
+                                             Grid.Column="1"/>
+                                <ImageButton Source="{AppThemeBinding Dark=stop_fill_light.png, Light=stop_fill_dark.png}"
+                                             Clicked="OnStopButtonClicked"
+                                             IsVisible="{Binding PlayStarted}"
+                                             CommandParameter="{Binding .}"
+                                             Grid.Column="2"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button Grid.Row="2" x:Name="cancelButton" Margin="5" Clicked="CancelClicked" Grid.Column="1" Text="Cancel"/>
+    </Grid>
+</ContentPage>
