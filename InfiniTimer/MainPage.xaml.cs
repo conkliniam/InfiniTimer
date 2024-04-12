@@ -13,7 +13,7 @@ namespace InfiniTimer
         public MainPage(IStagedTimerService stagedTimerService, ISavedTimerService savedTimerService)
         {
             InitializeComponent();
-            BindingContext = new StagedTimersViewModel(stagedTimerService, savedTimerService, infiniTimerLogo, stagedTimers);
+            BindingContext = new StagedTimersViewModel(stagedTimerService, savedTimerService, infiniTimerLogo, stagedTimers, this);
             _stagedTimerService = stagedTimerService;
             _savedTimerService = savedTimerService;
         }

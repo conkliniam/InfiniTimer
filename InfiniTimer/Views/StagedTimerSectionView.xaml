@@ -9,7 +9,7 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <VerticalStackLayout BackgroundColor="{Binding CurrentBackColor}">
+    <VerticalStackLayout BackgroundColor="{Binding CurrentTimer.BackColor}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -21,7 +21,8 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0"
+            <Label x:Name="displayLabel"
+                   Grid.Row="0"
                    Grid.Column="1"
                    Text="{Binding NavigableTimers.Current.DisplayText}"
                    HorizontalTextAlignment="Center"
@@ -44,12 +45,12 @@
                        Padding="3"
                        CornerRadius="0"
                        BackgroundColor="{AppThemeBinding Dark=Black, Light=White}">
-                    <VerticalStackLayout BackgroundColor="{Binding PrevBackColor}">
+                    <VerticalStackLayout BackgroundColor="{Binding PreviousTimer.BackColor}">
                         <Label Text="{Binding NavigableTimers.Previous.DisplayText}"
                                HorizontalTextAlignment="Center"/>
                         <local:CircularProgressBar TotalSeconds="{Binding NavigableTimers.Previous.Seconds}"
                                                    RemainingSeconds="{Binding NavigableTimers.Previous.Seconds}"
-                                                   ProgressColor="{Binding PrevForeColor}"
+                                                   ProgressColor="{Binding PreviousTimer.ForeColor}"
                                                    ProgressLeftColor="{StaticResource LightGray}"
                                                    Size="50"
                                                    TextColor="White"
@@ -62,7 +63,7 @@
                                        Grid.Row="1"
                                        TotalSeconds="{Binding NavigableTimers.Current.Seconds}"
                                        RemainingSeconds="{Binding SecondsRemaining}"
-                                       ProgressColor="{Binding CurrentForeColor}"
+                                       ProgressColor="{Binding CurrentTimer.ForeColor}"
                                        ProgressLeftColor="{StaticResource LightGray}"
                                        Size="200"
                                        TextColor="White"
@@ -85,12 +86,12 @@
                        CornerRadius="0"
                        BackgroundColor="{AppThemeBinding Dark=Black, Light=White}"
                        >
-                    <VerticalStackLayout BackgroundColor="{Binding NextBackColor}">
+                    <VerticalStackLayout BackgroundColor="{Binding NextTimer.BackColor}">
                         <Label Text="{Binding NavigableTimers.Next.DisplayText}"
                                HorizontalTextAlignment="Center"/>
                         <local:CircularProgressBar TotalSeconds="{Binding NavigableTimers.Next.Seconds}"
                                RemainingSeconds="{Binding NavigableTimers.Next.Seconds}"
-                               ProgressColor="{Binding NextForeColor}"
+                               ProgressColor="{Binding NextTimer.ForeColor}"
                                ProgressLeftColor="{StaticResource LightGray}"
                                Size="50"
                                TextColor="White"

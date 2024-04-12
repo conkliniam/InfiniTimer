@@ -48,82 +48,81 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\arrow_left_short_dark.svg" />
-	  <None Remove="Resources\Images\arrow_left_short_light.svg" />
-	  <None Remove="Resources\Images\arrow_right_short_dark.svg" />
-	  <None Remove="Resources\Images\arrow_right_short_light.svg" />
-	  <None Remove="Resources\Images\check_square_dark.svg" />
-	  <None Remove="Resources\Images\check_square_light.svg" />
-	  <None Remove="Resources\Images\clipboard_plus_fill_dark.svg" />
-	  <None Remove="Resources\Images\clipboard_plus_fill_light.svg" />
-	  <None Remove="Resources\Images\dash_square_dark.svg" />
-	  <None Remove="Resources\Images\dash_square_light.svg" />
-	  <None Remove="Resources\Images\database_add_dark.svg" />
-	  <None Remove="Resources\Images\database_add_light.svg" />
-	  <None Remove="Resources\Images\floppy_fill_dark.svg" />
-	  <None Remove="Resources\Images\floppy_fill_light.svg" />
-	  <None Remove="Resources\Images\hourglass_split.svg" />
-	  <None Remove="Resources\Images\house_door_fill.svg" />
-	  <None Remove="Resources\Images\infini_timer_dark.svg" />
-	  <None Remove="Resources\Images\infini_timer_light.svg" />
-	  <None Remove="Resources\Images\music_note_beamed.svg" />
-	  <None Remove="Resources\Images\pause_fill_dark.svg" />
-	  <None Remove="Resources\Images\pause_fill_light.svg" />
-	  <None Remove="Resources\Images\pencil_square_dark.svg" />
-	  <None Remove="Resources\Images\pencil_square_light.svg" />
-	  <None Remove="Resources\Images\phone_vibrate_fill.svg" />
-	  <None Remove="Resources\Images\play_fill_dark.svg" />
-	  <None Remove="Resources\Images\play_fill_light.svg" />
-	  <None Remove="Resources\Images\plus_square_dark.svg" />
-	  <None Remove="Resources\Images\plus_square_light.svg" />
-	  <None Remove="Resources\Images\question_circle.svg" />
-	  <None Remove="Resources\Images\stop_fill_dark.svg" />
-	  <None Remove="Resources\Images\stop_fill_light.svg" />
-	  <None Remove="Resources\Images\trash_fill_dark.svg" />
-	  <None Remove="Resources\Images\trash_fill_light.svg" />
-	  <None Remove="Resources\Images\x_square_dark.svg" />
-	  <None Remove="Resources\Images\x_square_light.svg" />
+		<None Remove="Resources\Images\arrow_left_short_dark.svg" />
+		<None Remove="Resources\Images\arrow_left_short_light.svg" />
+		<None Remove="Resources\Images\arrow_right_short_dark.svg" />
+		<None Remove="Resources\Images\arrow_right_short_light.svg" />
+		<None Remove="Resources\Images\check_square_dark.svg" />
+		<None Remove="Resources\Images\check_square_light.svg" />
+		<None Remove="Resources\Images\clipboard_plus_fill_dark.svg" />
+		<None Remove="Resources\Images\clipboard_plus_fill_light.svg" />
+		<None Remove="Resources\Images\dash_square_dark.svg" />
+		<None Remove="Resources\Images\dash_square_light.svg" />
+		<None Remove="Resources\Images\database_add_dark.svg" />
+		<None Remove="Resources\Images\database_add_light.svg" />
+		<None Remove="Resources\Images\floppy_fill_dark.svg" />
+		<None Remove="Resources\Images\floppy_fill_light.svg" />
+		<None Remove="Resources\Images\hourglass_split.svg" />
+		<None Remove="Resources\Images\house_door_fill.svg" />
+		<None Remove="Resources\Images\infini_timer_dark.svg" />
+		<None Remove="Resources\Images\infini_timer_light.svg" />
+		<None Remove="Resources\Images\music_note_beamed.svg" />
+		<None Remove="Resources\Images\pause_fill_dark.svg" />
+		<None Remove="Resources\Images\pause_fill_light.svg" />
+		<None Remove="Resources\Images\pencil_square_dark.svg" />
+		<None Remove="Resources\Images\pencil_square_light.svg" />
+		<None Remove="Resources\Images\phone_vibrate_fill.svg" />
+		<None Remove="Resources\Images\play_fill_dark.svg" />
+		<None Remove="Resources\Images\play_fill_light.svg" />
+		<None Remove="Resources\Images\plus_square_dark.svg" />
+		<None Remove="Resources\Images\plus_square_light.svg" />
+		<None Remove="Resources\Images\question_circle.svg" />
+		<None Remove="Resources\Images\stop_fill_dark.svg" />
+		<None Remove="Resources\Images\stop_fill_light.svg" />
+		<None Remove="Resources\Images\trash_fill_dark.svg" />
+		<None Remove="Resources\Images\trash_fill_light.svg" />
+		<None Remove="Resources\Images\x_square_dark.svg" />
+		<None Remove="Resources\Images\x_square_light.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Common\Components\CircularProgressBar.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Common\Components\EditTimerContent.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\HelpView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\SoundPickerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\StagedTimerSectionView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Common\Components\ViewTimerContent.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\AdvancedTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\AlternatingTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\EditAlternatingTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\ColorPickerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\EditTimerPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Common\Components\CircularProgressBar.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Common\Components\EditTimerContent.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\HelpView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\SoundPickerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\StagedTimerSectionView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Common\Components\ViewTimerContent.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\AdvancedTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\AlternatingTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\EditAlternatingTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ColorPickerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\EditTimerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
-		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="epj.Expander.Maui" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
@@ -132,51 +131,51 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Common\Components\EditTimerContent.xaml.cs">
-	    <DependentUpon>EditTimerContent.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\EditAlternatingTimerView.xaml.cs">
-	    <DependentUpon>EditAlternatingTimerView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\EditSequentialTimerView.xaml.cs">
-	    <DependentUpon>EditSequentialTimerView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\EditSingleTimerView.xaml.cs">
-	    <DependentUpon>EditSingleTimerView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\EditAdvancedTimerView.xaml.cs">
-	    <DependentUpon>EditAdvancedTimerView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\StagedTimerSectionView.xaml.cs">
-	    <DependentUpon>StagedTimerSectionView.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Common\Components\EditTimerContent.xaml.cs">
+			<DependentUpon>EditTimerContent.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\EditAlternatingTimerView.xaml.cs">
+			<DependentUpon>EditAlternatingTimerView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\EditSequentialTimerView.xaml.cs">
+			<DependentUpon>EditSequentialTimerView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\EditSingleTimerView.xaml.cs">
+			<DependentUpon>EditSingleTimerView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\EditAdvancedTimerView.xaml.cs">
+			<DependentUpon>EditAdvancedTimerView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\StagedTimerSectionView.xaml.cs">
+			<DependentUpon>StagedTimerSectionView.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\EditSequentialTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\EditSingleTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\EditAdvancedTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\SequentialTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\SingleTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\StagedTimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\TimersPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\TimerView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\EditSequentialTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\EditSingleTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\EditAdvancedTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\SequentialTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\SingleTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\StagedTimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\TimersPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\TimerView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

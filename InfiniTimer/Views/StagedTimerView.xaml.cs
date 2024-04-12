@@ -7,10 +7,10 @@ namespace InfiniTimer.Views;
 
 public partial class StagedTimerView : ContentView
 {
-	public StagedTimerView(TimerModel timerModel, ISavedTimerService savedTimerService, IStagedTimerService stagedTimerService)
+	public StagedTimerView(TimerModel timerModel, ISavedTimerService savedTimerService, IStagedTimerService stagedTimerService, Page page)
 	{
 		InitializeComponent();
-		BindingContext = new StagedTimerViewModel(timerModel, currentTimerSection, savedTimerService, stagedTimerService);
+		BindingContext = new StagedTimerViewModel(timerModel, currentTimerSection, savedTimerService, stagedTimerService, page);
 	}
 
     private async void UnstageIconClicked(object sender, EventArgs e)

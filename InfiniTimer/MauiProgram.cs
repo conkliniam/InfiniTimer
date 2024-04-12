@@ -14,7 +14,6 @@ namespace InfiniTimer
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                //.UseMauiCommunityToolkitMediaElement()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("Comfortaa-Light.ttf", AppConstants.ComfortaaLight);

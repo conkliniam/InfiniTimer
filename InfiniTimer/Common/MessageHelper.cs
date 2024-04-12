@@ -8,12 +8,12 @@ namespace InfiniTimer.Common
     {
         public static async Task ShowSuccessMessage(string message, View visualElement = null)
         {
-            await ShowMessage(message, ColorHelper.TimerColors[Enums.TimerColor.Green].Dark, Colors.White, visualElement);
+            await ShowMessage(message, ColorHelper.TimerColors[Enums.TimerColor.Green].Dark, Colors.White, visualElement: visualElement);
         }
 
         public static async Task ShowFailureMessage(string message, View visualElement = null)
         {
-            await ShowMessage(message, ColorHelper.TimerColors[Enums.TimerColor.Red].Dark, Colors.White, visualElement);
+            await ShowMessage(message, ColorHelper.TimerColors[Enums.TimerColor.Red].Dark, Colors.White, visualElement: visualElement);
         }
 
         public static async Task HandleException(Exception exception)
@@ -21,9 +21,9 @@ namespace InfiniTimer.Common
             await ShowMessage(exception.Message, ColorHelper.TimerColors[Enums.TimerColor.Red].Dark, Colors.White);
         }
 
-        private static async Task ShowMessage(string message, Color backgroundColor, Color textColor, View visualElement = null)
+        public static async Task ShowMessage(string message, Color backgroundColor, Color textColor, double seconds = 3, View visualElement = null)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
             var snackbarOptions = new SnackbarOptions
             {
@@ -35,7 +35,7 @@ namespace InfiniTimer.Common
             };
 
 
-            TimeSpan duration = TimeSpan.FromSeconds(3);
+            TimeSpan duration = TimeSpan.FromSeconds(seconds);
 
             if (null != visualElement)
             {

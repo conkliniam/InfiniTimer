@@ -67,7 +67,7 @@ namespace InfiniTimer.ViewModels
                 {
                     Sound = soundInfo.Key,
                     DisplayName = soundInfo.Value.DisplayName,
-                    FileName = soundInfo.Value.FileName,
+                    FileName = soundInfo.Value.FileName + SoundHelper.MP3,
                 });
             }
         }

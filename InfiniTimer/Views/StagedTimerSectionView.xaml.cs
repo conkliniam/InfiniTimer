@@ -6,10 +6,15 @@ namespace InfiniTimer.Views;
 
 public partial class StagedTimerSectionView : ContentView
 {
-	public StagedTimerSectionView(TimerSection parentSection)
+	public StagedTimerSectionView(TimerSection parentSection, Page page, bool autoRepeat = false, bool autoContinue = false)
 	{
 		InitializeComponent();
-		BindingContext = new StagedTimerSectionViewModel(parentSection, Application.Current, currentTimerView);
+		BindingContext = new StagedTimerSectionViewModel(parentSection,
+                                                         Application.Current,
+                                                         currentTimerView,
+                                                         autoRepeat,
+                                                         autoContinue,
+                                                         page);
 	}
 
     private async void BackArrowClicked(object sender, EventArgs e)

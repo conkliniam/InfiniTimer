@@ -17,6 +17,7 @@ namespace InfiniTimer.ViewModels
         private readonly ISavedTimerService _savedTimerService;
         private readonly Image _logoImage;
         private readonly VerticalStackLayout _stagedTimerLayout;
+        private readonly Page _page;
         private Animation _rotateAnimation;
         private GridLength _topHeight;
         private GridLength _midHeight;
@@ -29,12 +30,14 @@ namespace InfiniTimer.ViewModels
         public StagedTimersViewModel(IStagedTimerService stagedTimerService,
                                      ISavedTimerService savedTimerService,
                                      Image logoImage,
-                                     VerticalStackLayout stagedTimerLayout)
+                                     VerticalStackLayout stagedTimerLayout,
+                                     Page page)
         {
             _stagedTimerService = stagedTimerService;
             _savedTimerService = savedTimerService;
             _logoImage = logoImage;
             _stagedTimerLayout = stagedTimerLayout;
+            _page = page;
             StagedTimers = _stagedTimerService.GetStagedTimers();
             InitializeContent();
             RegisterForMessages();
@@ -115,6 +118,7 @@ namespace InfiniTimer.ViewModels
         #region Public Methods
         public void UnstageAll()
         {
+            _stagedTimerLayout.Clear();
             _stagedTimerService.UnstageAllTimers();
         }
         #endregion
@@ -137,7 +141,7 @@ namespace InfiniTimer.ViewModels
         {
             foreach (TimerModel timerModel in newTimers)
             {
-                var stagedTimerView = new StagedTimerView(timerModel, _savedTimerService, _stagedTimerService);
+                var stagedTimerView = new StagedTimerView(timerModel, _savedTimerService, _stagedTimerService, _page);
 
                 _stagedTimerLayout.Children.Add(stagedTimerView);
                 _stagedTimerViews[timerModel.Id] = stagedTimerView;
