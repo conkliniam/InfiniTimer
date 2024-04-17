@@ -3,6 +3,7 @@ using CommunityToolkit.Maui;
 using InfiniTimer.Services;
 using InfiniTimer.ViewModels;
 using InfiniTimer.Common;
+using InfiniTimer.Views;
 
 namespace InfiniTimer
 {
@@ -23,6 +24,7 @@ namespace InfiniTimer
                     fonts.AddFont("Comfortaa-Bold.ttf", AppConstants.ComfortaaBold);
                 })
                 .RegisterAppServices()
+                .RegisterPopups()
                 .RegisterViewModels()
                 .RegisterViews();
 
@@ -37,6 +39,13 @@ namespace InfiniTimer
         {
             mauiAppBuilder.Services.AddSingleton<ISavedTimerService, SavedTimerService>();
             mauiAppBuilder.Services.AddSingleton<IStagedTimerService, StagedTimerService>();
+
+            return mauiAppBuilder;
+        }
+
+        public static MauiAppBuilder RegisterPopups(this MauiAppBuilder mauiAppBuilder)
+        {
+            mauiAppBuilder.Services.AddTransientPopup<TimerDisplayPopup, TimerDisplayPopupViewModel>();
 
             return mauiAppBuilder;
         }

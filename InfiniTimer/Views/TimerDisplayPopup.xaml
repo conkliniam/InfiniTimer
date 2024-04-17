@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:local="clr-namespace:InfiniTimer.Common.Components"
+               x:Class="InfiniTimer.Views.TimerDisplayPopup">
+    <VerticalStackLayout BackgroundColor="{AppThemeBinding Dark=White, Light=Black}"
+                         Padding="5">
+        <VerticalStackLayout BackgroundColor="{AppThemeBinding Dark={StaticResource Primary}, Light={StaticResource White}}">
+            <Label Text="Timer Finished!"
+                   HorizontalTextAlignment="Center"/>
+            <Label Text="Would you like to start the next timer?"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout Grid.Column="0" BackgroundColor="{Binding CurrentTimer.BackColor}">
+                    <Label Text="{Binding CurrentTimer.DisplayText}"
+                       HorizontalTextAlignment="Center"/>
+                    <local:CircularProgressBar TotalSeconds="{Binding CurrentTimer.TotalSeconds}"
+                               RemainingSeconds="{Binding CurrentTimer.TotalSeconds}"
+                               ProgressColor="{Binding CurrentTimer.ForeColor}"
+                               ProgressLeftColor="{StaticResource LightGray}"
+                               Size="100"
+                               TextColor="White"
+                               Thickness="4"/>
+                </VerticalStackLayout>
+                <Image Grid.Column="1"
+                       Source="{AppThemeBinding Dark=arrow_right_short_light.png, Light=arrow_right_short_dark.png}"
+                       VerticalOptions="Center"/>
+                <VerticalStackLayout Grid.Column="2"
+                                     BackgroundColor="{Binding NextTimer.BackColor}">
+                    <Label Text="{Binding NextTimer.DisplayText}"
+                           HorizontalTextAlignment="Center"/>
+                    <local:CircularProgressBar TotalSeconds="{Binding NextTimer.TotalSeconds}"
+                                               RemainingSeconds="{Binding NextTimer.TotalSeconds}"
+                                               ProgressColor="{Binding NextTimer.ForeColor}"
+                                               ProgressLeftColor="{StaticResource LightGray}"
+                                               Size="100"
+                                               TextColor="White"
+                                               Thickness="4"/>
+                </VerticalStackLayout>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Text="No"
+                        Clicked="OnNoButtonClicked"
+                        Margin="5"/>
+                <Button Grid.Column="1"
+                        Text="Yes"
+                        Clicked="OnYesButtonClicked"
+                        Margin="5"/>
+            </Grid>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</toolkit:Popup>

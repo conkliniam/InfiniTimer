@@ -1,7 +1,9 @@
-﻿using InfiniTimer.Common;
+﻿using CommunityToolkit.Maui.Views;
+using InfiniTimer.Common;
 using InfiniTimer.Common.Components;
 using InfiniTimer.Models;
 using InfiniTimer.Models.Timers;
+using InfiniTimer.Views;
 using Plugin.Maui.Audio;
 
 namespace InfiniTimer.ViewModels
@@ -295,12 +297,13 @@ namespace InfiniTimer.ViewModels
                         Vibration.Default.Vibrate();
                         LoopingAudioPlayer = audioPlayer;
                         audioPlayer.Play();
-                        bool startNext = await _page.DisplayAlert($"{NavigableTimers.Current.DisplayText} Finished", $"Would you like to start the next timer: {NavigableTimers.Next.DisplayText}?", "Yes", "No");
+                        var popup = new TimerDisplayPopup(CurrentTimer, NextTimer);
+                        var result = await _page.ShowPopupAsync(popup, CancellationToken.None);
                         LoopAudio = false;
                         audioPlayer.Stop();
                         GoForward();
 
-                        if (startNext)
+                        if (result is bool startNext && startNext)
                         {
                             StartTimer();
                         }
