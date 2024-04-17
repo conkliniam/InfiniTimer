@@ -21,6 +21,12 @@ namespace InfiniTimer.Services
         public SavedTimerService()
         {
             string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if (! Directory.Exists(docFolder))
+            {
+                Directory.CreateDirectory(docFolder);
+            }
+
             _filePath = Path.Combine(docFolder, FileName);
             _serializerOptions = new JsonSerializerOptions
             {

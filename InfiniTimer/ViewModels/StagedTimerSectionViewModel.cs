@@ -221,9 +221,12 @@ namespace InfiniTimer.ViewModels
 
         public void StartTimer()
         {
-            TimerRunning = true;
-            _timerAnimation = new Animation(v => SecondsRemaining = (decimal)v, Convert.ToDouble(SecondsRemaining), 0);
-            _timerAnimation.Commit(_currentProgress, TimerAnimation, 16, (uint)(SecondsRemaining * 1000), Easing.Linear, HandleTimerFinished);
+            if (SecondsRemaining > 0)
+            {
+                TimerRunning = true;
+                _timerAnimation = new Animation(v => SecondsRemaining = (decimal)v, Convert.ToDouble(SecondsRemaining), 0);
+                _timerAnimation.Commit(_currentProgress, TimerAnimation, 16, (uint)(SecondsRemaining * 1000), Easing.Linear, HandleTimerFinished);
+            }
         }
 
         public void PauseTimer()
@@ -250,6 +253,8 @@ namespace InfiniTimer.ViewModels
         {
             try
             {
+                TimerRunning = false;
+
                 if (null == NavigableTimers?.Current || SecondsRemaining > 0)
                 {
                     return;
