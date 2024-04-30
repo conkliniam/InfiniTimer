@@ -5,14 +5,13 @@ using InfiniTimer.Common.Extensions;
 using InfiniTimer.Models.Timers;
 using InfiniTimer.Services;
 using InfiniTimer.Services.Messages;
-using InfiniTimer.Views;
 
 namespace InfiniTimer.ViewModels
 {
     public class TimerViewModel : CommonBase
     {
         #region Private Fields
-        private readonly StackLayout _timerContent;
+        private readonly ViewTimerContent _viewTimerContent;
         private readonly ISavedTimerService _savedTimerService;
         private readonly IStagedTimerService _stagedTimerService;
         private readonly INavigation _navigation;
@@ -21,12 +20,12 @@ namespace InfiniTimer.ViewModels
 
         #region Constructors
         public TimerViewModel(TimerModel timerModel,
-                              StackLayout timerContent,
+                              ViewTimerContent viewTimerContent,
                               ISavedTimerService savedTimerService,
                               IStagedTimerService stagedTimerService,
                               INavigation navigation)
         {
-            _timerContent = timerContent;
+            _viewTimerContent = viewTimerContent;
             _savedTimerService = savedTimerService;
             _stagedTimerService = stagedTimerService;
             _navigation = navigation;
@@ -95,16 +94,7 @@ namespace InfiniTimer.ViewModels
         #region Private Methods
         private void FillTimerContent()
         {
-            _timerContent.Children.Clear();
-
-            if (TimerModel is AdvancedTimerModel advancedTimerModel)
-            {
-                _timerContent.Children.Add(new AdvancedTimerView(advancedTimerModel));
-            }
-            else if (TimerModel is SimpleTimerModel simpleTimerModel)
-            {
-                _timerContent.Children.Add(new ViewTimerContent { TimerSection = simpleTimerModel.Timer });
-            }
+            _viewTimerContent.TimerSection = TimerModel?.Timers;
         }
 
         private void RegisterForMessages()

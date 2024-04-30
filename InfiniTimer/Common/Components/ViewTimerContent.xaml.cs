@@ -1,6 +1,5 @@
 using InfiniTimer.Models.Timers;
 using InfiniTimer.Views;
-using System.ComponentModel;
 
 namespace InfiniTimer.Common.Components;
 
@@ -31,14 +30,10 @@ public partial class ViewTimerContent : ContentView
 					: ColorHelper.ThemeColors[ColorHelper.Primary];
             }
 
-			if (_timerSection is AlternatingTimerSection alternatingTimerSection)
+			if (_timerSection is TimerListSection timerListSection)
 			{
-				timerSection.Children.Add(new AlternatingTimerView(alternatingTimerSection));
+				timerSection.Children.Add(new TimerListView(timerListSection));
 			}
-			else if (_timerSection is SequentialTimerSection sequentialTimerSection)
-			{
-                timerSection.Children.Add(new SequentialTimerView(sequentialTimerSection));
-            }
 			else if (_timerSection is SingleTimerSection singleTimerSection)
 			{
                 timerSection.Children.Add(new SingleTimerView(singleTimerSection));

@@ -5,23 +5,23 @@ using System.Collections.ObjectModel;
 
 namespace InfiniTimer.ViewModels
 {
-    public class EditSequentialTimerViewModel
+    public class EditTimerListViewModel
     {
         private readonly StackLayout _timerListLayout;
         private readonly EditTimerContent _timerButtons;
 
-        public EditSequentialTimerViewModel(SequentialTimerSection sequentialTimerSection, StackLayout timerListLayout, EditTimerContent timerButtons)
+        public EditTimerListViewModel(TimerListSection timerListSection, StackLayout timerListLayout, EditTimerContent timerButtons)
         {
-            SequentialTimerSection = sequentialTimerSection;
+            TimerListSection = timerListSection;
             _timerListLayout = timerListLayout;
             _timerButtons = timerButtons;
 
-            if (null == SequentialTimerSection.TimerSections)
+            if (null == TimerListSection.TimerSections)
             {
-                SequentialTimerSection.TimerSections = new ObservableCollection<TimerSection>();
+                TimerListSection.TimerSections = new ObservableCollection<TimerSection>();
             }
 
-            int nextDepth = SequentialTimerSection.Depth + 1;
+            int nextDepth = TimerListSection.Depth + 1;
             NextColor = ColorHelper.ThemeColors[nextDepth % 2 == 0 ? ColorHelper.Tertiary : ColorHelper.Primary];
 
             FillTimerLayout();
@@ -30,22 +30,24 @@ namespace InfiniTimer.ViewModels
             {
                 if (null != timerSection)
                 {
-                    SequentialTimerSection.TimerSections.Add(timerSection);
+                    TimerListSection.TimerSections.Add(timerSection);
                     AddTimerSection(timerSection);
                 }
             };
 
             timerButtons.Depth = nextDepth;
+            CycleOptions = new ObservableCollection<int>(Enumerable.Range(1, AppConstants.CycleLimit));
         }
 
-        public SequentialTimerSection SequentialTimerSection { get; set; }
+        public TimerListSection TimerListSection { get; set; }
         public Color NextColor { get; set; }
+        public ObservableCollection<int> CycleOptions { get; private set; }
 
         private void FillTimerLayout()
         {
-            if (SequentialTimerSection.TimerSections.Any())
+            if (TimerListSection.TimerSections.Any())
             {
-                foreach (TimerSection timerSection in SequentialTimerSection.TimerSections)
+                foreach (TimerSection timerSection in TimerListSection.TimerSections)
                 {
                     AddTimerSection(timerSection);
                 }
@@ -67,9 +69,9 @@ namespace InfiniTimer.ViewModels
                 if (section is null)
                 {
                     _timerListLayout.Children.Remove(timerContent);
-                    SequentialTimerSection.TimerSections.Remove(timerSection);
+                    TimerListSection.TimerSections.Remove(timerSection);
 
-                    if (SequentialTimerSection.TimerSections.Count < AppConstants.ListLimit)
+                    if (TimerListSection.TimerSections.Count < AppConstants.ListLimit)
                     {
                         _timerButtons.IsVisible = true;
                     }
@@ -78,7 +80,7 @@ namespace InfiniTimer.ViewModels
 
             timerContent.TimerSection = timerSection;
 
-            if (SequentialTimerSection.TimerSections.Count >= AppConstants.ListLimit)
+            if (TimerListSection.TimerSections.Count >= AppConstants.ListLimit)
             {
                 _timerButtons.IsVisible = false;
             }

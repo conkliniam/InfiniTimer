@@ -15,7 +15,7 @@ namespace InfiniTimer
                              bool showSave = true)
         {
             InitializeComponent();
-            BindingContext = new EditTimerViewModel(timerLayout,
+            BindingContext = new EditTimerViewModel(timerContent,
                                                     timerModel,
                                                     savedTimerService,
                                                     stagedTimerService,
@@ -34,7 +34,7 @@ namespace InfiniTimer
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            string json = JsonConvert.SerializeObject(((EditTimerViewModel)BindingContext).EditTimerModel.TimerModel);
+            string json = JsonConvert.SerializeObject(((EditTimerViewModel)BindingContext).TimerModel);
             await DisplayAlert("JSON", json, "Ok");
         }
 

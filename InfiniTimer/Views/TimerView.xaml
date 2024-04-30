@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InfiniTimer.Views.TimerView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:InfiniTimer.Common.Components"
              Title="{Binding TimerModel.Name}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -73,8 +74,33 @@
             <BoxView Grid.Row="1" Color="White" HeightRequest="5"/>
         </Grid>
         <ScrollView Grid.Row="2" >
-            <StackLayout x:Name="timerContent">
-            </StackLayout>
+            <VerticalStackLayout Margin="5">
+                <Label Text="{Binding TimerModel.Description}"
+                       FontSize="20"
+                       VerticalTextAlignment="Start"
+                       HorizontalTextAlignment="Center"/>
+                <BoxView Color="White"
+                         HeightRequest="5"
+                         Margin="0,5,0,5"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Text="Auto Repeat"
+                           IsVisible="{Binding TimerModel.AutoRepeat}"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                    <Label Grid.Column="1"
+                           Text="Auto Continue"
+                           IsVisible="{Binding TimerModel.AutoContinue}"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </Grid>
+                <BoxView Color="White" HeightRequest="5" Margin="0,5,0,5"/>
+                <local:ViewTimerContent x:Name="viewTimerContent"/>
+            </VerticalStackLayout>
         </ScrollView>
     </Grid>
 </ContentPage>

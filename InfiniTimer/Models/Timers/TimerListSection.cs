@@ -2,12 +2,14 @@
 
 namespace InfiniTimer.Models.Timers
 {
-    public class SequentialTimerSection : TimerSection
+    public class TimerListSection : TimerSection
     {
-        public SequentialTimerSection(int depth = 0)
+        public TimerListSection(int depth = 0)
         {
             Depth = depth;
         }
+
+        public int Cycles { get; set; }
 
         public ObservableCollection<TimerSection> TimerSections { get; set; }
     }

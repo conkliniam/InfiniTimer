@@ -22,7 +22,7 @@ namespace InfiniTimer.Services
         {
             string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            if (! Directory.Exists(docFolder))
+            if (!Directory.Exists(docFolder))
             {
                 Directory.CreateDirectory(docFolder);
             }
@@ -146,7 +146,7 @@ namespace InfiniTimer.Services
 
         public List<TimerModel> GetSessionTimers()
         {
-            return _sessionTimers.Values.ToList();
+            return [.. _sessionTimers.Values];
         }
 
         public bool SaveTimer(Guid timerId)

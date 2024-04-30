@@ -2,7 +2,7 @@
 
 namespace InfiniTimer.Models.Timers
 {
-    public abstract class TimerModel : CommonBase
+    public class TimerModel : CommonBase
     {
         private bool _isDirty = true;
         private bool _isSelected;
@@ -11,6 +11,14 @@ namespace InfiniTimer.Models.Timers
         public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public bool AutoContinue { get; set; }
+
+        public bool AutoRepeat { get; set; }
+
+        public TimerListSection Timers { get; set; } = new TimerListSection();
 
         public bool IsDirty
         {

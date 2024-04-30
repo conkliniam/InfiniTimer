@@ -21,32 +21,69 @@
                         <ColumnDefinition Width="6*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <local:EditLabel Text="Timer Name"
+                                     Grid.Column="1"/>
+                    <Entry x:Name="timerName"
+                           Placeholder="Enter a Timer Name"
+                           Grid.Column="2"
+                           Text="{Binding TimerModel.Name}"
+                           ClearButtonVisibility="WhileEditing"
+                           TextColor="White"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <local:EditLabel Text="Timer Type"
+                    <local:EditLabel Text="Timer Description"
                                      Grid.Column="1"
                                      Grid.Row="0"/>
-                    <Picker x:Name="timerTypePicker"
-                            Title="Select a Timer Type"
-                            ItemsSource="{Binding TimerTypes}"
-                            SelectedItem="{Binding EditTimerModel.TimerType}"
+                    <Editor Grid.Column="1"
+                            Grid.Row="1"
+                            Text="{Binding TimerModel.Description}"
+                            Placeholder="Enter a description here"
+                            HeightRequest="100"
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            VerticalTextAlignment="Start"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:EditLabel Text="Auto Repeat"
+                                     Grid.Column="1"
+                                     Grid.Row="0"/>
+                    <Switch IsToggled="{Binding TimerModel.AutoRepeat}"
                             Grid.Column="2"
                             Grid.Row="0"
-                            TextColor="White"/>
-                    <local:EditLabel Text="Timer Name"
+                            ThumbColor="{StaticResource LightGray}"
+                            OnColor="{StaticResource BtnGreen}"
+                            HorizontalOptions="Center"/>
+                    <local:EditLabel Text="Auto Continue"
                                      Grid.Column="1"
                                      Grid.Row="1"/>
-                    <Entry x:Name="timerName"
-                           Placeholder="Enter a Timer Name"
-                           Grid.Column="2"
-                           Grid.Row="1"
-                           Text="{Binding EditTimerModel.TimerModel.Name}"
-                           ClearButtonVisibility="WhileEditing"
-                           TextColor="White"/>
+                    <Switch IsToggled="{Binding TimerModel.AutoContinue}"
+                            Grid.Column="2"
+                            Grid.Row="1"
+                            ThumbColor="{StaticResource LightGray}"
+                            OnColor="{StaticResource BtnGreen}"
+                            HorizontalOptions="Center"/>
                 </Grid>
-                <StackLayout x:Name="timerLayout"/>
+                <local:EditTimerContent x:Name="timerContent"
+                                        BackgroundColor="{Binding NextColor}"/>
                 <Button Text="View JSON" Clicked="Button_Clicked"></Button>
             </VerticalStackLayout>
         </ScrollView>

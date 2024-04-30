@@ -104,15 +104,6 @@
 		<MauiXaml Update="Common\Components\ViewTimerContent.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\AdvancedTimerView.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\AlternatingTimerView.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\EditAlternatingTimerView.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="Views\ColorPickerView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -136,17 +127,14 @@
 		<Compile Update="Common\Components\EditTimerContent.xaml.cs">
 			<DependentUpon>EditTimerContent.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\EditAlternatingTimerView.xaml.cs">
-			<DependentUpon>EditAlternatingTimerView.xaml</DependentUpon>
-		</Compile>
-		<Compile Update="Views\EditSequentialTimerView.xaml.cs">
-			<DependentUpon>EditSequentialTimerView.xaml</DependentUpon>
+		<Compile Update="Views\EditTimerListView.xaml.cs">
+			<DependentUpon>EditTimerListView.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\EditSingleTimerView.xaml.cs">
 			<DependentUpon>EditSingleTimerView.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\EditAdvancedTimerView.xaml.cs">
-			<DependentUpon>EditAdvancedTimerView.xaml</DependentUpon>
+		<Compile Update="Views\TimerListView.xaml.cs">
+		  <DependentUpon>TimerListView.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\StagedTimerSectionView.xaml.cs">
 			<DependentUpon>StagedTimerSectionView.xaml</DependentUpon>
@@ -154,16 +142,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="Views\EditSequentialTimerView.xaml">
+		<MauiXaml Update="Views\EditTimerListView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\EditSingleTimerView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\EditAdvancedTimerView.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\SequentialTimerView.xaml">
+		<MauiXaml Update="Views\TimerListView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SingleTimerView.xaml">

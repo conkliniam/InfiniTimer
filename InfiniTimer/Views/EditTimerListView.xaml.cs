@@ -3,13 +3,13 @@ using InfiniTimer.ViewModels;
 
 namespace InfiniTimer.Views;
 
-public partial class EditSequentialTimerView : ContentView
+public partial class EditTimerListView : ContentView
 {
 	private readonly Action _handleDelete;
-	public EditSequentialTimerView(SequentialTimerSection sequentialTimerSection, Action handleDelete = null)
+	public EditTimerListView(TimerListSection listSection, Action handleDelete = null)
 	{
 		InitializeComponent();
-		BindingContext = new EditSequentialTimerViewModel(sequentialTimerSection, timerListLayout, timerButtons);
+		BindingContext = new EditTimerListViewModel(listSection, timerListLayout, timerButtons);
 
 		if (null != handleDelete)
 		{

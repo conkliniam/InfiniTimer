@@ -20,7 +20,7 @@ namespace InfiniTimer
 
         private void OnAddTimerClicked(object sender, EventArgs e)
         {
-            TimerModel newTimerModel = new SimpleTimerModel();
+            TimerModel newTimerModel = new();
             _savedTimerService.AddSessionTimer(newTimerModel);
             Navigation.PushAsync(new EditTimerPage(newTimerModel,
                                                    _savedTimerService,

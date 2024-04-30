@@ -5,14 +5,11 @@
              Margin="5,0" Padding="5,10">
     <VerticalStackLayout Spacing="10" x:Name="timerStack">
         <StackLayout x:Name="buttonContent" Spacing="10">
-            <Button Text="Add Timer Section"
+            <Button Text="Add Timer"
                     Clicked="AddTimerClicked"/>
             <Button x:Name="timerListButton"
-                    Text="Add List Section"
-                    Clicked="AddTimerListClicked"/>
-            <Button x:Name="alternateButton"
-                    Text="Add Alternating Section"
-                    Clicked="AddTimerAlternatesClicked"/>
+                    Text="Add List"
+                    Clicked="AddListClicked"/>
         </StackLayout>
         <StackLayout x:Name="timerContent"/>
     </VerticalStackLayout>

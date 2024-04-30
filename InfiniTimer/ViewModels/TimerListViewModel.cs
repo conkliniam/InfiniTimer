@@ -3,28 +3,28 @@ using InfiniTimer.Models.Timers;
 
 namespace InfiniTimer.ViewModels
 {
-    public class SequentialTimerViewModel
+    public class TimerListViewModel
     {
         private readonly StackLayout _timerListLayout;
 
-        public SequentialTimerViewModel(SequentialTimerSection sequentialTimerSection, StackLayout timerListLayout)
+        public TimerListViewModel(TimerListSection timerListSection, StackLayout timerListLayout)
         {
-            SequentialTimerSection = sequentialTimerSection;
+            TimerListSection = timerListSection;
             _timerListLayout = timerListLayout;
             FillTimerLayout();
         }
 
-        public SequentialTimerSection SequentialTimerSection { get; }
+        public TimerListSection TimerListSection { get; }
 
         private void FillTimerLayout()
         {
             _timerListLayout.Children.Clear();
 
-            if (null != SequentialTimerSection &&
-                null != SequentialTimerSection.TimerSections &&
-                SequentialTimerSection.TimerSections.Any())
+            if (null != TimerListSection &&
+                null != TimerListSection.TimerSections &&
+                TimerListSection.TimerSections.Any())
             {
-                foreach (TimerSection timerSection in SequentialTimerSection.TimerSections)
+                foreach (TimerSection timerSection in TimerListSection.TimerSections)
                 {
                     _timerListLayout.Add(new ViewTimerContent()
                     {

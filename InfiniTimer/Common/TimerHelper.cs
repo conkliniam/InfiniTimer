@@ -15,12 +15,12 @@ namespace InfiniTimer.Common
 
         public static List<TimerModel> GetDefaultTimers()
         {
-            return new List<TimerModel>()
-            {
+            return
+            [
                 GetPomodoroTimer(),
                 GetFiftyTwoSeventeenTimer(),
                 GetSparacusTimer()
-            };
+            ];
         }
 
         public static string GetTimerDisplay(decimal totalSeconds)
@@ -41,45 +41,51 @@ namespace InfiniTimer.Common
             return $"00:{Convert.ToString(seconds).PadLeft(2, '0')}";
         }
 
-        private static AdvancedTimerModel GetPomodoroTimer()
+        private static TimerModel GetPomodoroTimer()
         {
-            return new AdvancedTimerModel
+            return new TimerModel
             {
                 Name = "Pomodoro Technique",
-                TimerSection = new AlternatingTimerSection(1)
+                Timers = new TimerListSection(1)
                 {
-                    MainTimerSection = new AlternatingTimerSection(2)
-                    {
-                        MainTimerSection = new SingleTimerSection(3)
+                    TimerSections = [
+                        new TimerListSection(2)
                         {
-                            DisplayText = "Work",
-                            Color = TimerColor.Green,
-                            Seconds = 1500
+                            TimerSections = [
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Work",
+                                    Color = TimerColor.Green,
+                                    Seconds = 1500
+                                },
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Break",
+                                    Color = TimerColor.Red,
+                                    Seconds = 300
+                                }
+                            ],
+                            Cycles = 3
                         },
-                        AlternateTimerSection = new SingleTimerSection(3)
+                        new TimerListSection(2)
                         {
-                            DisplayText = "Break",
-                            Color = TimerColor.Red,
-                            Seconds = 300
-                        },
-                        Cycles = 3
-                    },
-                    AlternateTimerSection = new AlternatingTimerSection(2)
-                    {
-                        MainTimerSection = new SingleTimerSection(3)
-                        {
-                            DisplayText = "Work",
-                            Color = TimerColor.Green,
-                            Seconds = 1500
-                        },
-                        AlternateTimerSection = new SingleTimerSection(3)
-                        {
-                            DisplayText = "Break",
-                            Color = TimerColor.Red,
-                            Seconds = 900
-                        },
-                        Cycles = 1
-                    },
+                            TimerSections = [
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Work",
+                                    Color = TimerColor.Green,
+                                    Seconds = 1500
+                                },
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Break",
+                                    Color = TimerColor.Red,
+                                    Seconds = 900
+                                }
+                            ],
+                            Cycles = 1
+                        }
+                    ],
                     Cycles = 1
                 },
                 Description = "25 minutes of work, followed by 5 minute breaks, with a 15 minute break after 4 work sessions.",
@@ -90,27 +96,27 @@ namespace InfiniTimer.Common
             };
         }
 
-        private static AdvancedTimerModel GetFiftyTwoSeventeenTimer()
+        private static TimerModel GetFiftyTwoSeventeenTimer()
         {
-            return new AdvancedTimerModel
+            return new TimerModel
             {
                 Name = "52/17",
-                TimerSection = new AlternatingTimerSection(1)
+                Timers = new TimerListSection(1)
                 {
-                    MainTimerSection = new SingleTimerSection(2)
-                    {
-                        DisplayText = "Work",
-                        Color = TimerColor.Green,
-                        Seconds = 3120
-
-                    },
-                    AlternateTimerSection = new SingleTimerSection(2)
-                    {
-                        DisplayText = "Break",
-                        Color = TimerColor.Red,
-                        Seconds = 1020
-
-                    },
+                    TimerSections = [
+                        new SingleTimerSection(2)
+                        {
+                            DisplayText = "Work",
+                            Color = TimerColor.Green,
+                            Seconds = 3120
+                        },
+                        new SingleTimerSection(2)
+                        {
+                            DisplayText = "Break",
+                            Color = TimerColor.Red,
+                            Seconds = 1020
+                        }
+                    ],
                     Cycles = 1
                 },
                 Description = "52 minutes of work followed by a 17 minute break",
@@ -121,45 +127,51 @@ namespace InfiniTimer.Common
             };
         }
 
-        private static AdvancedTimerModel GetSparacusTimer()
+        private static TimerModel GetSparacusTimer()
         {
-            return new AdvancedTimerModel
+            return new TimerModel
             {
                 Name = "Spartacus Timers",
-                TimerSection = new AlternatingTimerSection(1)
+                Timers = new TimerListSection(1)
                 {
-                    MainTimerSection = new AlternatingTimerSection(2)
-                    {
-                        MainTimerSection = new SingleTimerSection(3)
+                    TimerSections = [
+                        new TimerListSection(2)
                         {
-                            DisplayText = "Move",
-                            Color = TimerColor.Green,
-                            Seconds = 60
+                            TimerSections = [
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Move",
+                                    Color = TimerColor.Green,
+                                    Seconds = 60
+                                },
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Rest",
+                                    Color = TimerColor.Red,
+                                    Seconds = 15
+                                }
+                            ],
+                            Cycles = 9
                         },
-                        AlternateTimerSection = new SingleTimerSection(3)
+                        new TimerListSection(2)
                         {
-                            DisplayText = "Rest",
-                            Color = TimerColor.Red,
-                            Seconds = 15
-                        },
-                        Cycles = 9
-                    },
-                    AlternateTimerSection = new AlternatingTimerSection(2)
-                    {
-                        MainTimerSection = new SingleTimerSection(3)
-                        {
-                            DisplayText = "Move",
-                            Color = TimerColor.Green,
-                            Seconds = 60
-                        },
-                        AlternateTimerSection = new SingleTimerSection(3)
-                        {
-                            DisplayText = "Rest",
-                            Color = TimerColor.Blue,
-                            Seconds = 120
-                        },
-                        Cycles = 1
-                    },
+                            TimerSections = [
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Move",
+                                    Color = TimerColor.Green,
+                                    Seconds = 60
+                                },
+                                new SingleTimerSection(3)
+                                {
+                                    DisplayText = "Rest",
+                                    Color = TimerColor.Blue,
+                                    Seconds = 120
+                                }
+                            ],
+                            Cycles = 1
+                        }
+                    ],
                     Cycles = 3
                 },
                 Description = "Timers for sparacus workout consisting of 3 sets of 10 60 second exercises",

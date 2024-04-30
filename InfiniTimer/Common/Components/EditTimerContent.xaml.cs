@@ -29,7 +29,6 @@ public partial class EditTimerContent : ContentView, INotifyPropertyChanged
             if (_depth >= AppConstants.DepthLimit)
             {
                 timerListButton.IsEnabled = false;
-                alternateButton.IsEnabled = false;
             }
         }
     }
@@ -56,17 +55,13 @@ public partial class EditTimerContent : ContentView, INotifyPropertyChanged
                 {
                     buttonContent.IsVisible = false;
 
-                    if (_timerSection is AlternatingTimerSection alternatingTimerSection)
+                    if (_timerSection is TimerListSection listSection)
                     {
-                        timerContent.Children.Add(new EditAlternatingTimerView(alternatingTimerSection, HandleDelete));
+                        timerContent.Children.Add(new EditTimerListView(listSection, HandleDelete));
                     }
-                    else if (_timerSection is SequentialTimerSection sequentialTimerSection)
+                    else if (_timerSection is SingleTimerSection timerSection)
                     {
-                        timerContent.Children.Add(new EditSequentialTimerView(sequentialTimerSection, HandleDelete));
-                    }
-                    else if (_timerSection is SingleTimerSection singleTimerSection)
-                    {
-                        timerContent.Children.Add(new EditSingleTimerView(singleTimerSection, HandleDelete));
+                        timerContent.Children.Add(new EditSingleTimerView(timerSection, HandleDelete));
                     }
                 }
             }
@@ -113,28 +108,15 @@ public partial class EditTimerContent : ContentView, INotifyPropertyChanged
         AddSingleTimer();
     }
 
-    private void AddTimerListClicked(object sender, EventArgs e)
+    private void AddListClicked(object sender, EventArgs e)
     {
         if (ButtonsOnly)
         {
-            SetTimer(new SequentialTimerSection(Depth));
+            SetTimer(new TimerListSection(Depth));
         }
         else
         {
-            TimerSection = new SequentialTimerSection(Depth);
-            SetTimer(TimerSection);
-        }
-    }
-
-    private void AddTimerAlternatesClicked(object sender, EventArgs e)
-    {
-        if (ButtonsOnly)
-        {
-            SetTimer(new AlternatingTimerSection(Depth));
-        }
-        else
-        {
-            TimerSection = new AlternatingTimerSection(Depth);
+            TimerSection = new TimerListSection(Depth);
             SetTimer(TimerSection);
         }
     }

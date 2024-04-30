@@ -13,7 +13,7 @@ public partial class TimerView : ContentPage
 	{
 		InitializeComponent();
         BindingContext = new TimerViewModel(timerModel,
-                                            timerContent,
+                                            viewTimerContent,
                                             savedTimerService,
                                             stagedTimerService,
                                             Navigation);

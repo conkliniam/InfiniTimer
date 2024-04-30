@@ -6,12 +6,6 @@ namespace InfiniTimer.Services.JsonConverters
 {
     public class TimerModelConverter : JsonConverter<TimerModel>
     {
-        enum TypeDiscriminator
-        {
-            SimpleTimer = 1,
-            AdvancedTimer = 2
-        }
-
         public override bool CanConvert(Type typeToConvert) =>
             typeof(TimerModel).IsAssignableFrom(typeToConvert);
 
@@ -24,26 +18,6 @@ namespace InfiniTimer.Services.JsonConverters
                 throw new JsonException();
             }
 
-            readerClone.Read();
-            if (readerClone.TokenType != JsonTokenType.PropertyName)
-            {
-                throw new JsonException();
-            }
-
-            string propertyName = readerClone.GetString();
-            if (propertyName != "TypeDiscriminator")
-            {
-                throw new JsonException();
-            }
-
-            readerClone.Read();
-            if (readerClone.TokenType != JsonTokenType.Number)
-            {
-                throw new JsonException();
-            }
-
-            TypeDiscriminator typeDiscriminator = (TypeDiscriminator)readerClone.GetInt32();
-
             var serializeOptions = new JsonSerializerOptions
             {
                 WriteIndented = true,
@@ -53,13 +27,9 @@ namespace InfiniTimer.Services.JsonConverters
                 }
             };
 
-            TimerModel timerModel = typeDiscriminator switch
-            {
-                TypeDiscriminator.SimpleTimer => JsonSerializer.Deserialize<SimpleTimerModel>(ref reader, serializeOptions)!,
-                TypeDiscriminator.AdvancedTimer => JsonSerializer.Deserialize<AdvancedTimerModel>(ref reader, serializeOptions)!,
-                _ => throw new JsonException()
-            };
+            TimerModel timerModel = JsonSerializer.Deserialize<TimerModel>(ref reader, serializeOptions)!;
 
+            timerModel.IsDirty = false;
             timerModel.IgnoreChanges = false;
 
             return timerModel;
@@ -71,25 +41,14 @@ namespace InfiniTimer.Services.JsonConverters
 
             writer.WriteStartObject();
 
-            if (timerModel is SimpleTimerModel simpleTimerModel)
-            {
-                writer.WriteNumber("TypeDiscriminator", (int)TypeDiscriminator.SimpleTimer);
-                writer.WritePropertyName("Timer");
-                JsonSerializer.Serialize(writer, simpleTimerModel.Timer, typeof(SingleTimerSection), options);
-            }
-            else if (timerModel is AdvancedTimerModel advancedTimerModel)
-            {
-                writer.WriteNumber("TypeDiscriminator", (int)TypeDiscriminator.AdvancedTimer);
-                writer.WritePropertyName("TimerSection");
-                JsonSerializer.Serialize(writer, advancedTimerModel.TimerSection, typeof(TimerSection), options);
-                writer.WriteString("Description", advancedTimerModel.Description);
-                writer.WriteBoolean("AutoContinue", advancedTimerModel.AutoContinue);
-                writer.WriteBoolean("AutoRepeat", advancedTimerModel.AutoRepeat);
-            }
-
+            writer.WritePropertyName("Timers");
+            JsonSerializer.Serialize(writer, timerModel.Timers, typeof(TimerListSection), options);
+            writer.WriteString("Description", timerModel.Description);
+            writer.WriteBoolean("AutoContinue", timerModel.AutoContinue);
+            writer.WriteBoolean("AutoRepeat", timerModel.AutoRepeat);
             writer.WriteString("Id", timerModel.Id);
             writer.WriteString("Name", timerModel.Name);
-            writer.WriteBoolean("IsDirty", timerModel.IsDirty);
+            writer.WriteBoolean("IsDirty", false);
             writer.WriteBoolean("IsStaged", timerModel.IsStaged);
 
             writer.WriteEndObject();

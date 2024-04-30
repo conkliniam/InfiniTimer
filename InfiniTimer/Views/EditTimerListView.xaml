@@ -2,7 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:InfiniTimer.Common.Components"
-             x:Class="InfiniTimer.Views.EditSequentialTimerView">
+             x:Class="InfiniTimer.Views.EditTimerListView">
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -17,12 +17,27 @@
                          Clicked="DeleteButtonClicked"/>
         </Grid>
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <local:EditLabel Text="Cycles"
+                             Grid.Column="1"/>
+            <Picker x:Name="cyclesPicker"
+                    Title="Number of cycles"
+                    ItemsSource="{Binding CycleOptions}"
+                    SelectedItem="{Binding TimerListSection.Cycles}"
+                    HorizontalTextAlignment="Center"
+                    Grid.Column="2"/>
+        </Grid>
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
             <StackLayout x:Name="timerListLayout" Grid.Row="1">
             </StackLayout>
             <local:EditTimerContent x:Name="timerButtons"

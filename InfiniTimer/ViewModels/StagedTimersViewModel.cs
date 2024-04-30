@@ -164,7 +164,7 @@ namespace InfiniTimer.ViewModels
 
         private void FillStagedTimerViews()
         {
-            _stagedTimerViews = new Dictionary<Guid, StagedTimerView>();
+            _stagedTimerViews = [];
             _stagedTimerLayout.Clear();
 
             if (StagedTimers.Any())

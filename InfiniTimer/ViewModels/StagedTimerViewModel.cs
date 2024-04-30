@@ -30,21 +30,12 @@ namespace InfiniTimer.ViewModels
             _currentTimerSection.Children.Clear();
 
 
-            if (TimerModel is AdvancedTimerModel advancedTimerModel)
-            {
-                _currentTimerSection
-                    .Children
-                    .Add(new StagedTimerSectionView(advancedTimerModel.TimerSection,
-                                                    _page,
-                                                    advancedTimerModel.AutoRepeat,
-                                                    advancedTimerModel.AutoContinue));
-            }
-            else if (TimerModel is SimpleTimerModel simpleTimerModel)
-            {
-                _currentTimerSection
-                    .Children
-                    .Add(new StagedTimerSectionView(simpleTimerModel.Timer, _page));
-            }
+            _currentTimerSection
+                .Children
+                .Add(new StagedTimerSectionView(TimerModel.Timers,
+                                                _page,
+                                                TimerModel.AutoRepeat,
+                                                TimerModel.AutoContinue));
         }
 
         public TimerModel TimerModel { get; set; }

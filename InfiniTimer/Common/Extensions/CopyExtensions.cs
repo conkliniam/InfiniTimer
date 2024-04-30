@@ -5,41 +5,22 @@ namespace InfiniTimer.Common.Extensions
 {
     public static class CopyExtensions
     {
-        public static AdvancedTimerModel Copy(this AdvancedTimerModel advancedTimerModel)
+        public static TimerModel Copy(this TimerModel timerModel)
         {
-            if (null == advancedTimerModel) return null;
+            if (null == timerModel) return null;
 
-            var copy = new AdvancedTimerModel
+            var copy = new TimerModel
             {
                 IgnoreChanges = true,
-                Id = advancedTimerModel.Id,
-                AutoContinue = advancedTimerModel.AutoContinue,
-                AutoRepeat = advancedTimerModel.AutoRepeat,
-                Description = advancedTimerModel.Description,
-                IsDirty = advancedTimerModel.IsDirty,
-                IsSelected = advancedTimerModel.IsSelected,
-                IsStaged = advancedTimerModel.IsStaged,
-                Name = advancedTimerModel.Name,
-                TimerSection = advancedTimerModel.TimerSection.Copy()
-            };
-
-            copy.IgnoreChanges = false;
-            return copy;
-        }
-
-        public static SimpleTimerModel Copy(this SimpleTimerModel simpleTimerModel)
-        {
-            if (null == simpleTimerModel) return null;
-
-            var copy = new SimpleTimerModel
-            {
-                IgnoreChanges = true,
-                Id = simpleTimerModel.Id,
-                IsDirty = simpleTimerModel.IsDirty,
-                IsSelected = simpleTimerModel.IsSelected,
-                IsStaged = simpleTimerModel.IsStaged,
-                Name = simpleTimerModel.Name,
-                Timer = simpleTimerModel.Timer.Copy()
+                Id = timerModel.Id,
+                AutoContinue = timerModel.AutoContinue,
+                AutoRepeat = timerModel.AutoRepeat,
+                Description = timerModel.Description,
+                IsDirty = timerModel.IsDirty,
+                IsSelected = timerModel.IsSelected,
+                IsStaged = timerModel.IsStaged,
+                Name = timerModel.Name,
+                Timers = timerModel.Timers.Copy()
             };
 
             copy.IgnoreChanges = false;
@@ -61,27 +42,15 @@ namespace InfiniTimer.Common.Extensions
             };
         }
 
-        public static AlternatingTimerSection Copy(this AlternatingTimerSection alternatingTimerSection)
+        public static TimerListSection Copy(this TimerListSection timerListSection)
         {
-            if (null == alternatingTimerSection) return null;
+            if (null == timerListSection) return null;
 
-            return new AlternatingTimerSection
+            return new TimerListSection
             {
-                Cycles = alternatingTimerSection.Cycles,
-                Depth = alternatingTimerSection.Depth,
-                MainTimerSection = alternatingTimerSection.MainTimerSection.Copy(),
-                AlternateTimerSection = alternatingTimerSection.AlternateTimerSection.Copy()
-            };
-        }
-
-        public static SequentialTimerSection Copy(this SequentialTimerSection sequentialTimerSection)
-        {
-            if (null == sequentialTimerSection) return null;
-
-            return new SequentialTimerSection
-            {
-                Depth = sequentialTimerSection.Depth,
-                TimerSections = sequentialTimerSection.TimerSections.Copy()
+                Cycles = timerListSection.Cycles,
+                Depth = timerListSection.Depth,
+                TimerSections = timerListSection.TimerSections.Copy()
             };
         }
 
@@ -93,20 +62,6 @@ namespace InfiniTimer.Common.Extensions
                 (timerSections.Select(timerSection => timerSection.Copy()));
         }
 
-        public static TimerModel Copy(this TimerModel timer)
-        {
-            if (timer is AdvancedTimerModel advancedTimerModel)
-            {
-                return advancedTimerModel.Copy();
-            }
-            else if (timer is SimpleTimerModel simpleTimerModel)
-            {
-                return simpleTimerModel.Copy();
-            }
-
-            return null;
-        }
-
         public static Dictionary<Guid, TimerModel> Copy(this Dictionary<Guid, TimerModel> timers)
         {
             if (null == timers) return null;
@@ -116,13 +71,9 @@ namespace InfiniTimer.Common.Extensions
 
         public static TimerSection Copy(this TimerSection timerSection)
         {
-            if (timerSection is SequentialTimerSection sequentialTimerSection)
+            if (timerSection is TimerListSection timerListSection)
             {
-                return sequentialTimerSection.Copy();
-            }
-            else if (timerSection is AlternatingTimerSection alternatingTimerSection)
-            {
-                return alternatingTimerSection.Copy();
+                return timerListSection.Copy();
             }
             else if (timerSection is SingleTimerSection singleTimerSection)
             {

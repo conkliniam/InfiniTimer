@@ -25,7 +25,7 @@ public partial class TimersPage : ContentPage
     {
         try
         {
-            TimerModel newTimerModel = new SimpleTimerModel();
+            TimerModel newTimerModel = new TimerModel();
             _savedTimerService.AddSessionTimer(newTimerModel);
             await Navigation.PushAsync(new EditTimerPage(newTimerModel,
                                                          _savedTimerService,
